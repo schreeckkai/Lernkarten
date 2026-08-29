@@ -39,7 +39,7 @@
     "correct": 1,
     "back": "Richtig! Die Ableitung von \\(x^2\\) ist \\(2x\\), was graphisch einer Ursprungsgeraden mit Steigung 2 entspricht."
   },
-    {
+  {
     "type": "flashcard",
     "front": "Wie lautet die erste Ableitung der Funktion \\(f(x) = x^2\\)?",
     "back": "\\(f'(x) = 2x\\)"
@@ -63,4 +63,3 @@
     "back": "Falsch! Die Ableitung von \\(\\sin(x)\\) ist \\(\\cos(x)\\) (ohne Minuszeichen)."
   }
 ]
-
