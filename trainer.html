@@ -10,7 +10,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <style>
-    /* ===== Grundlayout (wie gehabt) ===== */
     body {
       background-color: #000000;
       color: #e5e7eb;
@@ -134,7 +133,6 @@
     .tf-btn.false { background: #8957e5; color: white; }
     .tf-btn.correct { background: #238636 !important; border-color: #238636; }
     .tf-btn.wrong { background: #da3633 !important; border-color: #da3633; }
-
     .btn-row {
       display: flex;
       justify-content: space-between;
@@ -215,7 +213,6 @@
     <button class="action-btn" onclick="nextCard()">Weiter →</button>
   </div>
 
-  <!-- Zusätzliche Buttons für den Lernmodus -->
   <div id="learn-controls" class="btn-row hidden">
     <button class="action-btn success" onclick="markBlockLearned()">✔ Block gelernt</button>
   </div>
@@ -229,15 +226,13 @@
 
 <script>
   // =========================== Globale Variablen ===========================
-  let allCards = [];           // alle geladenen Karten (aus allen Decks)
-  let currentIndex = 0;        // Index in allCards
+  let allCards = [];
+  let currentIndex = 0;
   let showingFront = true;
-  let mode = 'learn';          // 'learn' oder 'practice'
-
-  // Für den Lernmodus (5er-Blöcke)
+  let mode = 'learn';
   let blockSize = 5;
-  let currentBlockIndex = 0;   // Index des ersten Blocks (0-basiert)
-  let learnedCount = 0;        // Anzahl bereits gelernten Karten (alle vorherigen Blöcke)
+  let currentBlockIndex = 0;
+  let learnedCount = 0;
   let totalCards = 0;
   let blockStarted = false;
 
@@ -245,160 +240,68 @@
   async function initApp() {
     const urlParams = new URLSearchParams(window.location.search);
     const deckParam = urlParams.get('deck') || 'Q3.1';
-    // Unterstützt kommagetrennte Decks, z.B. "Q3.1,Q4.2,Q5.1"
     const deckNames = deckParam.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    
+
+    // Baue den Pfad relativ zum aktuellen Ordner der HTML
+    const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
+    const baseUrl = window.location.origin + basePath;
+
     try {
-      // Lade alle JSONs parallel
-      const fetchPromises = deckNames.map(name => fetch(`https://schreeckkai.github.io/Lernkarten/${name}.json`));
+      const fetchPromises = deckNames.map(name => {
+        const cleanName = name.replace(/\.json$/, '');
+        return fetch(`${baseUrl}${cleanName}.json`);
+      });
       const responses = await Promise.all(fetchPromises);
-      
-      // Prüfe, ob alle erfolgreich waren
-      const failed = responses.some(r => !r.ok);
-      if (failed) {
-        throw new Error(`Mindestens eine JSON-Datei konnte nicht geladen werden.`);
+
+      const failed = responses.map((r, idx) => ({ ok: r.ok, name: deckNames[idx] })).filter(f => !f.ok);
+      if (failed.length > 0) {
+        const names = failed.map(f => f.name).join(', ');
+        throw new Error(`Folgende Dateien wurden nicht gefunden: ${names}`);
       }
-      
+
       const jsonArrays = await Promise.all(responses.map(r => r.json()));
-      allCards = jsonArrays.flat(); // alle Karten zu einem großen Array vereinen
-      
+      allCards = jsonArrays.flat();
+
       if (allCards.length === 0) {
         document.getElementById('card-content').innerText = "Keine Karten in den JSON-Dateien gefunden.";
         document.getElementById('card-counter').innerText = "Fehler";
         return;
       }
-      
+
       totalCards = allCards.length;
-      // Standardmäßig mischen wir das Deck
       shuffleCards();
-      // Modus initial setzen
       switchMode();
     } catch (e) {
       document.getElementById('card-content').innerText = `Fehler beim Laden der Decks: ${e.message}`;
       document.getElementById('card-counter').innerText = "Fehler";
+      console.error(e);
     }
   }
 
-  // =========================== Modus-Umschaltung ===========================
-  function switchMode() {
-    const select = document.getElementById('mode-select');
-    mode = select.value;
-    const learnControls = document.getElementById('learn-controls');
-    const progressArea = document.getElementById('progress-area');
-    
-    if (mode === 'learn') {
-      learnControls.classList.remove('hidden');
-      // Setze Block-Lern-Status zurück (wenn noch nicht gestartet)
-      if (!blockStarted) {
-        currentBlockIndex = 0;
-        learnedCount = 0;
-        blockStarted = true;
+  // =========================== Lückentext-Hilfe ===========================
+  function processText(text, isFront) {
+    if (!text) return "";
+    return text.replace(/\{\{c\d+::(.*?)\}\}/g, function(match, p1) {
+      if (isFront) {
+        return `<span class="cloze">[...]</span>`;
+      } else {
+        return `<span class="cloze">${p1}</span>`;
       }
-      // Zeige Fortschritt
-      updateProgressMessage();
-      // Gehe zur ersten Karte des aktuellen Blocks
-      goToBlockStart();
-    } else {
-      learnControls.classList.add('hidden');
-      progressArea.classList.add('hidden');
-      // Im Übungsmodus: zeige alle Karten, aktueller Index bleibt erhalten
-      // aber wir stellen sicher, dass wir nicht außerhalb der Grenzen sind
-      if (currentIndex >= allCards.length) currentIndex = 0;
-      showingFront = true;
-      displayCard();
-    }
+    });
   }
 
-  // =========================== Lernmodus-Hilfsfunktionen ===========================
-  function getBlockStart(blockIdx) {
-    return blockIdx * blockSize;
-  }
-
-  function getBlockEnd(blockIdx) {
-    return Math.min((blockIdx + 1) * blockSize, totalCards);
-  }
-
-  function goToBlockStart() {
-    if (mode !== 'learn') return;
-    const start = getBlockStart(currentBlockIndex);
-    if (start >= totalCards) {
-      // Alle Blöcke gelernt
-      document.getElementById('card-content').innerHTML = `<div style="color:#00dfc8; font-size:1.8rem;">🎉 Alle Karten gelernt! 🎉</div>`;
-      document.getElementById('card-counter').innerText = `Fertig! ${totalCards} Karten gelernt.`;
-      document.getElementById('main-action-btn').style.display = 'none';
-      document.getElementById('learn-controls').classList.add('hidden');
-      return;
-    }
-    currentIndex = start;
-    showingFront = true;
-    displayCard();
-    updateProgressMessage();
-  }
-
-  function updateProgressMessage() {
-    if (mode !== 'learn') return;
-    const progressArea = document.getElementById('progress-area');
-    const learned = learnedCount;
-    const total = totalCards;
-    const blockNum = currentBlockIndex + 1;
-    const totalBlocks = Math.ceil(total / blockSize);
-    // Zeige Anzahl der Karten im aktuellen Block
-    const start = getBlockStart(currentBlockIndex);
-    const end = getBlockEnd(currentBlockIndex);
-    const cardsInBlock = end - start;
-    progressArea.classList.remove('hidden');
-    progressArea.innerHTML = `
-      <strong>Fortschritt:</strong> ${learned} von ${total} Karten gelernt.
-      <br>
-      <span style="color:#8b949e;">Aktueller Block ${blockNum} von ${totalBlocks} (${cardsInBlock} Karten)</span>
-    `;
-  }
-
-  function markBlockLearned() {
-    if (mode !== 'learn') return;
-    const start = getBlockStart(currentBlockIndex);
-    const end = getBlockEnd(currentBlockIndex);
-    const blockCardCount = end - start;
-    learnedCount += blockCardCount;
-    currentBlockIndex++;
-    // Prüfen, ob alle Karten gelernt sind
-    if (learnedCount >= totalCards) {
-      document.getElementById('card-content').innerHTML = `<div style="color:#00dfc8; font-size:1.8rem;">🎉 Glückwunsch! Alle ${totalCards} Karten gelernt! 🎉</div>`;
-      document.getElementById('card-counter').innerText = `Fertig!`;
-      document.getElementById('main-action-btn').style.display = 'none';
-      document.getElementById('learn-controls').classList.add('hidden');
-      document.getElementById('progress-area').classList.add('hidden');
-      return;
-    }
-    // Frage: nächsten Block lernen?
-    const nextBlockNum = currentBlockIndex + 1;
-    const nextStart = getBlockStart(currentBlockIndex);
-    const nextEnd = getBlockEnd(currentBlockIndex);
-    const nextCount = nextEnd - nextStart;
-    if (confirm(`Du hast jetzt ${learnedCount} von ${totalCards} Karten gelernt. Möchtest du die nächsten ${nextCount} Karten (Block ${nextBlockNum}) lernen?`)) {
-      goToBlockStart();
-    } else {
-      // Bleibe im aktuellen Block, aber zeige Fortschritt
-      updateProgressMessage();
-      // Deaktiviere "Block gelernt" Button kurzzeitig? Optional.
-      alert('Du kannst später weitermachen. Klicke auf "Block gelernt", wenn du bereit bist.');
-    }
-  }
-
-  // =========================== Kartenanzeige (angepasst) ===========================
+  // =========================== Kartenanzeige ===========================
   function displayCard() {
     if (allCards.length === 0) return;
-    // Im Lernmodus: sicherstellen, dass currentIndex innerhalb des aktuellen Blocks liegt
+
     if (mode === 'learn') {
       const start = getBlockStart(currentBlockIndex);
       const end = getBlockEnd(currentBlockIndex);
       if (currentIndex < start || currentIndex >= end) {
-        // Falls wir außerhalb sind, korrigieren
         currentIndex = start;
       }
-      // Wenn alle Karten gelernt, zeigen wir die Glückwunschmeldung (wird in goToBlockStart behandelt)
       if (start >= totalCards) {
-        goToBlockStart(); // ruft die Endmeldung auf
+        goToBlockStart();
         return;
       }
     }
@@ -407,8 +310,7 @@
     const contentDiv = document.getElementById('card-content');
     const counterDiv = document.getElementById('card-counter');
     const actionBtn = document.getElementById('main-action-btn');
-    
-    // Counter anpassen
+
     if (mode === 'learn') {
       const start = getBlockStart(currentBlockIndex);
       const end = getBlockEnd(currentBlockIndex);
@@ -418,7 +320,6 @@
       counterDiv.innerText = `Karte ${currentIndex + 1} / ${allCards.length}`;
     }
 
-    // Kartentypen behandeln (wie gehabt, aber mit Block-Logik)
     if (!card.type || card.type === 'flashcard') {
       actionBtn.style.display = "block";
       actionBtn.innerText = showingFront ? "Umdrehen" : "Frage zeigen";
@@ -462,7 +363,6 @@
       contentDiv.innerText = "Unbekannter Kartentyp: " + card.type;
     }
 
-    // KaTeX rendern
     if (window.renderMathInElement) {
       renderMathInElement(contentDiv, {
         delimiters: [
@@ -473,7 +373,75 @@
     }
   }
 
-  // =========================== Interaktionen (angepasst) ===========================
+  // =========================== Lernmodus-Hilfsfunktionen ===========================
+  function getBlockStart(blockIdx) {
+    return blockIdx * blockSize;
+  }
+
+  function getBlockEnd(blockIdx) {
+    return Math.min((blockIdx + 1) * blockSize, totalCards);
+  }
+
+  function goToBlockStart() {
+    if (mode !== 'learn') return;
+    const start = getBlockStart(currentBlockIndex);
+    if (start >= totalCards) {
+      document.getElementById('card-content').innerHTML = `<div style="color:#00dfc8; font-size:1.8rem;">🎉 Alle Karten gelernt! 🎉</div>`;
+      document.getElementById('card-counter').innerText = `Fertig! ${totalCards} Karten gelernt.`;
+      document.getElementById('main-action-btn').style.display = 'none';
+      document.getElementById('learn-controls').classList.add('hidden');
+      return;
+    }
+    currentIndex = start;
+    showingFront = true;
+    displayCard();
+    updateProgressMessage();
+  }
+
+  function updateProgressMessage() {
+    if (mode !== 'learn') return;
+    const progressArea = document.getElementById('progress-area');
+    const learned = learnedCount;
+    const total = totalCards;
+    const blockNum = currentBlockIndex + 1;
+    const totalBlocks = Math.ceil(total / blockSize);
+    const start = getBlockStart(currentBlockIndex);
+    const end = getBlockEnd(currentBlockIndex);
+    const cardsInBlock = end - start;
+    progressArea.classList.remove('hidden');
+    progressArea.innerHTML = `
+      <strong>Fortschritt:</strong> ${learned} von ${total} Karten gelernt.
+      <br>
+      <span style="color:#8b949e;">Aktueller Block ${blockNum} von ${totalBlocks} (${cardsInBlock} Karten)</span>
+    `;
+  }
+
+  // =========================== Modus-Umschaltung ===========================
+  function switchMode() {
+    const select = document.getElementById('mode-select');
+    mode = select.value;
+    const learnControls = document.getElementById('learn-controls');
+    const progressArea = document.getElementById('progress-area');
+    
+    if (mode === 'learn') {
+      learnControls.classList.remove('hidden');
+      if (!blockStarted) {
+        currentBlockIndex = 0;
+        learnedCount = 0;
+        blockStarted = true;
+      }
+      updateProgressMessage();
+      goToBlockStart();
+    } else {
+      learnControls.classList.add('hidden');
+      progressArea.classList.add('hidden');
+      if (currentIndex >= allCards.length) currentIndex = 0;
+      showingFront = true;
+      displayCard();
+    }
+  }
+
+  // =========================== Interaktionen ===========================
   function checkMC(selectedIndex) {
     const card = allCards[currentIndex];
     const buttons = document.querySelectorAll('.option-btn');
@@ -515,7 +483,6 @@
     displayCard();
   }
 
-  // Navigation: Im Lernmodus nur innerhalb des aktuellen Blocks
   function nextCard() {
     if (allCards.length === 0) return;
     if (mode === 'learn') {
@@ -523,7 +490,6 @@
       if (currentIndex + 1 < end) {
         currentIndex++;
       } else {
-        // Am Ende des Blocks -> nichts tun oder Hinweis?
         alert('Das war die letzte Karte dieses Blocks. Klicke auf "Block gelernt", wenn du alle kannst.');
         return;
       }
@@ -558,7 +524,6 @@
     }
     currentIndex = 0;
     showingFront = true;
-    // Wenn im Lernmodus, setze Blöcke zurück
     if (mode === 'learn') {
       currentBlockIndex = 0;
       learnedCount = 0;
@@ -568,8 +533,36 @@
     if (mode === 'learn') updateProgressMessage();
   }
 
+  function markBlockLearned() {
+    if (mode !== 'learn') return;
+    const start = getBlockStart(currentBlockIndex);
+    const end = getBlockEnd(currentBlockIndex);
+    const blockCardCount = end - start;
+    learnedCount += blockCardCount;
+    currentBlockIndex++;
+    if (learnedCount >= totalCards) {
+      document.getElementById('card-content').innerHTML = `<div style="color:#00dfc8; font-size:1.8rem;">🎉 Glückwunsch! Alle ${totalCards} Karten gelernt! 🎉</div>`;
+      document.getElementById('card-counter').innerText = `Fertig!`;
+      document.getElementById('main-action-btn').style.display = 'none';
+      document.getElementById('learn-controls').classList.add('hidden');
+      document.getElementById('progress-area').classList.add('hidden');
+      return;
+    }
+    const nextBlockNum = currentBlockIndex + 1;
+    const nextStart = getBlockStart(currentBlockIndex);
+    const nextEnd = getBlockEnd(currentBlockIndex);
+    const nextCount = nextEnd - nextStart;
+    if (confirm(`Du hast jetzt ${learnedCount} von ${totalCards} Karten gelernt. Möchtest du die nächsten ${nextCount} Karten (Block ${nextBlockNum}) lernen?`)) {
+      goToBlockStart();
+    } else {
+      updateProgressMessage();
+      alert('Du kannst später weitermachen. Klicke auf "Block gelernt", wenn du bereit bist.');
+    }
+  }
+
   // =========================== Start ===========================
   document.addEventListener('DOMContentLoaded', initApp);
 </script>
+
 </body>
 </html>
