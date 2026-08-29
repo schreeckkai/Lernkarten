@@ -2,11 +2,11 @@
   {
     "type": "flashcard",
     "front": "Betrachte den folgenden Entscheidungsbaum:",
-    "back": "\n    <div class='mermaid'>\n      graph TD\n        A[Start] --> B{Entscheidung}\n        B --> C[Ergebnis 1]\n        B --> D[Ergebnis 2]\n        C --> E[Wahrscheinlichkeit 50%]\n        D --> F[Wahrscheinlichkeit 50%]\n    </div>\n    <br>\n    Die Gesamtwahrscheinlichkeit für Ergebnis 1 beträgt 50 %.\n  "
+    "back": "<div class='mermaid'>graph TD; A[Start] --> B{Entscheidung}; B --> C[Ergebnis 1]; B --> D[Ergebnis 2]; C --> E[Wahrscheinlichkeit 50%]; D --> F[Wahrscheinlichkeit 50%];</div><br>Die Gesamtwahrscheinlichkeit für Ergebnis 1 beträgt 50 %."
   },
   {
     "type": "flashcard",
     "front": "Skizziere den Graphen der Funktion f(x) = x²:",
-    "back": "\n    <div class='mermaid'>\n      graph LR\n        x1[-2] --> y1[4]\n        x2[-1] --> y2[1]\n        x3[0] --> y3[0]\n        x4[1] --> y4[1]\n        x5[2] --> y5[4]\n        y1 --> y2 --> y3 --> y4 --> y5\n    </div>\n    <br>\n    Die Parabel ist nach oben geöffnet.\n  "
+    "back": "<div class='mermaid'>graph LR; x1[-2] --> y1[4]; x2[-1] --> y2[1]; x3[0] --> y3[0]; x4[1] --> y4[1]; x5[2] --> y5[4]; y1 --> y2 --> y3 --> y4 --> y5;</div><br>Die Parabel ist nach oben geöffnet."
   }
 ]
