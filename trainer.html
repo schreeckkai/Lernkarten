@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mathe-Schreck Lernkarten-Trainer</title>
   
+  <!-- KaTeX für Formeln -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Mermaid.js für Diagramme -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
   <style>
     /* ===== Grundlegendes Layout ===== */
@@ -82,6 +86,21 @@
     }
     .card-content.answer-mode {
       color: #58a6ff;
+    }
+
+    /* ===== Mermaid-Diagramme in Karten ===== */
+    .card-content .mermaid {
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      text-align: center;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    .card-content .mermaid svg {
+      max-width: 100%;
+      height: auto;
     }
 
     /* ===== Lückentext ===== */
@@ -274,6 +293,25 @@
 </div>
 
 <script>
+  // =========================== Mermaid initialisieren ===========================
+  mermaid.initialize({
+    theme: 'dark',
+    themeVariables: {
+      background: '#ffffff',
+      primaryColor: '#1f6feb',
+      primaryTextColor: '#0d1117',
+      primaryBorderColor: '#1f6feb',
+      lineColor: '#1f6feb',
+      secondaryColor: '#238636',
+      tertiaryColor: '#21262d'
+    },
+    flowchart: {
+      useMaxWidth: true,
+      htmlLabels: true,
+      curve: 'basis'
+    }
+  });
+
   // =========================== Globale Variablen ===========================
   let allCards = [];
   let currentIndex = 0;
@@ -334,8 +372,34 @@
     });
   }
 
+  // =========================== Mermaid rendern ===========================
+  async function renderMermaidElements(container) {
+    const mermaidElements = container.querySelectorAll('.mermaid');
+    if (mermaidElements.length === 0) return;
+    
+    for (const el of mermaidElements) {
+      try {
+        // Mermaid-Code aus dem Element holen
+        const code = el.textContent.trim();
+        if (!code) continue;
+        
+        // Temporären Container für das gerenderte SVG
+        const tempDiv = document.createElement('div');
+        tempDiv.className = 'mermaid';
+        tempDiv.textContent = code;
+        
+        // Mermaid rendern lassen
+        const { svg } = await mermaid.render('mermaid-svg-' + Date.now() + Math.random(), code);
+        el.innerHTML = svg;
+      } catch (e) {
+        console.warn('Mermaid-Fehler:', e);
+        el.innerHTML = `<div style="color:#da3633;padding:10px;">Fehler beim Rendern des Diagramms: ${e.message}</div>`;
+      }
+    }
+  }
+
   // =========================== Kartenanzeige ===========================
-  function displayCard() {
+  async function displayCard() {
     if (allCards.length === 0) return;
 
     if (mode === 'learn') {
@@ -399,6 +463,7 @@
       contentDiv.innerText = "Unbekannter Kartentyp: " + card.type;
     }
 
+    // KaTeX rendern (Formeln)
     if (window.renderMathInElement) {
       renderMathInElement(contentDiv, {
         delimiters: [
@@ -407,6 +472,9 @@
         ]
       });
     }
+
+    // Mermaid-Diagramme rendern
+    await renderMermaidElements(contentDiv);
   }
 
   // =========================== Lernmodus ===========================
