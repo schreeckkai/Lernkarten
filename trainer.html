@@ -143,7 +143,8 @@
     const deckFolder = urlParams.get('deck') || 'Q3.1';
     
     // Lädt nun sauber die karten.json aus dem angegebenen Ordner
-    const jsonUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}/karten.json`;
+    const jsonUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}.json`;
+    
 
     try {
       const response = await fetch(jsonUrl);
