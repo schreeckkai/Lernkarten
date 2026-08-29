@@ -142,11 +142,13 @@
     const urlParams = new URLSearchParams(window.location.search);
     const deckFolder = urlParams.get('deck') || 'Q3.1';
     
-    // Holt jetzt automatisch die karten.txt aus dem jeweiligen Ordner
-    const txtUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}/karten.txt`;
+    // Wir nutzen die direkte rohe GitHub-URL
+    const targetUrl = `https://raw.githubusercontent.com/schreeckkai/Lernkarten/main/${deckFolder}/karten.txt`;
+    // Wir leiten den Abruf über einen CORS-Proxy um, damit der Browser die Textdatei ohne Zicken annimmt
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
 
     try {
-      const response = await fetch(txtUrl);
+      const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error("Netzwerkfehler");
       const text = await response.text();
       const lines = text.split('\n');
