@@ -10,79 +10,91 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <style>
+    /* ===== Grundlegendes Layout ===== */
     body {
-      background-color: #000000;
-      color: #e5e7eb;
+      background-color: #0d1117;
+      color: #e6edf3;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
     .app-container {
-      background-color: #0d1117;
-      border-left: 5px solid #644533;
-      border-radius: 8px;
+      background-color: #161b22;
+      border-radius: 12px;
       padding: 30px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
       width: 100%;
       max-width: 850px;
       box-sizing: border-box;
     }
+
+    /* ===== Kopfzeile ===== */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       gap: 10px;
     }
     .counter {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #8b949e;
       font-family: monospace;
     }
     .mode-select {
       background: #21262d;
-      color: #e5e7eb;
+      color: #e6edf3;
       border: 1px solid #30363d;
-      padding: 6px 12px;
-      border-radius: 4px;
+      padding: 6px 14px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 0.9rem;
     }
+    .mode-select:focus {
+      outline: none;
+      border-color: #58a6ff;
+    }
+
+    /* ===== Kartenbox ===== */
     .card-box {
-      background-color: #161b22;
+      background-color: #0d1117;
       border: 1px solid #30363d;
-      border-radius: 8px;
+      border-radius: 10px;
       min-height: 240px;
-      padding: 40px;
+      padding: 40px 30px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      box-sizing: border-box;
     }
     .card-content {
       font-size: 1.4rem;
-      line-height: 1.6;
-      color: #e5e7eb;
+      line-height: 1.7;
+      color: #e6edf3;
       width: 100%;
     }
     .card-content.answer-mode {
-      color: #00dfc8;
+      color: #58a6ff;
     }
+
+    /* ===== Lückentext ===== */
     .cloze {
       background-color: #21262d;
-      color: #00dfc8;
-      padding: 2px 8px;
+      color: #58a6ff;
+      padding: 2px 10px;
       border-radius: 4px;
-      border-bottom: 2px solid #00dfc8;
+      border-bottom: 2px solid #58a6ff;
+      font-weight: 600;
     }
+
+    /* ===== Multiple-Choice ===== */
     .options-container {
       display: flex;
       flex-direction: column;
@@ -92,28 +104,30 @@
     }
     .option-btn {
       background: #21262d;
-      color: #e5e7eb;
+      color: #e6edf3;
       border: 1px solid #30363d;
       padding: 12px 18px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 1.05rem;
       text-align: left;
-      transition: all 0.2s;
+      transition: background 0.2s;
     }
-    .option-btn:hover {
+    .option-btn:hover:not(:disabled) {
       background: #30363d;
     }
     .option-btn.correct {
       background: #238636 !important;
-      color: white;
       border-color: #238636;
+      color: #fff;
     }
     .option-btn.wrong {
       background: #da3633 !important;
-      color: white;
       border-color: #da3633;
+      color: #fff;
     }
+
+    /* ===== True/False ===== */
     .tf-row {
       display: flex;
       gap: 15px;
@@ -124,47 +138,79 @@
       flex: 1;
       padding: 14px;
       font-size: 1.2rem;
-      font-weight: bold;
+      font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
       border: 1px solid #30363d;
+      background: #21262d;
+      color: #e6edf3;
+      transition: background 0.2s;
     }
-    .tf-btn.true { background: #1f6feb; color: white; }
-    .tf-btn.false { background: #8957e5; color: white; }
-    .tf-btn.correct { background: #238636 !important; border-color: #238636; }
-    .tf-btn.wrong { background: #da3633 !important; border-color: #da3633; }
+    .tf-btn:hover:not(:disabled) {
+      background: #30363d;
+    }
+    .tf-btn.correct {
+      background: #238636 !important;
+      border-color: #238636;
+      color: #fff;
+    }
+    .tf-btn.wrong {
+      background: #da3633 !important;
+      border-color: #da3633;
+      color: #fff;
+    }
+
+    /* ===== Button-Reihen ===== */
     .btn-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-top: 25px;
-      gap: 15px;
+      gap: 12px;
       flex-wrap: wrap;
     }
     button.action-btn {
       background: #21262d;
-      color: #e5e7eb;
+      color: #e6edf3;
       border: 1px solid #30363d;
-      padding: 14px 24px;
+      padding: 12px 20px;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
       font-size: 1rem;
       flex: 1;
-      min-width: 100px;
-    }
-    button.action-btn.primary {
-      background: #238636;
-      color: #ffffff;
-      border: none;
-    }
-    button.action-btn.success {
-      background: #1f6feb;
-      color: white;
-      border: none;
+      min-width: 90px;
+      transition: background 0.2s;
     }
     button.action-btn:hover {
-      opacity: 0.9;
+      background: #30363d;
+    }
+    button.action-btn.primary {
+      background: #1f6feb;
+      border: none;
+      color: #fff;
+    }
+    button.action-btn.primary:hover {
+      background: #388bfd;
+    }
+    button.action-btn.success {
+      background: #238636;
+      border: none;
+      color: #fff;
+    }
+    button.action-btn.success:hover {
+      background: #2ea043;
+    }
+
+    /* ===== Fortschritt & Mischen ===== */
+    .progress-message {
+      margin-top: 15px;
+      padding: 14px 18px;
+      background: #21262d;
+      border-radius: 8px;
+      border-left: 4px solid #1f6feb;
+      color: #e6edf3;
+      font-size: 1rem;
     }
     .shuffle-container {
       text-align: center;
@@ -173,22 +219,25 @@
     button.shuffle-btn {
       background: transparent;
       border: none;
-      color: #00dfc8;
+      color: #8b949e;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.95rem;
       text-decoration: underline;
+      transition: color 0.2s;
     }
-    .progress-message {
-      margin-top: 15px;
-      padding: 12px;
-      background: #21262d;
-      border-radius: 6px;
-      border-left: 4px solid #00dfc8;
-      color: #e5e7eb;
-      font-size: 1rem;
+    button.shuffle-btn:hover {
+      color: #e6edf3;
     }
     .hidden {
       display: none !important;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      .app-container { padding: 16px; }
+      .card-box { padding: 24px 16px; min-height: 180px; }
+      .card-content { font-size: 1.1rem; }
+      .btn-row button { font-size: 0.85rem; padding: 10px 14px; }
     }
   </style>
 </head>
@@ -242,7 +291,6 @@
     const deckParam = urlParams.get('deck') || 'Q3.1';
     const deckNames = deckParam.split(',').map(s => s.trim()).filter(s => s.length > 0);
 
-    // Baue den Pfad relativ zum aktuellen Ordner der HTML
     const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
     const baseUrl = window.location.origin + basePath;
 
@@ -263,7 +311,7 @@
       allCards = jsonArrays.flat();
 
       if (allCards.length === 0) {
-        document.getElementById('card-content').innerText = "Keine Karten in den JSON-Dateien gefunden.";
+        document.getElementById('card-content').innerText = "Keine Karten gefunden.";
         document.getElementById('card-counter').innerText = "Fehler";
         return;
       }
@@ -272,21 +320,17 @@
       shuffleCards();
       switchMode();
     } catch (e) {
-      document.getElementById('card-content').innerText = `Fehler beim Laden der Decks: ${e.message}`;
+      document.getElementById('card-content').innerText = `Fehler: ${e.message}`;
       document.getElementById('card-counter').innerText = "Fehler";
       console.error(e);
     }
   }
 
-  // =========================== Lückentext-Hilfe ===========================
+  // =========================== Lückentext ===========================
   function processText(text, isFront) {
     if (!text) return "";
     return text.replace(/\{\{c\d+::(.*?)\}\}/g, function(match, p1) {
-      if (isFront) {
-        return `<span class="cloze">[...]</span>`;
-      } else {
-        return `<span class="cloze">${p1}</span>`;
-      }
+      return isFront ? `<span class="cloze">[...]</span>` : `<span class="cloze">${p1}</span>`;
     });
   }
 
@@ -297,13 +341,8 @@
     if (mode === 'learn') {
       const start = getBlockStart(currentBlockIndex);
       const end = getBlockEnd(currentBlockIndex);
-      if (currentIndex < start || currentIndex >= end) {
-        currentIndex = start;
-      }
-      if (start >= totalCards) {
-        goToBlockStart();
-        return;
-      }
+      if (currentIndex < start || currentIndex >= end) currentIndex = start;
+      if (start >= totalCards) { goToBlockStart(); return; }
     }
 
     const card = allCards[currentIndex];
@@ -314,27 +353,22 @@
     if (mode === 'learn') {
       const start = getBlockStart(currentBlockIndex);
       const end = getBlockEnd(currentBlockIndex);
-      const posInBlock = currentIndex - start + 1;
-      counterDiv.innerText = `Block ${currentBlockIndex+1}: Karte ${posInBlock} von ${end-start}  (${learnedCount}+${posInBlock} von ${totalCards})`;
+      const pos = currentIndex - start + 1;
+      counterDiv.innerText = `Block ${currentBlockIndex+1}: ${pos}/${end-start}  (${learnedCount}+${pos} von ${totalCards})`;
     } else {
-      counterDiv.innerText = `Karte ${currentIndex + 1} / ${allCards.length}`;
+      counterDiv.innerText = `${currentIndex+1} / ${allCards.length}`;
     }
 
     if (!card.type || card.type === 'flashcard') {
       actionBtn.style.display = "block";
       actionBtn.innerText = showingFront ? "Umdrehen" : "Frage zeigen";
-      if (showingFront) {
-        contentDiv.innerHTML = processText(card.front, true);
-        contentDiv.classList.remove('answer-mode');
-      } else {
-        contentDiv.innerHTML = processText(card.back, false);
-        contentDiv.classList.add('answer-mode');
-      }
+      contentDiv.innerHTML = showingFront ? processText(card.front, true) : processText(card.back, false);
+      contentDiv.classList.toggle('answer-mode', !showingFront);
     } 
     else if (card.type === 'multiple-choice') {
       actionBtn.style.display = "none";
       if (showingFront) {
-        let html = `<div style="text-align: left; margin-bottom: 10px;">${card.front}</div><div class="options-container">`;
+        let html = `<div style="text-align:left;margin-bottom:12px;">${card.front}</div><div class="options-container">`;
         card.options.forEach((opt, idx) => {
           html += `<button class="option-btn" onclick="checkMC(${idx})">${opt}</button>`;
         });
@@ -342,21 +376,23 @@
         contentDiv.innerHTML = html;
         contentDiv.classList.remove('answer-mode');
       } else {
-        contentDiv.innerHTML = `<div style="color:#00dfc8; margin-bottom:15px; font-weight:bold;">Erklärung / Lösung:</div><div style="text-align: left;">${card.back}</div>`;
+        contentDiv.innerHTML = `<div style="color:#58a6ff;margin-bottom:12px;font-weight:600;">Lösung:</div><div style="text-align:left;">${card.back}</div>`;
         contentDiv.classList.add('answer-mode');
       }
     }
     else if (card.type === 'true-false') {
       actionBtn.style.display = "none";
       if (showingFront) {
-        let html = `<div style="text-align: left; margin-bottom: 15px;">${card.front}</div><div class="tf-row">` +
-                   `<button class="tf-btn true" onclick="checkTF(true)">Wahr</button>` +
-                   `<button class="tf-btn false" onclick="checkTF(false)">Falsch</button>` +
-                   `</div>`;
-        contentDiv.innerHTML = html;
+        contentDiv.innerHTML = `
+          <div style="text-align:left;margin-bottom:15px;">${card.front}</div>
+          <div class="tf-row">
+            <button class="tf-btn" onclick="checkTF(true)">Wahr</button>
+            <button class="tf-btn" onclick="checkTF(false)">Falsch</button>
+          </div>
+        `;
         contentDiv.classList.remove('answer-mode');
       } else {
-        contentDiv.innerHTML = `<div style="color:#00dfc8; margin-bottom:15px; font-weight:bold;">Auflösung:</div><div style="text-align: left;">${card.back}</div>`;
+        contentDiv.innerHTML = `<div style="color:#58a6ff;margin-bottom:12px;font-weight:600;">Auflösung:</div><div style="text-align:left;">${card.back}</div>`;
         contentDiv.classList.add('answer-mode');
       }
     } else {
@@ -373,21 +409,16 @@
     }
   }
 
-  // =========================== Lernmodus-Hilfsfunktionen ===========================
-  function getBlockStart(blockIdx) {
-    return blockIdx * blockSize;
-  }
-
-  function getBlockEnd(blockIdx) {
-    return Math.min((blockIdx + 1) * blockSize, totalCards);
-  }
+  // =========================== Lernmodus ===========================
+  function getBlockStart(blockIdx) { return blockIdx * blockSize; }
+  function getBlockEnd(blockIdx) { return Math.min((blockIdx + 1) * blockSize, totalCards); }
 
   function goToBlockStart() {
     if (mode !== 'learn') return;
     const start = getBlockStart(currentBlockIndex);
     if (start >= totalCards) {
-      document.getElementById('card-content').innerHTML = `<div style="color:#00dfc8; font-size:1.8rem;">🎉 Alle Karten gelernt! 🎉</div>`;
-      document.getElementById('card-counter').innerText = `Fertig! ${totalCards} Karten gelernt.`;
+      document.getElementById('card-content').innerHTML = `<div style="color:#58a6ff;font-size:1.8rem;">🎉 Alle Karten gelernt! 🎉</div>`;
+      document.getElementById('card-counter').innerText = `Fertig! ${totalCards} Karten`;
       document.getElementById('main-action-btn').style.display = 'none';
       document.getElementById('learn-controls').classList.add('hidden');
       return;
@@ -400,44 +431,57 @@
 
   function updateProgressMessage() {
     if (mode !== 'learn') return;
-    const progressArea = document.getElementById('progress-area');
-    const learned = learnedCount;
-    const total = totalCards;
-    const blockNum = currentBlockIndex + 1;
-    const totalBlocks = Math.ceil(total / blockSize);
+    const pa = document.getElementById('progress-area');
     const start = getBlockStart(currentBlockIndex);
     const end = getBlockEnd(currentBlockIndex);
-    const cardsInBlock = end - start;
-    progressArea.classList.remove('hidden');
-    progressArea.innerHTML = `
-      <strong>Fortschritt:</strong> ${learned} von ${total} Karten gelernt.
-      <br>
-      <span style="color:#8b949e;">Aktueller Block ${blockNum} von ${totalBlocks} (${cardsInBlock} Karten)</span>
+    const totalBlocks = Math.ceil(totalCards / blockSize);
+    pa.classList.remove('hidden');
+    pa.innerHTML = `
+      <strong>Fortschritt:</strong> ${learnedCount} von ${totalCards} Karten gelernt.
+      <br><span style="color:#8b949e;">Block ${currentBlockIndex+1} von ${totalBlocks} (${end-start} Karten)</span>
     `;
   }
 
-  // =========================== Modus-Umschaltung ===========================
   function switchMode() {
-    const select = document.getElementById('mode-select');
-    mode = select.value;
+    mode = document.getElementById('mode-select').value;
     const learnControls = document.getElementById('learn-controls');
-    const progressArea = document.getElementById('progress-area');
-    
+    const pa = document.getElementById('progress-area');
     if (mode === 'learn') {
       learnControls.classList.remove('hidden');
-      if (!blockStarted) {
-        currentBlockIndex = 0;
-        learnedCount = 0;
-        blockStarted = true;
-      }
+      if (!blockStarted) { currentBlockIndex = 0; learnedCount = 0; blockStarted = true; }
       updateProgressMessage();
       goToBlockStart();
     } else {
       learnControls.classList.add('hidden');
-      progressArea.classList.add('hidden');
+      pa.classList.add('hidden');
       if (currentIndex >= allCards.length) currentIndex = 0;
       showingFront = true;
       displayCard();
+    }
+  }
+
+  function markBlockLearned() {
+    if (mode !== 'learn') return;
+    const start = getBlockStart(currentBlockIndex);
+    const end = getBlockEnd(currentBlockIndex);
+    learnedCount += (end - start);
+    currentBlockIndex++;
+    if (learnedCount >= totalCards) {
+      document.getElementById('card-content').innerHTML = `<div style="color:#58a6ff;font-size:1.8rem;">🎉 Alle ${totalCards} Karten gelernt! 🎉</div>`;
+      document.getElementById('card-counter').innerText = 'Fertig!';
+      document.getElementById('main-action-btn').style.display = 'none';
+      document.getElementById('learn-controls').classList.add('hidden');
+      document.getElementById('progress-area').classList.add('hidden');
+      return;
+    }
+    const nextStart = getBlockStart(currentBlockIndex);
+    const nextEnd = getBlockEnd(currentBlockIndex);
+    const nextCount = nextEnd - nextStart;
+    if (confirm(`✅ ${learnedCount} von ${totalCards} gelernt. Nächste ${nextCount} Karten lernen?`)) {
+      goToBlockStart();
+    } else {
+      updateProgressMessage();
+      alert('Du kannst später weitermachen.');
     }
   }
 
@@ -447,16 +491,10 @@
     const buttons = document.querySelectorAll('.option-btn');
     buttons.forEach((btn, idx) => {
       btn.disabled = true;
-      if (idx === card.correct) {
-        btn.classList.add('correct');
-      } else if (idx === selectedIndex) {
-        btn.classList.add('wrong');
-      }
+      if (idx === card.correct) btn.classList.add('correct');
+      else if (idx === selectedIndex) btn.classList.add('wrong');
     });
-    setTimeout(() => {
-      showingFront = false;
-      displayCard();
-    }, 1600);
+    setTimeout(() => { showingFront = false; displayCard(); }, 1500);
   }
 
   function checkTF(selectedAnswer) {
@@ -464,35 +502,21 @@
     const buttons = document.querySelectorAll('.tf-btn');
     buttons.forEach(btn => {
       btn.disabled = true;
-      const isTrue = btn.classList.contains('true');
-      const isFalse = btn.classList.contains('false');
-      if ((isTrue && card.answer === true) || (isFalse && card.answer === false)) {
-        btn.classList.add('correct');
-      } else {
-        btn.classList.add('wrong');
-      }
+      const isTrue = btn.textContent.trim() === 'Wahr';
+      if ((isTrue && card.answer) || (!isTrue && !card.answer)) btn.classList.add('correct');
+      else btn.classList.add('wrong');
     });
-    setTimeout(() => {
-      showingFront = false;
-      displayCard();
-    }, 1600);
+    setTimeout(() => { showingFront = false; displayCard(); }, 1500);
   }
 
-  function handleMainAction() {
-    showingFront = !showingFront;
-    displayCard();
-  }
+  function handleMainAction() { showingFront = !showingFront; displayCard(); }
 
   function nextCard() {
     if (allCards.length === 0) return;
     if (mode === 'learn') {
       const end = getBlockEnd(currentBlockIndex);
-      if (currentIndex + 1 < end) {
-        currentIndex++;
-      } else {
-        alert('Das war die letzte Karte dieses Blocks. Klicke auf "Block gelernt", wenn du alle kannst.');
-        return;
-      }
+      if (currentIndex + 1 < end) { currentIndex++; }
+      else { alert('Letzte Karte im Block – klicke "Block gelernt".'); return; }
     } else {
       currentIndex = (currentIndex + 1) % allCards.length;
     }
@@ -504,12 +528,8 @@
     if (allCards.length === 0) return;
     if (mode === 'learn') {
       const start = getBlockStart(currentBlockIndex);
-      if (currentIndex - 1 >= start) {
-        currentIndex--;
-      } else {
-        alert('Dies ist die erste Karte des Blocks.');
-        return;
-      }
+      if (currentIndex - 1 >= start) { currentIndex--; }
+      else { alert('Erste Karte im Block.'); return; }
     } else {
       currentIndex = (currentIndex - 1 + allCards.length) % allCards.length;
     }
@@ -524,45 +544,12 @@
     }
     currentIndex = 0;
     showingFront = true;
-    if (mode === 'learn') {
-      currentBlockIndex = 0;
-      learnedCount = 0;
-      blockStarted = true;
-    }
+    if (mode === 'learn') { currentBlockIndex = 0; learnedCount = 0; blockStarted = true; }
     displayCard();
     if (mode === 'learn') updateProgressMessage();
   }
 
-  function markBlockLearned() {
-    if (mode !== 'learn') return;
-    const start = getBlockStart(currentBlockIndex);
-    const end = getBlockEnd(currentBlockIndex);
-    const blockCardCount = end - start;
-    learnedCount += blockCardCount;
-    currentBlockIndex++;
-    if (learnedCount >= totalCards) {
-      document.getElementById('card-content').innerHTML = `<div style="color:#00dfc8; font-size:1.8rem;">🎉 Glückwunsch! Alle ${totalCards} Karten gelernt! 🎉</div>`;
-      document.getElementById('card-counter').innerText = `Fertig!`;
-      document.getElementById('main-action-btn').style.display = 'none';
-      document.getElementById('learn-controls').classList.add('hidden');
-      document.getElementById('progress-area').classList.add('hidden');
-      return;
-    }
-    const nextBlockNum = currentBlockIndex + 1;
-    const nextStart = getBlockStart(currentBlockIndex);
-    const nextEnd = getBlockEnd(currentBlockIndex);
-    const nextCount = nextEnd - nextStart;
-    if (confirm(`Du hast jetzt ${learnedCount} von ${totalCards} Karten gelernt. Möchtest du die nächsten ${nextCount} Karten (Block ${nextBlockNum}) lernen?`)) {
-      goToBlockStart();
-    } else {
-      updateProgressMessage();
-      alert('Du kannst später weitermachen. Klicke auf "Block gelernt", wenn du bereit bist.');
-    }
-  }
-
-  // =========================== Start ===========================
   document.addEventListener('DOMContentLoaded', initApp);
 </script>
-
 </body>
 </html>
