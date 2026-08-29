@@ -134,41 +134,40 @@
 </div>
 
 <script>
+  // Zentrale Kartensätze direkt im Code hinterlegt – blitzschnell, absolut fehlerfrei und ohne externe Server-Zicken!
+  const allDecks = {
+    "Q3.1": [
+      { front: "Was ist ein Zufallsexperiment?", back: "Ein Vorgang, der beliebig oft unter gleichen Bedingungen wiederholt werden kann und dessen Ausgang nicht mit Sicherheit vorhersehbar ist." },
+      { front: "Was versteht man unter der Ergebnismenge \\(\\Omega\\)?", back: "Die Menge aller möglichen Ausgänge eines Zufallsexperiments. Beispiel Würfel: \\(\\Omega = \\{1, 2, 3, 4, 5, 6\\}\\)." },
+      { front: "Was ist der Unterschied zwischen Ergebnis und Ereignis?", back: "Ein <b>Ergebnis</b> \\(\\omega\\) ist ein einzelnes Element der Ergebnismenge (\\(\\omega \\in \\Omega\\)). Ein <b>Ereignis</b> \\(E\\) ist eine Teilmenge der Ergebnismenge (\\(E \\subseteq \\Omega\\))." },
+      { front: "Wann spricht man von einem Laplace-Experiment?", back: "Wenn alle Elementarergebnisse der Ergebnismenge \\(\\Omega\\) exakt dieselbe Wahrscheinlichkeit besitzen." },
+      { front: "Wie lautet die Laplace-Formel zur Wahrscheinlichkeitsberechnung?", back: "\\(P(E) = \\frac{|E|}{|\\Omega|} = \\frac{\\text{Anzahl der für } E \\text{ günstigen Ergebnisse}}{\\text{Anzahl aller möglichen Ergebnisse}}\\)" },
+      { front: "Was ist ein unmögliches Ereignis und wie groß ist seine Wahrscheinlichkeit?", back: "Ein Ereignis, das kein Element aus \\(\\Omega\\) enthält (\\(E = \\emptyset\\)). Seine Wahrscheinlichkeit beträgt immer \\(P(E) = 0\\)." },
+      { front: "Was ist ein sicheres Ereignis und wie groß ist seine Wahrscheinlichkeit?", back: "Ein Ereignis, das alle Elemente aus \\(\\Omega\\) umfasst (\\(E = \\Omega\\)). Seine Wahrscheinlichkeit beträgt immer \\(P(E) = 1\\)." },
+      { front: "Was ist das Gegenereignis \\(\\bar{E}\\) und wie berechnet man seine Wahrscheinlichkeit?", back: "Das Gegenereignis enthält alle Ausgänge aus \\(\\Omega\\), die nicht zu \\(E\\) gehören (\\(\\bar{E} = \\Omega \\setminus E\\)). Es gilt: \\(P(\\bar{E}) = 1 - P(E)\\)." },
+      { front: "Wie lautet die Summenregel für die Wahrscheinlichkeiten von Ereignis und Gegenereignis?", back: "\\(P(E) + P(\\bar{E}) = 1\\) (bzw. \\(100\\%\\))." },
+      { front: "In welchem Intervall liegt der Wert einer Wahrscheinlichkeit \\(P(A)\\) immer?", back: "Für jedes Ereignis \\(A\\) gilt: \\(0 \\le P(A) \\le 1\\)." },
+      { front: "Ein Vorgang, der unter gleichen Bedingungen wiederholt werden kann und dessen Ausgang nicht vorhersehbar ist, heißt {{c1::Zufallsexperiment}}.", back: "Ein Vorgang, der unter gleichen Bedingungen wiederholt werden kann und dessen Ausgang nicht vorhersehbar ist, heißt {{c1::Zufallsexperiment}}." },
+      { front: "Die Menge aller möglichen Elementarergebnisse wird mit dem Symbol {{c1::\\(\\Omega\\)}} bezeichnet.", back: "Die Menge aller möglichen Elementarergebnisse wird mit dem Symbol {{c1::\\(\\Omega\\)}} bezeichnet." },
+      { front: "Ein Ereignis \\(E\\) ist mathematisch definiert als {{c1::Teilmenge}} der Ergebnismenge \\(\\Omega\\).", back: "Ein Ereignis \\(E\\) ist mathematisch definiert als {{c1::Teilmenge}} der Ergebnismenge \\(\\Omega\\)." },
+      { front: "Bei einem Laplace-Experiment berechnet man die Wahrscheinlichkeit durch den Bruch: Anzahl der {{c1::günstigen}} Ausgänge geteilt durch die Anzahl der {{c2::möglichen}} Ausgänge.", back: "Bei einem Laplace-Experiment berechnet man die Wahrscheinlichkeit durch den Bruch: Anzahl der {{c1::günstigen}} Ausgänge geteilt durch die Anzahl der {{c2::möglichen}} Ausgänge." },
+      { front: "Das sichere Ereignis umfasst die gesamte Menge {{c1::\\(\\Omega\\)}}, während das unmögliche Ereignis die {{c2::leere Menge \\(\\emptyset\\)}} ist.", back: "Das sichere Ereignis umfasst die gesamte Menge {{c1::\\(\\Omega\\)}}, während das unmögliche Ereignis die {{c2::leere Menge \\(\\emptyset\\)}} ist." }
+    ]
+  };
+
   let cards = [];
   let currentIndex = 0;
   let showingFront = true;
 
-  async function initApp() {
+  function initApp() {
     const urlParams = new URLSearchParams(window.location.search);
-    const deckFolder = urlParams.get('deck') || 'Q3.1';
+    const deckKey = urlParams.get('deck') || 'Q3.1';
     
-    // Wir nutzen die direkte rohe GitHub-URL
-    const targetUrl = `https://raw.githubusercontent.com/schreeckkai/Lernkarten/main/${deckFolder}/karten.txt`;
-    // Wir leiten den Abruf über einen CORS-Proxy um, damit der Browser die Textdatei ohne Zicken annimmt
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
-
-    try {
-      const response = await fetch(proxyUrl);
-      if (!response.ok) throw new Error("Netzwerkfehler");
-      const text = await response.text();
-      const lines = text.split('\n');
-
-      cards = [];
-      for (let line of lines) {
-        if (line.trim() === '') continue;
-        const parts = line.split(';');
-        if (parts.length >= 2) {
-          cards.push({ front: parts[0].trim(), back: parts[1].trim() });
-        }
-      }
-
-      if (cards.length > 0) {
-        shuffleCards();
-      } else {
-        document.getElementById('card-content').innerText = "Keine Karten in der Textdatei gefunden.";
-      }
-    } catch (e) {
-      document.getElementById('card-content').innerText = "Fehler: Konnte Kartendatei nicht laden.";
+    if (allDecks[deckKey]) {
+      cards = allDecks[deckKey];
+      shuffleCards();
+    } else {
+      document.getElementById('card-content').innerText = "Fehler: Kartensatz '" + deckKey + "' wurde nicht gefunden.";
     }
   }
 
