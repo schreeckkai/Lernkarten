@@ -7,7 +7,7 @@
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="initApp();"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <style>
     body {
@@ -51,15 +51,15 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      cursor: pointer;
       transition: all 0.2s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       box-sizing: border-box;
     }
     .card-content {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       line-height: 1.6;
       color: #e5e7eb;
+      width: 100%;
     }
     .card-content.answer-mode {
       color: #00dfc8;
@@ -71,6 +71,57 @@
       border-radius: 4px;
       border-bottom: 2px solid #00dfc8;
     }
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    .option-btn {
+      background: #21262d;
+      color: #e5e7eb;
+      border: 1px solid #30363d;
+      padding: 12px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .option-btn:hover {
+      background: #30363d;
+    }
+    .option-btn.correct {
+      background: #238636 !important;
+      color: white;
+      border-color: #238636;
+    }
+    .option-btn.wrong {
+      background: #da3633 !important;
+      color: white;
+      border-color: #da3633;
+    }
+    .tf-row {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    .tf-btn {
+      flex: 1;
+      padding: 14px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid #30363d;
+    }
+    .tf-btn.true { background: #1f6feb; color: white; }
+    .tf-btn.false { background: #8957e5; color: white; }
+    .tf-btn.correct { background: #238636 !important; border-color: #238636; }
+    .tf-btn.wrong { background: #da3633 !important; border-color: #da3633; }
+
     .btn-row {
       display: flex;
       justify-content: space-between;
@@ -118,13 +169,13 @@
     <span id="card-counter" class="counter">Lade Deck...</span>
   </div>
   
-  <div id="card-box" class="card-box" onclick="flipCard()">
+  <div id="card-box" class="card-box">
     <div id="card-content" class="card-content">Lade Karten aus JSON...</div>
   </div>
   
   <div class="btn-row">
     <button class="action-btn" onclick="prevCard()">← Zurück</button> 
-    <button class="action-btn primary" onclick="flipCard()">Umdrehen</button>
+    <button id="main-action-btn" class="action-btn primary" onclick="handleMainAction()">Umdrehen</button>
     <button class="action-btn" onclick="nextCard()">Weiter →</button>
   </div>
   
@@ -134,34 +185,36 @@
 </div>
 
 <script>
+  // --------------------- Globale Variablen ---------------------
   let cards = [];
   let currentIndex = 0;
   let showingFront = true;
 
+  // --------------------- Initialisierung ---------------------
   async function initApp() {
     const urlParams = new URLSearchParams(window.location.search);
-    const deckFolder = urlParams.get('deck') || 'Q3.1';
-    
-    // Lädt nun sauber die karten.json aus dem angegebenen Ordner
-    const jsonUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}.json`;
-    
+    const deckName = urlParams.get('deck') || 'Q3.1';
+    const jsonUrl = `https://schreeckkai.github.io/Lernkarten/${deckName}.json`;
 
     try {
       const response = await fetch(jsonUrl);
-      if (!response.ok) throw new Error("Netzwerkfehler");
+      if (!response.ok) throw new Error(`HTTP-Status ${response.status}`);
       cards = await response.json();
 
-      if (cards.length > 0) {
-        shuffleCards();
-      } else {
+      if (!Array.isArray(cards) || cards.length === 0) {
         document.getElementById('card-content').innerText = "Keine Karten in der JSON-Datei gefunden.";
+        document.getElementById('card-counter').innerText = "Fehler";
+        return;
       }
+
+      shuffleCards(); // zeigt sofort die erste Karte an
     } catch (e) {
-      document.getElementById('card-content').innerText = "Fehler: Konnte karten.json im Ordner '" + deckFolder + "' nicht laden.";
+      document.getElementById('card-content').innerText = `Fehler beim Laden von '${deckName}.json': ${e.message}`;
+      document.getElementById('card-counter').innerText = "Fehler";
     }
   }
 
-  // Verarbeitet Anki-Lückentexte {{c1::Lösung}}
+  // --------------------- Lückentext-Hilfe ---------------------
   function processText(text, isFront) {
     if (!text) return "";
     return text.replace(/\{\{c\d+::(.*?)\}\}/g, function(match, p1) {
@@ -173,23 +226,60 @@
     });
   }
 
+  // --------------------- Kartenanzeige ---------------------
   function displayCard() {
     if (cards.length === 0) return;
     const card = cards[currentIndex];
-
     const contentDiv = document.getElementById('card-content');
     const counterDiv = document.getElementById('card-counter');
-
-    if (showingFront) {
-      contentDiv.innerHTML = processText(card.front, true);
-      contentDiv.classList.remove('answer-mode');
-    } else {
-      contentDiv.innerHTML = processText(card.back, false);
-      contentDiv.classList.add('answer-mode');
-    }
+    const actionBtn = document.getElementById('main-action-btn');
 
     counterDiv.innerText = `Karte ${currentIndex + 1} / ${cards.length}`;
 
+    if (!card.type || card.type === 'flashcard') {
+      actionBtn.style.display = "block";
+      actionBtn.innerText = showingFront ? "Umdrehen" : "Frage zeigen";
+      if (showingFront) {
+        contentDiv.innerHTML = processText(card.front, true);
+        contentDiv.classList.remove('answer-mode');
+      } else {
+        contentDiv.innerHTML = processText(card.back, false);
+        contentDiv.classList.add('answer-mode');
+      }
+    } 
+    else if (card.type === 'multiple-choice') {
+      actionBtn.style.display = "none";
+      if (showingFront) {
+        let html = `<div style="text-align: left; margin-bottom: 10px;">${card.front}</div><div class="options-container">`;
+        card.options.forEach((opt, idx) => {
+          html += `<button class="option-btn" onclick="checkMC(${idx})">${opt}</button>`;
+        });
+        html += `</div>`;
+        contentDiv.innerHTML = html;
+        contentDiv.classList.remove('answer-mode');
+      } else {
+        contentDiv.innerHTML = `<div style="color:#00dfc8; margin-bottom:15px; font-weight:bold;">Erklärung / Lösung:</div><div style="text-align: left;">${card.back}</div>`;
+        contentDiv.classList.add('answer-mode');
+      }
+    }
+    else if (card.type === 'true-false') {
+      actionBtn.style.display = "none";
+      if (showingFront) {
+        let html = `<div style="text-align: left; margin-bottom: 15px;">${card.front}</div><div class="tf-row">` +
+                   `<button class="tf-btn true" onclick="checkTF(true)">Wahr</button>` +
+                   `<button class="tf-btn false" onclick="checkTF(false)">Falsch</button>` +
+                   `</div>`;
+        contentDiv.innerHTML = html;
+        contentDiv.classList.remove('answer-mode');
+      } else {
+        contentDiv.innerHTML = `<div style="color:#00dfc8; margin-bottom:15px; font-weight:bold;">Auflösung:</div><div style="text-align: left;">${card.back}</div>`;
+        contentDiv.classList.add('answer-mode');
+      }
+    } else {
+      contentDiv.innerText = "Unbekannter Kartentyp: " + card.type;
+    }
+
+    // KaTeX nach dem Einfügen rendern
     if (window.renderMathInElement) {
       renderMathInElement(contentDiv, {
         delimiters: [
@@ -200,7 +290,44 @@
     }
   }
 
-  function flipCard() {
+  // --------------------- Interaktionen ---------------------
+  function checkMC(selectedIndex) {
+    const card = cards[currentIndex];
+    const buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach((btn, idx) => {
+      btn.disabled = true;
+      if (idx === card.correct) {
+        btn.classList.add('correct');
+      } else if (idx === selectedIndex) {
+        btn.classList.add('wrong');
+      }
+    });
+    setTimeout(() => {
+      showingFront = false;
+      displayCard();
+    }, 1600);
+  }
+
+  function checkTF(selectedAnswer) {
+    const card = cards[currentIndex];
+    const buttons = document.querySelectorAll('.tf-btn');
+    buttons.forEach(btn => {
+      btn.disabled = true;
+      const isTrue = btn.classList.contains('true');
+      const isFalse = btn.classList.contains('false');
+      if ((isTrue && card.answer === true) || (isFalse && card.answer === false)) {
+        btn.classList.add('correct');
+      } else {
+        btn.classList.add('wrong');
+      }
+    });
+    setTimeout(() => {
+      showingFront = false;
+      displayCard();
+    }, 1600);
+  }
+
+  function handleMainAction() {
     showingFront = !showingFront;
     displayCard();
   }
@@ -217,7 +344,7 @@
     displayCard();
   }
 
-  templateShuffleCards = function shuffleCards() {
+  function shuffleCards() {
     for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [cards[i], cards[j]] = [cards[j], cards[i]];
@@ -226,9 +353,9 @@
     showingFront = true;
     displayCard();
   }
-  
-  // Funktionsname fix alias
-  window.shuffleCards = templateShuffleCards;
+
+  // --------------------- Start der App ---------------------
+  document.addEventListener('DOMContentLoaded', initApp);
 </script>
 
 </body>
