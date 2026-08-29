@@ -372,28 +372,25 @@
     });
   }
 
-  // =========================== Mermaid rendern ===========================
+  // =========================== Mermaid rendern (KORRIGIERT) ===========================
   async function renderMermaidElements(container) {
     const mermaidElements = container.querySelectorAll('.mermaid');
     if (mermaidElements.length === 0) return;
     
     for (const el of mermaidElements) {
       try {
-        // Mermaid-Code aus dem Element holen
         const code = el.textContent.trim();
         if (!code) continue;
+
+        // Eindeutige ID ohne Sonderzeichen am Anfang
+        const id = 'mermaid-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
         
-        // Temporären Container für das gerenderte SVG
-        const tempDiv = document.createElement('div');
-        tempDiv.className = 'mermaid';
-        tempDiv.textContent = code;
-        
-        // Mermaid rendern lassen
-        const { svg } = await mermaid.render('mermaid-svg-' + Date.now() + Math.random(), code);
+        // Mermaid rendern
+        const { svg } = await mermaid.render(id, code);
         el.innerHTML = svg;
       } catch (e) {
         console.warn('Mermaid-Fehler:', e);
-        el.innerHTML = `<div style="color:#da3633;padding:10px;">Fehler beim Rendern des Diagramms: ${e.message}</div>`;
+        el.innerHTML = `<div style="color:#da3633;padding:10px;">⚠️ Fehler beim Rendern des Diagramms: ${e.message}</div>`;
       }
     }
   }
@@ -465,12 +462,17 @@
 
     // KaTeX rendern (Formeln)
     if (window.renderMathInElement) {
-      renderMathInElement(contentDiv, {
-        delimiters: [
-          {left: "\\(", right: "\\)", display: false},
-          {left: "\\[", right: "\\]", display: true}
-        ]
-      });
+      try {
+        renderMathInElement(contentDiv, {
+          delimiters: [
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+          ]
+        });
+      } catch (e) {
+        console.warn('KaTeX-Fehler:', e);
+        contentDiv.innerHTML += `<div style="color:#da3633;margin-top:10px;">⚠️ Formel konnte nicht dargestellt werden.</div>`;
+      }
     }
 
     // Mermaid-Diagramme rendern
