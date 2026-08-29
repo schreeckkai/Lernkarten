@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mathe-Schreck Lernkarten-Trainer</title>
   
-  <!-- Google Font Creepster -->
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-  
-  <!-- KaTeX für Mathe-Formeln -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="initApp();"></script>
 
   <style>
     body {
-      background-color: #0d1117;
+      background-color: #000000; /* Echtes 3b1b Tiefschwarz */
       color: #e5e7eb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex;
@@ -28,27 +24,19 @@
       background-color: #0d1117;
       border-left: 5px solid #644533;
       border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
       width: 100%;
-      max-width: 750px;
+      max-width: 850px;
       box-sizing: border-box;
     }
-    h3 {
-      margin-top: 0;
-      font-size: 1.4rem;
+    .top-bar {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand-title {
-      font-family: 'Creepster', cursive, Georgia;
-      color: #644533;
-      font-size: 1.8rem;
-      letter-spacing: 1px;
+      justify-content: flex-end;
+      margin-bottom: 15px;
     }
     .counter {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #8b949e;
       font-family: monospace;
     }
@@ -56,8 +44,8 @@
       background-color: #161b22;
       border: 1px solid #30363d;
       border-radius: 8px;
-      min-height: 180px;
-      padding: 30px;
+      min-height: 240px;
+      padding: 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -65,37 +53,45 @@
       text-align: center;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       box-sizing: border-box;
     }
     .card-side-label {
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: #644533;
-      font-family: 'Creepster', cursive;
-      margin-bottom: 12px;
+      font-weight: bold;
+      margin-bottom: 16px;
     }
     .card-content {
-      font-size: 1.25rem;
+      font-size: 1.6rem; /* Deutlich größer dargestellt */
       line-height: 1.6;
       color: #e5e7eb;
+    }
+    .cloze {
+      background-color: #21262d;
+      color: #00dfc8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border-bottom: 2px solid #00dfc8;
     }
     .btn-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
-      gap: 10px;
+      margin-top: 25px;
+      gap: 15px;
     }
     button.action-btn {
       background: #21262d;
       color: #e5e7eb;
       border: 1px solid #30363d;
-      padding: 10px 20px;
+      padding: 14px 24px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 1rem;
       flex: 1;
     }
     button.action-btn.primary {
@@ -103,16 +99,19 @@
       color: #ffffff;
       border: none;
     }
+    button.action-btn:hover {
+      opacity: 0.9;
+    }
     .shuffle-container {
       text-align: center;
-      margin-top: 15px;
+      margin-top: 20px;
     }
     button.shuffle-btn {
       background: transparent;
       border: none;
       color: #00dfc8;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 1rem;
       text-decoration: underline;
     }
   </style>
@@ -120,14 +119,13 @@
 <body>
 
 <div class="app-container">
-  <h3>
-    <span class="brand-title">Lernkarten-Trainer</span>
+  <div class="top-bar">
     <span id="card-counter" class="counter">Lade Deck...</span>
-  </h3>
+  </div>
   
   <div id="card-box" class="card-box" onclick="flipCard()">
     <div id="card-side-label" class="card-side-label">Frage</div>
-    <div id="card-content" class="card-content">Lade Karten aus GitHub-Ordner...</div>
+    <div id="card-content" class="card-content">Lade Karten...</div>
   </div>
   
   <div class="btn-row">
@@ -147,37 +145,35 @@
   let showingFront = true;
 
   async function initApp() {
-    // URL-Parameter auslesen, z.B. ?deck=Q3.1/karten.txt
     const urlParams = new URLSearchParams(window.location.search);
-    const deckPath = urlParams.get('deck') || 'Q3.1/karten.txt'; // Standard-Fallback
-    
-    // Absolute Raw-URL im GitHub-Repo zusammenbauen
-    const txtUrl = `https://raw.githubusercontent.com/schreeckkai/Lernkarten/main/${deckPath}`;
+    const deckPath = urlParams.get('deck') || 'Q3.1/karten.json';
+    const jsonUrl = `./${deckPath}`;
 
     try {
-      const response = await fetch(txtUrl);
+      const response = await fetch(jsonUrl);
       if (!response.ok) throw new Error("Netzwerkfehler");
-      const text = await response.text();
-      const lines = text.split('\n');
-
-      cards = [];
-      for (let line of lines) {
-        if (line.trim() === '') continue;
-        // Trennung über unser Semikolon
-        const parts = line.split(';');
-        if (parts.length >= 2) {
-          cards.push({ front: parts[0].trim(), back: parts[1].trim() });
-        }
-      }
+      cards = await response.json();
 
       if (cards.length > 0) {
         shuffleCards();
       } else {
-        document.getElementById('card-content').innerText = "Keine Karten in der Datei gefunden.";
+        document.getElementById('card-content').innerText = "Keine Karten im Deck gefunden.";
       }
     } catch (e) {
-      document.getElementById('card-content').innerText = "Fehler: Konnte Kartendatei nicht aus dem Ordner laden.";
+      document.getElementById('card-content').innerText = "Fehler: Konnte Kartendatei nicht laden.";
     }
+  }
+
+  // Verarbeitet die {{c1::Antwort}}-Syntax für die Vorderseite und Rückseite
+  function processText(text, isFront) {
+    if (!text) return "";
+    return text.replace(/\{\{c\d+::(.*?)\}\}/g, function(match, p1) {
+      if (isFront) {
+        return `<span class="cloze">[...]</span>`;
+      } else {
+        return `<span class="cloze">${p1}</span>`;
+      }
+    });
   }
 
   function displayCard() {
@@ -189,11 +185,11 @@
     const counterDiv = document.getElementById('card-counter');
 
     if (showingFront) {
-      contentDiv.innerHTML = card.front;
+      contentDiv.innerHTML = processText(card.front, true);
       labelDiv.innerText = "Frage";
       labelDiv.style.color = "#644533";
     } else {
-      contentDiv.innerHTML = card.back;
+      contentDiv.innerHTML = processText(card.back, false);
       labelDiv.innerText = "Antwort";
       labelDiv.style.color = "#00dfc8";
     }
