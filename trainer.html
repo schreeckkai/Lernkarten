@@ -11,7 +11,7 @@
 
   <style>
     body {
-      background-color: #000000; /* Tiefschwarz im 3b1b-Stil */
+      background-color: #000000;
       color: #e5e7eb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex;
@@ -22,7 +22,7 @@
     }
     .app-container {
       background-color: #0d1117;
-      border-left: 5px solid #644533; /* Deine Wunschfarbe am linken Rand */
+      border-left: 5px solid #644533;
       border-radius: 8px;
       padding: 30px;
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
@@ -57,12 +57,12 @@
       box-sizing: border-box;
     }
     .card-content {
-      font-size: 1.6rem; /* Groß und lesbar wie der Fragentext */
+      font-size: 1.6rem;
       line-height: 1.6;
-      color: #e5e7eb; /* 3b1b Standard-Textfarbe für Fragen */
+      color: #e5e7eb;
     }
     .card-content.answer-mode {
-      color: #00dfc8; /* 3b1b Cyan für Antworten */
+      color: #00dfc8;
     }
     .cloze {
       background-color: #21262d;
@@ -142,18 +142,28 @@
     const urlParams = new URLSearchParams(window.location.search);
     const deckFolder = urlParams.get('deck') || 'Q3.1';
     
-    // Absolute URL direkt auf GitHub Pages, damit der Pfad immer greift (egal von wo aufgerufen)
-    const jsonUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}/karten.json`;
+    // Holt jetzt automatisch die karten.txt aus dem jeweiligen Ordner
+    const txtUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}/karten.txt`;
 
     try {
-      const response = await fetch(jsonUrl);
+      const response = await fetch(txtUrl);
       if (!response.ok) throw new Error("Netzwerkfehler");
-      cards = await response.json();
+      const text = await response.text();
+      const lines = text.split('\n');
+
+      cards = [];
+      for (let line of lines) {
+        if (line.trim() === '') continue;
+        const parts = line.split(';');
+        if (parts.length >= 2) {
+          cards.push({ front: parts[0].trim(), back: parts[1].trim() });
+        }
+      }
 
       if (cards.length > 0) {
         shuffleCards();
       } else {
-        document.getElementById('card-content').innerText = "Keine Karten im Deck gefunden.";
+        document.getElementById('card-content').innerText = "Keine Karten in der Textdatei gefunden.";
       }
     } catch (e) {
       document.getElementById('card-content').innerText = "Fehler: Konnte Kartendatei nicht laden.";
