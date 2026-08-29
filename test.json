@@ -39,4 +39,28 @@
     "correct": 1,
     "back": "Richtig! Die Ableitung von \\(x^2\\) ist \\(2x\\), was graphisch einer Ursprungsgeraden mit Steigung 2 entspricht."
   }
+    {
+    "type": "flashcard",
+    "front": "Wie lautet die erste Ableitung der Funktion \\(f(x) = x^2\\)?",
+    "back": "\\(f'(x) = 2x\\)"
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Welcher Wert ergibt sich für den Sinus an der Stelle \\(x = \\frac{\\pi}{2}\\)?",
+    "options": [
+      "\\(0\\)",
+      "\\(\\frac{1}{2}\\)",
+      "\\(1\\)",
+      "\\(-1\\)"
+    ],
+    "correct": 2,
+    "back": "Richtig! \\(\\sin\\left(\\frac{\\pi}{2}\\right) = 1\\)."
+  },
+  {
+    "type": "true-false",
+    "front": "Wahr oder Falsch? Die Ableitung der Sinusfunktion \\(f(x) = \\sin(x)\\) ist \\(f'(x) = -\\cos(x)\\).",
+    "answer": false,
+    "back": "Falsch! Die Ableitung von \\(\\sin(x)\\) ist \\(\\cos(x)\\) (ohne Minuszeichen)."
+  }
 ]
+
