@@ -1,0 +1,16 @@
+{
+  "type": "flashcard",
+  "front": "Betrachte den folgenden Entscheidungsbaum:",
+  "back": "
+    <div class='mermaid'>
+      graph TD
+        A[Start] --> B{Entscheidung}
+        B --> C[Ergebnis 1]
+        B --> D[Ergebnis 2]
+        C --> E[Wahrscheinlichkeit 50%]
+        D --> F[Wahrscheinlichkeit 50%]
+    </div>
+    <br>
+    Die Gesamtwahrscheinlichkeit für Ergebnis 1 beträgt 50 %.
+  "
+}
