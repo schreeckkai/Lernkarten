@@ -11,7 +11,7 @@
 
   <style>
     body {
-      background-color: #000000; /* Echtes 3b1b Tiefschwarz */
+      background-color: #000000; /* Tiefschwarz im 3b1b-Stil */
       color: #e5e7eb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex;
@@ -22,7 +22,7 @@
     }
     .app-container {
       background-color: #0d1117;
-      border-left: 5px solid #644533;
+      border-left: 5px solid #644533; /* Deine Wunschfarbe am linken Rand */
       border-radius: 8px;
       padding: 30px;
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
@@ -56,18 +56,13 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       box-sizing: border-box;
     }
-    .card-side-label {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #644533;
-      font-weight: bold;
-      margin-bottom: 16px;
-    }
     .card-content {
-      font-size: 1.6rem; /* Deutlich größer dargestellt */
+      font-size: 1.6rem; /* Groß und lesbar wie der Fragentext */
       line-height: 1.6;
-      color: #e5e7eb;
+      color: #e5e7eb; /* 3b1b Standard-Textfarbe für Fragen */
+    }
+    .card-content.answer-mode {
+      color: #00dfc8; /* 3b1b Cyan für Antworten */
     }
     .cloze {
       background-color: #21262d;
@@ -124,7 +119,6 @@
   </div>
   
   <div id="card-box" class="card-box" onclick="flipCard()">
-    <div id="card-side-label" class="card-side-label">Frage</div>
     <div id="card-content" class="card-content">Lade Karten...</div>
   </div>
   
@@ -146,8 +140,10 @@
 
   async function initApp() {
     const urlParams = new URLSearchParams(window.location.search);
-    const deckPath = urlParams.get('deck') || 'Q3.1/karten.json';
-    const jsonUrl = `./${deckPath}`;
+    const deckFolder = urlParams.get('deck') || 'Q3.1';
+    
+    // Absolute URL direkt auf GitHub Pages, damit der Pfad immer greift (egal von wo aufgerufen)
+    const jsonUrl = `https://schreeckkai.github.io/Lernkarten/${deckFolder}/karten.json`;
 
     try {
       const response = await fetch(jsonUrl);
@@ -164,7 +160,6 @@
     }
   }
 
-  // Verarbeitet die {{c1::Antwort}}-Syntax für die Vorderseite und Rückseite
   function processText(text, isFront) {
     if (!text) return "";
     return text.replace(/\{\{c\d+::(.*?)\}\}/g, function(match, p1) {
@@ -181,17 +176,14 @@
     const card = cards[currentIndex];
 
     const contentDiv = document.getElementById('card-content');
-    const labelDiv = document.getElementById('card-side-label');
     const counterDiv = document.getElementById('card-counter');
 
     if (showingFront) {
       contentDiv.innerHTML = processText(card.front, true);
-      labelDiv.innerText = "Frage";
-      labelDiv.style.color = "#644533";
+      contentDiv.classList.remove('answer-mode');
     } else {
       contentDiv.innerHTML = processText(card.back, false);
-      labelDiv.innerText = "Antwort";
-      labelDiv.style.color = "#00dfc8";
+      contentDiv.classList.add('answer-mode');
     }
 
     counterDiv.innerText = `Karte ${currentIndex + 1} / ${cards.length}`;
