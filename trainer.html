@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathe-Schreck Lernkarten-Trainer</title>
+  
+  <!-- Google Font Creepster -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX für Mathe-Formeln -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="initApp();"></script>
+
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .app-container {
+      background-color: #0d1117;
+      border-left: 5px solid #644533;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      width: 100%;
+      max-width: 750px;
+      box-sizing: border-box;
+    }
+    h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-title {
+      font-family: 'Creepster', cursive, Georgia;
+      color: #644533;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    .counter {
+      font-size: 0.9rem;
+      color: #8b949e;
+      font-family: monospace;
+    }
+    .card-box {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      min-height: 180px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      box-sizing: border-box;
+    }
+    .card-side-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #644533;
+      font-family: 'Creepster', cursive;
+      margin-bottom: 12px;
+    }
+    .card-content {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: #e5e7eb;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+    button.action-btn {
+      background: #21262d;
+      color: #e5e7eb;
+      border: 1px solid #30363d;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      flex: 1;
+    }
+    button.action-btn.primary {
+      background: #238636;
+      color: #ffffff;
+      border: none;
+    }
+    .shuffle-container {
+      text-align: center;
+      margin-top: 15px;
+    }
+    button.shuffle-btn {
+      background: transparent;
+      border: none;
+      color: #00dfc8;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <h3>
+    <span class="brand-title">Lernkarten-Trainer</span>
+    <span id="card-counter" class="counter">Lade Deck...</span>
+  </h3>
+  
+  <div id="card-box" class="card-box" onclick="flipCard()">
+    <div id="card-side-label" class="card-side-label">Frage</div>
+    <div id="card-content" class="card-content">Lade Karten aus GitHub-Ordner...</div>
+  </div>
+  
+  <div class="btn-row">
+    <button class="action-btn" onclick="prevCard()">← Zurück</button> 
+    <button class="action-btn primary" onclick="flipCard()">Umdrehen</button>
+    <button class="action-btn" onclick="nextCard()">Weiter →</button>
+  </div>
+  
+  <div class="shuffle-container">
+    <button class="shuffle-btn" onclick="shuffleCards()">Kartensatz mischen (Zufallsprinzip)</button>
+  </div>
+</div>
+
+<script>
+  let cards = [];
+  let currentIndex = 0;
+  let showingFront = true;
+
+  async function initApp() {
+    // URL-Parameter auslesen, z.B. ?deck=Q3.1/karten.txt
+    const urlParams = new URLSearchParams(window.location.search);
+    const deckPath = urlParams.get('deck') || 'Q3.1/karten.txt'; // Standard-Fallback
+    
+    // Absolute Raw-URL im GitHub-Repo zusammenbauen
+    const txtUrl = `https://raw.githubusercontent.com/schreeckkai/Lernkarten/main/${deckPath}`;
+
+    try {
+      const response = await fetch(txtUrl);
+      if (!response.ok) throw new Error("Netzwerkfehler");
+      const text = await response.text();
+      const lines = text.split('\n');
+
+      cards = [];
+      for (let line of lines) {
+        if (line.trim() === '') continue;
+        // Trennung über unser Semikolon
+        const parts = line.split(';');
+        if (parts.length >= 2) {
+          cards.push({ front: parts[0].trim(), back: parts[1].trim() });
+        }
+      }
+
+      if (cards.length > 0) {
+        shuffleCards();
+      } else {
+        document.getElementById('card-content').innerText = "Keine Karten in der Datei gefunden.";
+      }
+    } catch (e) {
+      document.getElementById('card-content').innerText = "Fehler: Konnte Kartendatei nicht aus dem Ordner laden.";
+    }
+  }
+
+  function displayCard() {
+    if (cards.length === 0) return;
+    const card = cards[currentIndex];
+
+    const contentDiv = document.getElementById('card-content');
+    const labelDiv = document.getElementById('card-side-label');
+    const counterDiv = document.getElementById('card-counter');
+
+    if (showingFront) {
+      contentDiv.innerHTML = card.front;
+      labelDiv.innerText = "Frage";
+      labelDiv.style.color = "#644533";
+    } else {
+      contentDiv.innerHTML = card.back;
+      labelDiv.innerText = "Antwort";
+      labelDiv.style.color = "#00dfc8";
+    }
+
+    counterDiv.innerText = `Karte ${currentIndex + 1} / ${cards.length}`;
+
+    if (window.renderMathInElement) {
+      renderMathInElement(contentDiv, {
+        delimiters: [
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ]
+      });
+    }
+  }
+
+  function flipCard() {
+    showingFront = !showingFront;
+    displayCard();
+  }
+
+  function nextCard() {
+    showingFront = true;
+    currentIndex = (currentIndex + 1) % cards.length;
+    displayCard();
+  }
+
+  function prevCard() {
+    showingFront = true;
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    displayCard();
+  }
+
+  function shuffleCards() {
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    currentIndex = 0;
+    showingFront = true;
+    displayCard();
+  }
+</script>
+
+</body>
+</html>
