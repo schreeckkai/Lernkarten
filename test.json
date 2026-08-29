@@ -1,0 +1,42 @@
+[
+  {
+    "type": "flashcard",
+    "front": "Wie lautet die Normalenform einer Ebene im Raum?",
+    "back": "\\([\\vec{x} - \\vec{a}] \\cdot \\vec{n} = 0\\)"
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Gegeben ist der Vektor \\(\\vec{a} = \\begin{pmatrix} 2 \\\\ -3 \\\\ 6 \\\\ \\end{pmatrix}\\). Wie lang ist dieser Vektor?",
+    "options": [
+      "\\(5\\)",
+      "\\(7\\)",
+      "\\(11\\)",
+      "\\(\\sqrt{35}\\)"
+    ],
+    "correct": 1,
+    "back": "Richtig! Der Betrag berechnet sich als \\(|\\vec{a}| = \\sqrt{2^2 + (-3)^2 + 6^2} = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7\\)."
+  },
+  {
+    "type": "true-false",
+    "front": "Wahr oder Falsch? Zwei Ebenen in Koordinatenform mit Vielfachen als Normalenvektoren (z.B. \\(E_1: 2x + 4y - 6z = 5\\) und \\(E_2: x + 2y - 3z = 2\\)) verlaufen echt parallel zueinander.",
+    "answer": true,
+    "back": "Wahr! Die Normalenvektoren sind kollinear (vielfach voneinander), aber die Konstanten auf der rechten Seite skalieren nicht im selben Verhältnis, weshalb sie nicht identisch sind."
+  },
+  {
+    "type": "flashcard",
+    "front": "3D-Skizze / Vorstellung: Wie liegen die Koordinatenachsen \\(x_1\\), \\(x_2\\) und \\(x_3\\) im Standard-Räumlichen Dreibein zueinander?",
+    "back": "Die \\(x_1\\)-Achse zeigt nach vorne-rechts (oft im 45°-Winkel nach unten-links gezeichnet), die \\(x_2\\)-Achse nach rechts und die \\(x_3\\)-Achse senkrecht nach oben."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Welcher Graph beschreibt die Ableitung der Parabel \\(f(x) = x^2\\)?",
+    "options": [
+      "Eine waagerechte Gerade bei \\(y = 2\\)",
+      "Eine Ursprungsgerade mit der Steigung \\(2\\) (also \\(f'(x) = 2x\\))",
+      "Eine nach unten geöffnete Parabel",
+      "Eine Exponentialfunktion"
+    ],
+    "correct": 1,
+    "back": "Richtig! Die Ableitung von \\(x^2\\) ist \\(2x\\), was graphisch einer Ursprungsgeraden mit Steigung 2 entspricht."
+  }
+]
