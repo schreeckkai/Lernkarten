@@ -1,5 +1,22 @@
 [
-   {
+  {
+    "type": "flashcard",
+    "front": "Wie lautet die Normalenform einer Ebene im Raum?",
+    "back": "\\([\\vec{x} - \\vec{a}] \\cdot \\vec{n} = 0\\)"
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Gegeben ist der Vektor \\(\\vec{a} = \\begin{pmatrix} 2 \\\\ -3 \\\\ 6 \\\\ \\end{pmatrix}\\). Wie lang ist dieser Vektor?",
+    "options": [
+      "\\(5\\)",
+      "\\(7\\)",
+      "\\(11\\)",
+      "\\(\\sqrt{35}\\)"
+    ],
+    "correct": 1,
+    "back": "Richtig! Der Betrag berechnet sich als \\(|\\vec{a}| = \\sqrt{2^2 + (-3)^2 + 6^2} = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7\\)."
+  },
+  {
     "type": "true-false",
     "front": "Wahr oder Falsch? Zwei Ebenen in Koordinatenform mit Vielfachen als Normalenvektoren (z.B. \\(E_1: 2x + 4y - 6z = 5\\) und \\(E_2: x + 2y - 3z = 2\\)) verlaufen echt parallel zueinander.",
     "answer": true,
@@ -53,16 +70,16 @@
   {
     "type": "flashcard",
     "front": "Skizziere den Graphen der Funktion f(x) = x²:",
-    "back": "<img src='https://quickchart.io/chart?c={type:\\'line\\',data:{labels:[-3,-2,-1,0,1,2,3],datasets:[{label:\\'f(x)=x²\\',data:[9,4,1,0,1,4,9],borderColor:\\'#1f6feb\\',backgroundColor:\\'rgba(31,111,235,0.1)\\',fill:true,pointRadius:4}]},options:{plugins:{legend:{labels:{color:\\'#e6edf3\\'}}},scales:{x:{ticks:{color:\\'#e6edf3\\'}},y:{ticks:{color:\\'#e6edf3\\'}}}}}' alt='Parabel f(x)=x²' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
+    "back": "<img src='https://quickchart.io/chart?type=line&data=[9,4,1,0,1,4,9]&labels=[-3,-2,-1,0,1,2,3]&title=f(x)%3Dx%C2%B2&color=%231f6feb&backgroundColor=rgba(31,111,235,0.1)&fill=true&pointRadius=4' alt='Parabel f(x)=x²' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
   },
   {
     "type": "flashcard",
     "front": "Skizziere den Graphen der Funktion f(x) = 1/x:",
-    "back": "<img src='https://quickchart.io/chart?c={type:\\'line\\',data:{labels:[-4,-2,-1,-0.5,0.5,1,2,4],datasets:[{label:\\'f(x)=1/x\\',data:[-0.25,-0.5,-1,-2,2,1,0.5,0.25],borderColor:\\'#f0883e\\',backgroundColor:\\'rgba(240,136,62,0.1)\\',fill:false,pointRadius:4}]},options:{plugins:{legend:{labels:{color:\\'#e6edf3\\'}}},scales:{x:{ticks:{color:\\'#e6edf3\\'}},y:{ticks:{color:\\'#e6edf3\\'}}}}}' alt='Hyperbel' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
+    "back": "<img src='https://quickchart.io/chart?type=line&data=[-0.25,-0.5,-1,-2,2,1,0.5,0.25]&labels=[-4,-2,-1,-0.5,0.5,1,2,4]&title=f(x)%3D1%2Fx&color=%23f0883e&backgroundColor=rgba(240,136,62,0.1)&fill=false&pointRadius=4' alt='Hyperbel' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
   },
   {
     "type": "flashcard",
     "front": "Skizziere den Graphen der Sinusfunktion f(x) = sin(x):",
-    "back": "<img src='https://quickchart.io/chart?c={type:\\'line\\',data:{labels:[-6,-4,-2,0,2,4,6],datasets:[{label:\\'sin(x)\\',data:[0.28,-0.76,0.91,0,-0.91,0.76,-0.28],borderColor:\\'#58a6ff\\',backgroundColor:\\'rgba(88,166,255,0.1)\\',fill:true,pointRadius:4}]},options:{plugins:{legend:{labels:{color:\\'#e6edf3\\'}}},scales:{x:{ticks:{color:\\'#e6edf3\\'}},y:{ticks:{color:\\'#e6edf3\\'}}}}}' alt='Sinusfunktion' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
+    "back": "<img src='https://quickchart.io/chart?type=line&data=[0.28,-0.76,0.91,0,-0.91,0.76,-0.28]&labels=[-6,-4,-2,0,2,4,6]&title=sin(x)&color=%2358a6ff&backgroundColor=rgba(88,166,255,0.1)&fill=true&pointRadius=4' alt='Sinusfunktion' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
   }
 ]
