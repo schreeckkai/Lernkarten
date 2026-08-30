@@ -1,0 +1,57 @@
+[
+  {
+    "type": "flashcard",
+    "front": "Was beschreibt die Fläche unter dem Graphen der Änderungsrate in einem Sachkontext?",
+    "back": "Den <b>Bestandszuwachs</b> (die insgesamt hinzugekommene oder abgeflossene Menge) in diesem Zeitraum."
+  },
+  {
+    "type": "flashcard",
+    "front": "Der Endbestand nach einer bestimmten Zeit berechnet sich aus dem {{c1::Anfangsbestand}} plus dem {{c2::Bestandszuwachs}}. Letzterer entspricht exakt der {{c3::Fläche}} unter dem Graphen der Änderungsrate.",
+    "back": "Der Endbestand nach einer bestimmten Zeit berechnet sich aus dem {{c1::Anfangsbestand}} plus dem {{c2::Bestandszuwachs}}. Letzterer entspricht exakt der {{c3::Fläche}} unter dem Graphen der Änderungsrate."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Wie berechnet man die Breite \\(\\Delta x\\) der Rechtecke, wenn man das Intervall \\([a; b]\\) in \\(n\\) Teilintervalle zerlegt?",
+    "options": [
+      "\\(\\Delta x = \\frac{b - a}{n}\\)",
+      "\\(\\Delta x = \\frac{a - b}{n}\\)",
+      "\\(\\Delta x = \\frac{n}{b - a}\\)",
+      "\\(\\Delta x = \\frac{a + b}{n}\\)"
+    ],
+    "correct": 0,
+    "back": "Die Intervalllänge erhältst du, indem du den Startwert vom Endwert abziehst (\\(b - a\\)). Diese teilst du dann durch die Anzahl der Rechtecke \\(n\\)."
+  },
+  {
+    "type": "flashcard",
+    "front": "Bei der Berechnung der Untersumme wählt man als Höhe der Rechtecke immer das absolute {{c1::Minimum}} der Funktion im jeweiligen Teilintervall. Bei einer monoton fallenden Funktion liegt dieser Wert folglich immer am {{c2::rechten}} Rand des Teilintervalls.",
+    "back": "Bei der Berechnung der Untersumme wählt man als Höhe der Rechtecke immer das absolute {{c1::Minimum}} der Funktion im jeweiligen Teilintervall. Bei einer monoton fallenden Funktion liegt dieser Wert folglich immer am {{c2::rechten}} Rand des Teilintervalls."
+  },
+  {
+    "type": "true-false",
+    "front": "Wenn der Graph der Änderungsrate unterhalb der x-Achse verläuft, bedeutet das im Sachkontext (z. B. bei einem Wasserbecken), dass der Gesamtbestand negativ ist.",
+    "answer": false,
+    "back": "Die negative Änderungsrate bedeutet lediglich, dass der Bestand <b>abnimmt</b> (das Wasser fließt ab). Der eigentliche Bestand im Becken kann dabei immer noch positiv sein."
+  },
+  {
+    "type": "flashcard",
+    "front": "Die Untersumme \\(U_4\\) berechnet man, indem man die konstante Breite \\(\\Delta x\\) ausklammert und mit der Summe der vier {{c1::Rechteckshöhen}} multipliziert. Die Formel lautet: \\(U_4 = \\Delta x \\cdot (h_1 + h_2 + h_3 + \\) {{c2::\\(h_4\\)}} \\().\\)",
+    "back": "Die Untersumme \\(U_4\\) berechnet man, indem man die konstante Breite \\(\\Delta x\\) ausklammert und mit der Summe der vier {{c1::Rechteckshöhen}} multipliziert. Die Formel lautet: \\(U_4 = \\Delta x \\cdot (h_1 + h_2 + h_3 + \\) {{c2::\\(h_4\\)}} \\().\\)"
+  },
+  {
+    "type": "flashcard",
+    "front": "Warum ist die Untersumme bei einer Zuflussrate (monoton steigend) nur ein Näherungswert für den echten Bestand?",
+    "back": "Weil die Rechtecke der Untersumme bei dieser Zerlegung komplett <b>unterhalb des Graphen</b> liegen. Die tatsächliche Fläche (und damit der echte Bestand) ist etwas größer."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Was passiert mit der Genauigkeit der Untersumme, wenn man die Anzahl der Rechtecke \\(n\\) immer weiter erhöht (\\(n \\to \\infty\\))?",
+    "options": [
+      "Die Untersumme nähert sich dem exakten Flächeninhalt (dem bestimmten Integral) an.",
+      "Die Untersumme wird immer ungenauer, da sich Rundungsfehler addieren.",
+      "Die Untersumme wird zur Obersumme.",
+      "Die Breite \\(\\Delta x\\) der Rechtecke wird unendlich groß."
+    ],
+    "correct": 0,
+    "back": "Je mehr Rechtecke du wählst, desto feiner wird die Zerlegung. Die Fehlerfläche schrumpft und die Untersumme konvergiert gegen den echten Flächeninhalt (das Integral)."
+  }
+]
