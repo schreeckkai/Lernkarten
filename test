@@ -1,0 +1,5 @@
+{
+  "type": "flashcard",
+  "front": "<div id='test-task' style='font-size:1rem; margin-bottom:10px;'></div><svg id='test-canvas' data-func='0.1*x*x + 0.5' data-b='5' viewBox='0 0 360 180' style='width:100%; max-width:360px; display:block; margin:0 auto;'></svg><div style='text-align:center; margin-top:10px;'><button onclick=\"randomizeRiemann('test')\" style='padding:8px 16px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; font-weight:bold;'>🎲 Neu würfeln</button></div><img src='x' onerror=\"randomizeRiemann('test')\" style='display:none;'><div id='test-solution' style='display:none; margin-top:15px; font-weight:bold; color:#22c55e;'>Tipp: Nutze den Rechenweg auf der Rückseite!</div>",
+  "back": "Schau dir den Graphen genau an:<br><br>→ Liegen die Rechtecke <b>unter</b> oder <b>über</b> der Kurve?<br>→ Welche Werte liest du an den Rändern ab?<br><br>Die Antwort folgt, sobald du gerechnet hast."
+}
