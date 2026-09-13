@@ -61,42 +61,21 @@
       cursor: pointer; font-size: 0.9rem; text-decoration: underline;
     }
     .cloze {
-      background: #644533;
-      color: transparent;
-      padding: 2px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
-      display: inline-block;
-      min-width: 40px;
-      text-align: center;
+      background: #644533; color: transparent;
+      padding: 2px 10px; border-radius: 4px;
+      cursor: pointer; transition: all 0.2s;
+      user-select: none; display: inline-block;
+      min-width: 40px; text-align: center;
     }
-    .cloze::before {
-      content: "?";
-      color: #e5e7eb;
-      font-weight: bold;
-    }
+    .cloze::before { content: "?"; color: #e5e7eb; font-weight: bold; }
     .cloze.revealed {
-      background: rgba(0, 223, 200, 0.20);
-      color: #00dfc8;
-      font-weight: bold;
-      user-select: auto;
+      background: rgba(0, 223, 200, 0.20); color: #00dfc8;
+      font-weight: bold; user-select: auto;
     }
     .cloze.revealed::before { content: ""; }
-    .block-finished {
-      text-align: center;
-      padding: 20px 10px;
-    }
-    .block-finished h2 {
-      color: #22c55e;
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-    .block-finished p {
-      color: #8b949e;
-      margin-bottom: 20px;
-    }
+    .block-finished { text-align: center; padding: 20px 10px; }
+    .block-finished h2 { color: #22c55e; font-size: 1.8rem; margin-bottom: 10px; }
+    .block-finished p { color: #8b949e; margin-bottom: 20px; }
     .block-finished button {
       background: #238636; color: #fff; border: none;
       padding: 14px 28px; border-radius: 8px; cursor: pointer;
@@ -106,14 +85,10 @@
       background: #21262d; color: #e5e7eb; border: 1px solid #30363d;
     }
     .progress-footer {
-      margin-top: 15px;
-      padding: 12px 16px;
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      color: #8b949e;
-      text-align: center;
+      margin-top: 15px; padding: 12px 16px;
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 8px; font-size: 0.9rem;
+      color: #8b949e; text-align: center;
     }
     .progress-footer strong { color: #00dfc8; }
     .error-box {
@@ -121,6 +96,29 @@
       color: #fca5a5; padding: 16px; border-radius: 8px;
       margin: 10px 0; font-family: monospace; font-size: 0.9rem;
     }
+    .cube-scene {
+      perspective: 700px;
+      width: 180px; height: 180px;
+      margin: 20px auto;
+      cursor: grab; touch-action: none; user-select: none;
+    }
+    .cube-scene:active { cursor: grabbing; }
+    .cube-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.05s linear;
+    }
+    .cube-face {
+      position: absolute;
+      width: 180px; height: 180px;
+      border: 2px solid #00dfc8;
+      background: rgba(0, 223, 200, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; color: #00dfc8; font-weight: bold;
+      box-shadow: inset 0 0 30px rgba(0, 223, 200, 0.2);
+    }
+    .cube-hint { text-align: center; color: #8b949e; font-size: 0.85rem; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -152,13 +150,13 @@
   // ==================================================
   // 1) KARTEN LADEN
   // ==================================================
-  const BLOCK_SIZE = 5;         // Karten pro Block
-  let allCards = [];            // alle Karten aus JSON
-  let blockIndex = 0;           // aktueller Block (0-basiert)
-  let deck = [];                // Karten des aktuellen Blocks
-  let currentIndex = 0;         // Position innerhalb des Blocks
+  const BLOCK_SIZE = 5;
+  let allCards = [];
+  let blockIndex = 0;
+  let deck = [];
+  let currentIndex = 0;
   let showingFront = true;
-  let blockFinished = false;    // Zustand: Block fertig?
+  let blockFinished = false;
 
   function loadCardsFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -167,7 +165,7 @@
     if (!deckName) {
       return Promise.resolve([
         { front: "Was ist die Untersumme \\(U_n\\)?",
-          back: "Eine Näherung für den Flächeninhalt unter einem Graphen – Rechtecke liegen unter dem Graphen." }
+          back: "Eine Näherung für den Flächeninhalt unter einem Graphen." }
       ]);
     }
 
@@ -228,7 +226,6 @@
     const end = Math.min(start + BLOCK_SIZE, allCards.length);
     deck = allCards.slice(start, end);
 
-    // Block mischen
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -261,7 +258,6 @@
     const btnNext = document.getElementById('btn-next');
 
     if (blockFinished) {
-      // Block-Abschluss-Screen
       counterDiv.innerText = `Block ${blockIndex + 1} / ${totalBlocks()}`;
       const isLast = (blockIndex + 1) >= totalBlocks();
       contentDiv.innerHTML = `
@@ -295,6 +291,7 @@
     btnNext.disabled = false;
 
     setTimeout(renderMath, 50);
+    setTimeout(initAllDynamic, 80);
   }
 
   // ==================================================
@@ -315,7 +312,6 @@
       displayCard();
       updateProgressFooter();
     } else {
-      // Letzte Karte des Blocks erreicht → Block abschließen
       finishBlock();
     }
   }
@@ -338,22 +334,13 @@
   }
 
   function nextBlock() {
-    if (blockIndex + 1 < totalBlocks()) {
-      loadBlock(blockIndex + 1);
-    }
+    if (blockIndex + 1 < totalBlocks()) loadBlock(blockIndex + 1);
   }
-
-  function repeatBlock() {
-    loadBlock(blockIndex);
-  }
-
-  function restartDeck() {
-    loadBlock(0);
-  }
+  function repeatBlock() { loadBlock(blockIndex); }
+  function restartDeck() { loadBlock(0); }
 
   function shuffleCards() {
     if (blockFinished) return;
-    // Nur den aktuellen Block neu mischen
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -557,7 +544,126 @@
   }
 
   // ==================================================
-  // 7) START
+  // 7) SORTIER-AUFGABE
+  // ==================================================
+  function swapStep(el) {
+    const parent = el.parentElement;
+    if (!parent.dataset.selected) {
+      parent.querySelectorAll('[data-step]').forEach(e => e.style.outline = 'none');
+      el.style.outline = '2px solid #00dfc8';
+      parent.dataset.selected = el.dataset.step;
+    } else {
+      const firstId = parent.dataset.selected;
+      const first = parent.querySelector(`[data-step="${firstId}"]`);
+      if (first && first !== el) {
+        const tempHTML = first.innerHTML;
+        const tempStep = first.dataset.step;
+        first.innerHTML = el.innerHTML;
+        first.dataset.step = el.dataset.step;
+        el.innerHTML = tempHTML;
+        el.dataset.step = tempStep;
+      }
+      parent.querySelectorAll('[data-step]').forEach(e => e.style.outline = 'none');
+      delete parent.dataset.selected;
+    }
+  }
+
+  function checkOrder(containerId, correctOrder, feedbackId) {
+    const container = document.getElementById(containerId);
+    const fb = document.getElementById(feedbackId);
+    if (!container || !fb) return;
+    const items = [...container.querySelectorAll('[data-step]')];
+    const current = items.map(el => el.dataset.step).join('');
+    if (current === correctOrder) {
+      fb.innerHTML = "✅ Perfekte Reihenfolge!";
+      fb.style.color = "#22c55e";
+    } else {
+      fb.innerHTML = "❌ Noch nicht ganz. Überlege, was zuerst gemacht werden muss.";
+      fb.style.color = "#ef4444";
+    }
+  }
+
+  // ==================================================
+  // 8) 3D-WÜRFEL
+  // ==================================================
+  const cube3dState = { dragging: false, lastX: 0, lastY: 0, rotX: -20, rotY: 30 };
+
+  function initCube3d(sceneId) {
+    const scene = document.getElementById(sceneId);
+    if (!scene) return;
+    cube3dState.rotX = -20;
+    cube3dState.rotY = 30;
+    updateCube3d(sceneId);
+
+    const start = (e) => {
+      cube3dState.dragging = true;
+      const p = e.touches ? e.touches[0] : e;
+      cube3dState.lastX = p.clientX;
+      cube3dState.lastY = p.clientY;
+      if (e.cancelable) e.preventDefault();
+    };
+    const move = (e) => {
+      if (!cube3dState.dragging) return;
+      const p = e.touches ? e.touches[0] : e;
+      cube3dState.rotY += (p.clientX - cube3dState.lastX) * 0.6;
+      cube3dState.rotX -= (p.clientY - cube3dState.lastY) * 0.6;
+      cube3dState.lastX = p.clientX;
+      cube3dState.lastY = p.clientY;
+      updateCube3d(sceneId);
+    };
+    const end = () => { cube3dState.dragging = false; };
+
+    scene.addEventListener('mousedown', start);
+    scene.addEventListener('touchstart', start, { passive: false });
+    document.addEventListener('mousemove', move);
+    document.addEventListener('touchmove', move, { passive: false });
+    document.addEventListener('mouseup', end);
+    document.addEventListener('touchend', end);
+  }
+
+  function updateCube3d(sceneId) {
+    const inner = document.getElementById(sceneId + '-inner');
+    if (!inner) return;
+    inner.style.transform = `rotateX(${cube3dState.rotX}deg) rotateY(${cube3dState.rotY}deg)`;
+  }
+
+  function rollCube(sceneId) {
+    cube3dState.rotX += 360 + Math.random() * 180;
+    cube3dState.rotY += 360 + Math.random() * 180;
+    const inner = document.getElementById(sceneId + '-inner');
+    if (inner) {
+      inner.style.transition = 'transform 1s ease-out';
+      updateCube3d(sceneId);
+      setTimeout(() => { inner.style.transition = 'transform 0.05s linear'; }, 1000);
+    }
+  }
+
+  // ==================================================
+  // 9) AUTO-INIT FÜR DYNAMISCHE ELEMENTE
+  // ==================================================
+  function initAllDynamic() {
+    // Riemann-Canvas (Slider) initialisieren
+    const gw = document.getElementById('gw-canvas');
+    if (gw && !gw.dataset.done) {
+      gw.dataset.done = '1';
+      riemann('gw-canvas', 0, 5, 4, 'U');
+    }
+    // MovePoint-Canvas initialisieren
+    const mp = document.getElementById('mp-canvas');
+    if (mp && !mp.dataset.done) {
+      mp.dataset.done = '1';
+      movePoint('mp-canvas', 2, null, 'mp-info');
+    }
+    // 3D-Würfel initialisieren
+    const cube = document.getElementById('wuerfel');
+    if (cube && !cube.dataset.done) {
+      cube.dataset.done = '1';
+      initCube3d('wuerfel');
+    }
+  }
+
+  // ==================================================
+  // 10) START
   // ==================================================
   loadCardsFromURL()
     .then(data => {
