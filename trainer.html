@@ -108,7 +108,6 @@
     const deckName = params.get('deck');
 
     if (!deckName) {
-      // Kein Deck angegeben → Beispiel-Karten inline
       return Promise.resolve([
         { front: "Was ist die Untersumme \\(U_n\\)?",
           back: "Eine Näherung für den Flächeninhalt unter einem Graphen – Rechtecke liegen unter dem Graphen." }
@@ -201,7 +200,6 @@
   // 3) HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
   // ==================================================
 
-  // --- 0) Funktions-Parser ---
   function parseFunc(funcStr) {
     if (typeof funcStr !== 'string') return () => 0;
     try {
@@ -214,7 +212,6 @@
     }
   }
 
-  // --- 1) Riemann-Summe live zeichnen ---
   function riemann(canvasId, a, b, n, type, funcStr) {
     const svg = document.getElementById(canvasId);
     if (!svg) return;
@@ -270,7 +267,6 @@
     }
   }
 
-  // --- 2) Punkt auf Graph ---
   function movePoint(svgId, xVal, funcStr, infoId) {
     const svg = document.getElementById(svgId);
     if (!svg) return;
@@ -322,7 +318,6 @@
     if (el) el.innerHTML = `x = ${xVal.toFixed(2)} &nbsp;|&nbsp; f(x) = ${f(xVal).toFixed(2)}`;
   }
 
-  // --- 3) Numerischer Selbst-Check ---
   function checkNum(inputId, correct, tol, feedbackId) {
     const input = document.getElementById(inputId);
     const fb = document.getElementById(feedbackId);
@@ -342,7 +337,6 @@
     }
   }
 
-  // --- 4) Multiple-Choice-Feedback ---
   function checkMC(buttonEl, isCorrect) {
     const parent = buttonEl.parentElement;
     const buttons = parent.querySelectorAll("button[data-mc]");
@@ -366,14 +360,12 @@
     }
   }
 
-  // --- 5) Klick-zum-Aufdecken ---
   function revealStep(elementId) {
     const el = document.getElementById(elementId);
     if (!el) return;
     el.style.display = (el.style.display === "block") ? "none" : "block";
   }
 
-  // --- 6) Zufallsgenerator ---
   function randomizeRiemann(prefix) {
     const a = (Math.random() * 0.4 + 0.1).toFixed(2);
     const b = (Math.random() * 2 - 1).toFixed(2);
