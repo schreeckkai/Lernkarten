@@ -1,0 +1,48 @@
+ {
+      front: "Was versteht man unter einer <b>Untersumme</b> \\(U_n\\)?",
+      back: "Eine Näherung für den Flächeninhalt unter einem Graphen, bei der man für jedes Teilintervall den <b>kleinsten</b> Funktionswert als Rechteckshöhe wählt. Dadurch liegen alle Rechtecke <b>unterhalb</b> (oder auf) dem Graphen. Die Untersumme ist daher immer <b>kleiner oder gleich</b> dem exakten Flächeninhalt."
+    },
+    {
+      front: "Was versteht man unter einer <b>Obersumme</b> \\(O_n\\)?",
+      back: "Eine Näherung für den Flächeninhalt unter einem Graphen, bei der man für jedes Teilintervall den <b>größten</b> Funktionswert als Rechteckshöhe wählt. Dadurch liegen alle Rechtecke <b>oberhalb</b> (oder auf) dem Graphen. Die Obersumme ist daher immer <b>größer oder gleich</b> dem exakten Flächeninhalt."
+    },
+    {
+      front: "Wie berechnet man die Breite \\(\\Delta x\\) eines Rechtecks, wenn man das Intervall \\([a; b]\\) in \\(n\\) gleich breite Teilintervalle zerlegt?<br><br>a) \\(\\Delta x = \\frac{b - a}{n}\\)<br>b) \\(\\Delta x = \\frac{a - b}{n}\\)<br>c) \\(\\Delta x = \\frac{n}{b - a}\\)<br>d) \\(\\Delta x = \\frac{b + a}{n}\\)",
+      back: "<b>Antwort: a)</b><br><br>\\(\\Delta x = \\frac{b - a}{n}\\)<br><br>Die Gesamtlänge des Intervalls beträgt \\(b - a\\). Teilt man diese durch die Anzahl der Rechtecke \\(n\\), erhält man die Breite eines einzelnen Rechtecks."
+    },
+    {
+      front: "Bei einer im betrachteten Intervall <b>monoton steigenden</b> Funktion liegen die Höhen der Untersumme am ______ Rand und die Höhen der Obersumme am ______ Rand jedes Teilintervalls.",
+      back: "Bei einer monoton steigenden Funktion ist der Funktionswert am linken Rand immer kleiner als am rechten. Für die Untersumme (kleinster Wert) nutzt man daher den <b>linken</b> Rand, für die Obersumme (größter Wert) den <b>rechten</b> Rand."
+    },
+    {
+      front: "Bei einer im betrachteten Intervall <b>monoton fallenden</b> Funktion liegen die Höhen der Untersumme am ______ Rand und die Höhen der Obersumme am ______ Rand jedes Teilintervalls.",
+      back: "Bei einer monoton fallenden Funktion ist der Funktionswert am rechten Rand immer kleiner als am linken. Für die Untersumme (kleinster Wert) nutzt man daher den <b>rechten</b> Rand, für die Obersumme (größter Wert) den <b>linken</b> Rand."
+    },
+    {
+      front: "Wie lautet die allgemeine Formel für die Untersumme \\(U_n\\) bzw. Obersumme \\(O_n\\)?",
+      back: "\\(U_n = \\Delta x \\cdot (h_1 + h_2 + \\ldots + h_n)\\)<br><br>bzw.<br><br>\\(O_n = \\Delta x \\cdot (H_1 + H_2 + \\ldots + H_n)\\)<br><br>Dabei sind \\(h_i\\) die Minima und \\(H_i\\) die Maxima im jeweiligen Teilintervall und \\(\\Delta x = \\frac{b - a}{n}\\)."
+    },
+    {
+      front: "Gilt für jedes \\(n\\) immer \\(U_n \\le O_n\\)?<br><br>Begründe kurz.",
+      back: "<b>Ja, immer.</b><br><br>Die Untersumme ist immer kleiner oder gleich der Obersumme, da bei jedem Teilintervall das Minimum kleiner oder gleich dem Maximum ist. Die wahre Fläche liegt immer zwischen \\(U_n\\) und \\(O_n\\)."
+    },
+    {
+      front: "Was passiert mit \\(U_n\\) und \\(O_n\\), wenn man die Anzahl \\(n\\) der Rechtecke immer weiter erhöht?",
+      back: "<b>\\(U_n\\) wird größer, \\(O_n\\) wird kleiner</b> – beide nähern sich demselben Wert an.<br><br>Je feiner die Zerlegung, desto kleiner werden die Lücken zwischen Rechtecken und Graph. Die Untersumme wächst von unten, die Obersumme sinkt von oben – beide konvergieren gegen denselben Grenzwert: den exakten Flächeninhalt (das bestimmte Integral)."
+    },
+    {
+      front: "Warum sind Untersumme und Obersumme für endliches \\(n\\) nur <b>Näherungen</b> für den tatsächlichen Bestandszuwachs?",
+      back: "Weil die Rechtecke den Graphen nicht exakt ausfüllen.<br><br>Bei der Untersumme bleiben <b>Restflächen über</b> den Rechtecken unberücksichtigt.<br>Bei der Obersumme werden <b>Restflächen mitgezählt</b>, die eigentlich nicht dazugehören.<br><br>Erst der Grenzübergang \\(n \\to \\infty\\) liefert den exakten Wert."
+    },
+    {
+      front: "Wie erhält man den <b>Endbestand</b> aus einer Untersumme bzw. Obersumme in einem Sachkontext?",
+      back: "\\(B_{\\text{Ende}} = B_0 + S_n\\)<br><br>wobei \\(B_0\\) der Anfangsbestand und \\(S_n\\) die Summe (Unter- oder Obersumme) ist.<br><br><b>Achtung:</b> Die Summe repräsentiert nur die <b>Bestandsänderung</b> – nicht den Bestand selbst!"
+    },
+    {
+      front: "Wenn der Graph der Änderungsrate unterhalb der x-Achse verläuft, werden die zugehörigen Rechtecksflächen bei der Unter- oder Obersumme ______ gezählt.<br><br>Was bedeutet das im Sachkontext?",
+      back: "Die Rechtecksflächen werden <b>negativ</b> gezählt.<br><br>Begründung: Verläuft der Graph unterhalb der x-Achse, ist der Funktionswert negativ. Da die Höhe des Rechtecks negativ ist, trägt es einen negativen Beitrag zur Summe bei.<br><br><b>Im Sachkontext:</b> Der Bestand <b>sinkt</b> in diesem Abschnitt."
+    },
+    {
+      front: "Ein Graph verläuft im betrachteten Intervall komplett <b>unterhalb</b> der x-Achse.<br><br>Wie verhalten sich \\(U_n\\) und \\(O_n\\)?<br><br>a) Beide sind negativ, und es gilt \\(U_n \\le O_n\\).<br>b) Beide sind positiv, und es gilt \\(U_n \\le O_n\\).<br>c) Beide sind negativ, und es gilt \\(U_n \\ge O_n\\).<br>d) Beide sind null, weil Flächen unter der Achse nicht zählen.",
+      back: "<b>Antwort: a)</b><br><br>Auch unterhalb der x-Achse bleibt \\(U_n \\le O_n\\), weil die Untersumme weiterhin die kleineren (hier: betragsmäßig größeren negativen) Funktionswerte verwendet. Beide Summen sind negativ und spiegeln damit eine <b>Abnahme</b> des Bestands wider."
+    },
