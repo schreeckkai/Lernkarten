@@ -63,6 +63,32 @@
       background: transparent; border: none; color: #00dfc8;
       cursor: pointer; font-size: 0.9rem; text-decoration: underline;
     }
+    .cloze {
+      background: #644533;
+      color: transparent;
+      padding: 2px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+      display: inline-block;
+      min-width: 40px;
+      text-align: center;
+    }
+    .cloze::before {
+      content: "?";
+      color: #e5e7eb;
+      font-weight: bold;
+    }
+    .cloze.revealed {
+      background: rgba(0, 223, 200, 0.20);
+      color: #00dfc8;
+      font-weight: bold;
+      user-select: auto;
+    }
+    .cloze.revealed::before {
+      content: "";
+    }
     .error-box {
       background: rgba(239,68,68,0.15); border: 1px solid #ef4444;
       color: #fca5a5; padding: 16px; border-radius: 8px;
@@ -132,8 +158,18 @@
   }
 
   // ==================================================
-  // 2) ANZEIGE-LOGIK
+  // 2) RENDERING (Cloze + Math)
   // ==================================================
+
+  // Wandelt {{c1::Lösung}} in interaktive, klickbare Lücken um
+  function renderCloze(html) {
+    if (typeof html !== 'string') return '';
+    return html.replace(/\{\{c\d+::([^}:]+?)(?:::([^}]+?))?\}\}/g,
+      (match, solution) => {
+        return `<span class="cloze" onclick="event.stopPropagation(); this.classList.toggle('revealed');">${solution}</span>`;
+      });
+  }
+
   function renderMath() {
     if (window.renderMathInElement) {
       try {
@@ -148,6 +184,9 @@
     }
   }
 
+  // ==================================================
+  // 3) ANZEIGE-LOGIK
+  // ==================================================
   function displayCard() {
     if (!deck || deck.length === 0) {
       document.getElementById('card-content').innerHTML =
@@ -161,11 +200,11 @@
     const counterDiv = document.getElementById('card-counter');
 
     if (showingFront) {
-      contentDiv.innerHTML = card.front;
+      contentDiv.innerHTML = renderCloze(card.front || '');
       labelDiv.innerText = "Frage";
       labelDiv.style.color = "#644533";
     } else {
-      contentDiv.innerHTML = card.back;
+      contentDiv.innerHTML = renderCloze(card.back || '');
       labelDiv.innerText = "Antwort";
       labelDiv.style.color = "#00dfc8";
     }
@@ -197,7 +236,7 @@
   }
 
   // ==================================================
-  // 3) HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
+  // 4) HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
   // ==================================================
 
   function parseFunc(funcStr) {
@@ -390,7 +429,7 @@
   }
 
   // ==================================================
-  // 4) START
+  // 5) START
   // ==================================================
   loadCardsFromURL()
     .then(data => {
