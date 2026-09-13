@@ -39,10 +39,6 @@
       text-align: center; cursor: pointer; transition: all 0.2s ease;
       box-shadow: 0 4px 6px rgba(0,0,0,0.3); box-sizing: border-box;
     }
-    .card-side-label {
-      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
-      color: #644533; font-family: 'Creepster', cursive; margin-bottom: 12px;
-    }
     .card-content {
       font-size: 1.15rem; line-height: 1.6; color: #e5e7eb; width: 100%;
     }
@@ -58,6 +54,7 @@
     }
     button.action-btn.primary { background: #238636; color: #fff; border: none; }
     button.action-btn:hover { opacity: 0.9; }
+    button.action-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .shuffle-container { text-align: center; margin-top: 15px; }
     button.shuffle-btn {
       background: transparent; border: none; color: #00dfc8;
@@ -86,9 +83,39 @@
       font-weight: bold;
       user-select: auto;
     }
-    .cloze.revealed::before {
-      content: "";
+    .cloze.revealed::before { content: ""; }
+    .block-finished {
+      text-align: center;
+      padding: 20px 10px;
     }
+    .block-finished h2 {
+      color: #22c55e;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .block-finished p {
+      color: #8b949e;
+      margin-bottom: 20px;
+    }
+    .block-finished button {
+      background: #238636; color: #fff; border: none;
+      padding: 14px 28px; border-radius: 8px; cursor: pointer;
+      font-weight: bold; font-size: 1.1rem; margin: 0 6px 10px 6px;
+    }
+    .block-finished button.secondary {
+      background: #21262d; color: #e5e7eb; border: 1px solid #30363d;
+    }
+    .progress-footer {
+      margin-top: 15px;
+      padding: 12px 16px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #8b949e;
+      text-align: center;
+    }
+    .progress-footer strong { color: #00dfc8; }
     .error-box {
       background: rgba(239,68,68,0.15); border: 1px solid #ef4444;
       color: #fca5a5; padding: 16px; border-radius: 8px;
@@ -105,29 +132,33 @@
   </h3>
 
   <div id="card-box" class="card-box" onclick="flipCard()">
-    <div id="card-side-label" class="card-side-label">Frage</div>
     <div id="card-content" class="card-content">Lade Karten...</div>
   </div>
 
   <div class="btn-row">
-    <button class="action-btn" onclick="prevCard()">← Zurück</button>
-    <button class="action-btn primary" onclick="flipCard()">Umdrehen</button>
-    <button class="action-btn" onclick="nextCard()">Weiter →</button>
+    <button id="btn-prev" class="action-btn" onclick="prevCard()">← Zurück</button>
+    <button id="btn-flip" class="action-btn primary" onclick="flipCard()">Umdrehen</button>
+    <button id="btn-next" class="action-btn" onclick="nextCard()">Weiter →</button>
   </div>
 
   <div class="shuffle-container">
-    <button class="shuffle-btn" onclick="shuffleCards()">Kartensatz mischen</button>
+    <button class="shuffle-btn" onclick="shuffleCards()">Aktuellen Block neu mischen</button>
   </div>
+
+  <div id="progress-footer" class="progress-footer" style="display:none;"></div>
 </div>
 
 <script>
   // ==================================================
   // 1) KARTEN LADEN
   // ==================================================
-  let cards = [];
-  let currentIndex = 0;
+  const BLOCK_SIZE = 5;         // Karten pro Block
+  let allCards = [];            // alle Karten aus JSON
+  let blockIndex = 0;           // aktueller Block (0-basiert)
+  let deck = [];                // Karten des aktuellen Blocks
+  let currentIndex = 0;         // Position innerhalb des Blocks
   let showingFront = true;
-  let deck = [];
+  let blockFinished = false;    // Zustand: Block fertig?
 
   function loadCardsFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -149,25 +180,25 @@
         return r.text();
       })
       .then(text => {
-        try {
-          return JSON.parse(text);
-        } catch(e) {
-          throw new Error('JSON-Fehler in ' + url + ': ' + e.message);
-        }
+        try { return JSON.parse(text); }
+        catch(e) { throw new Error('JSON-Fehler in ' + url + ': ' + e.message); }
       });
   }
 
   // ==================================================
   // 2) RENDERING (Cloze + Math)
   // ==================================================
-
-  // Wandelt {{c1::Lösung}} in interaktive, klickbare Lücken um
   function renderCloze(html) {
     if (typeof html !== 'string') return '';
     return html.replace(/\{\{c\d+::([^}:]+?)(?:::([^}]+?))?\}\}/g,
-      (match, solution) => {
-        return `<span class="cloze" onclick="event.stopPropagation(); this.classList.toggle('revealed');">${solution}</span>`;
-      });
+      (match, solution) =>
+        `<span class="cloze" onclick="event.stopPropagation(); this.classList.toggle('revealed');">${solution}</span>`);
+  }
+
+  function renderClozeRevealed(html) {
+    if (typeof html !== 'string') return '';
+    return html.replace(/\{\{c\d+::([^}:]+?)(?:::([^}]+?))?\}\}/g,
+      (match, solution) => `<span class="cloze revealed">${solution}</span>`);
   }
 
   function renderMath() {
@@ -185,47 +216,144 @@
   }
 
   // ==================================================
-  // 3) ANZEIGE-LOGIK
+  // 3) BLOCK-VERWALTUNG
+  // ==================================================
+  function totalBlocks() {
+    return Math.ceil(allCards.length / BLOCK_SIZE);
+  }
+
+  function loadBlock(index) {
+    blockIndex = index;
+    const start = index * BLOCK_SIZE;
+    const end = Math.min(start + BLOCK_SIZE, allCards.length);
+    deck = allCards.slice(start, end);
+
+    // Block mischen
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+
+    currentIndex = 0;
+    showingFront = true;
+    blockFinished = false;
+    updateProgressFooter();
+    displayCard();
+  }
+
+  function updateProgressFooter() {
+    const footer = document.getElementById('progress-footer');
+    if (allCards.length === 0) { footer.style.display = 'none'; return; }
+    footer.style.display = 'block';
+    const totalB = totalBlocks();
+    const learnedCards = blockIndex * BLOCK_SIZE + Math.min(currentIndex + (showingFront ? 0 : 1), deck.length);
+    footer.innerHTML = `<strong>Block ${blockIndex + 1} von ${totalB}</strong> &nbsp;•&nbsp; ${deck.length} Karten in diesem Block &nbsp;•&nbsp; ${learnedCards} von ${allCards.length} Karten bearbeitet`;
+  }
+
+  // ==================================================
+  // 4) ANZEIGE-LOGIK
   // ==================================================
   function displayCard() {
-    if (!deck || deck.length === 0) {
-      document.getElementById('card-content').innerHTML =
-        '<div class="error-box">Keine Karten geladen.</div>';
-      document.getElementById('card-counter').innerText = '0 / 0';
+    const contentDiv = document.getElementById('card-content');
+    const counterDiv = document.getElementById('card-counter');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnFlip = document.getElementById('btn-flip');
+    const btnNext = document.getElementById('btn-next');
+
+    if (blockFinished) {
+      // Block-Abschluss-Screen
+      counterDiv.innerText = `Block ${blockIndex + 1} / ${totalBlocks()}`;
+      const isLast = (blockIndex + 1) >= totalBlocks();
+      contentDiv.innerHTML = `
+        <div class="block-finished">
+          <h2>✓ Block ${blockIndex + 1} geschafft!</h2>
+          <p>Du hast ${deck.length} Karten bearbeitet. Kurze Pause – dann geht's weiter.</p>
+          ${isLast
+            ? `<p style="color:#22c55e; font-weight:bold;">🎉 Das war der letzte Block. Super gemacht!</p>
+               <button class="secondary" onclick="restartDeck()">Von vorne beginnen</button>`
+            : `<button onclick="nextBlock()">Nächster Block →</button>
+               <button class="secondary" onclick="repeatBlock()">Diesen Block wiederholen</button>`}
+        </div>`;
+      btnPrev.disabled = true;
+      btnFlip.disabled = true;
+      btnNext.disabled = true;
       return;
     }
+
     const card = deck[currentIndex];
-    const contentDiv = document.getElementById('card-content');
-    const labelDiv = document.getElementById('card-side-label');
-    const counterDiv = document.getElementById('card-counter');
+    if (!card) { contentDiv.innerHTML = '<div class="error-box">Keine Karte gefunden.</div>'; return; }
 
     if (showingFront) {
       contentDiv.innerHTML = renderCloze(card.front || '');
-      labelDiv.innerText = "Frage";
-      labelDiv.style.color = "#644533";
     } else {
-      contentDiv.innerHTML = renderCloze(card.back || '');
-      labelDiv.innerText = "Antwort";
-      labelDiv.style.color = "#00dfc8";
+      contentDiv.innerHTML = renderClozeRevealed(card.back || '');
     }
 
-    counterDiv.innerText = `Karte ${currentIndex + 1} / ${deck.length}`;
+    counterDiv.innerText = `Karte ${currentIndex + 1} / ${deck.length}  •  Block ${blockIndex + 1} / ${totalBlocks()}`;
+    btnPrev.disabled = false;
+    btnFlip.disabled = false;
+    btnNext.disabled = false;
 
     setTimeout(renderMath, 50);
   }
 
-  function flipCard() { showingFront = !showingFront; displayCard(); }
+  // ==================================================
+  // 5) NAVIGATION
+  // ==================================================
+  function flipCard() {
+    if (blockFinished) return;
+    showingFront = !showingFront;
+    displayCard();
+    updateProgressFooter();
+  }
+
   function nextCard() {
+    if (blockFinished) return;
     showingFront = true;
-    currentIndex = (currentIndex + 1) % deck.length;
-    displayCard();
+    if (currentIndex < deck.length - 1) {
+      currentIndex++;
+      displayCard();
+      updateProgressFooter();
+    } else {
+      // Letzte Karte des Blocks erreicht → Block abschließen
+      finishBlock();
+    }
   }
+
   function prevCard() {
+    if (blockFinished) return;
     showingFront = true;
-    currentIndex = (currentIndex - 1 + deck.length) % deck.length;
-    displayCard();
+    if (currentIndex > 0) {
+      currentIndex--;
+      displayCard();
+      updateProgressFooter();
+    }
   }
+
+  function finishBlock() {
+    blockFinished = true;
+    showingFront = false;
+    displayCard();
+    updateProgressFooter();
+  }
+
+  function nextBlock() {
+    if (blockIndex + 1 < totalBlocks()) {
+      loadBlock(blockIndex + 1);
+    }
+  }
+
+  function repeatBlock() {
+    loadBlock(blockIndex);
+  }
+
+  function restartDeck() {
+    loadBlock(0);
+  }
+
   function shuffleCards() {
+    if (blockFinished) return;
+    // Nur den aktuellen Block neu mischen
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -233,12 +361,12 @@
     currentIndex = 0;
     showingFront = true;
     displayCard();
+    updateProgressFooter();
   }
 
   // ==================================================
-  // 4) HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
+  // 6) HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
   // ==================================================
-
   function parseFunc(funcStr) {
     if (typeof funcStr !== 'string') return () => 0;
     try {
@@ -429,18 +557,17 @@
   }
 
   // ==================================================
-  // 5) START
+  // 7) START
   // ==================================================
   loadCardsFromURL()
     .then(data => {
-      cards = data;
-      deck = [...cards];
-      if (deck.length === 0) {
+      allCards = data;
+      if (!allCards || allCards.length === 0) {
         document.getElementById('card-content').innerHTML =
           '<div class="error-box">Der Kartensatz ist leer.</div>';
         return;
       }
-      shuffleCards();
+      loadBlock(0);
     })
     .catch(err => {
       console.error(err);
