@@ -1,4 +1,9 @@
 [
+{
+    "type": "flashcard",
+    "front": "<div style='text-align:center;'><p style='color:#8b949e; font-size:0.9rem;'>Ziehe den Regler und beobachte</p><svg id='gw-canvas' data-func='0.15*x*x + 0.3' viewBox='0 0 360 180' style='width:100%; max-width:360px; margin:0 auto; display:block;'></svg><img src='x' onerror=\"riemann('gw-canvas', 0, 5, 4, 'U')\" style='display:none;'><div style='margin-top:12px;'><label style='font-size:0.9rem;'>Anzahl Rechtecke: <b style='color:#00dfc8;' id='gw-count'>4</b></label><br><input type='range' min='1' max='40' value='4' style='width:85%; margin-top:8px;' oninput=\"document.getElementById('gw-count').textContent=this.value; riemann('gw-canvas', 0, 5, parseInt(this.value), 'U')\"></div><p style='margin-top:12px; font-size:1rem;'>Was fällt dir auf, wenn du den Regler nach rechts ziehst?</p></div>",
+    "back": "Je mehr Rechtecke du einstellst, desto <b>kleiner werden die Lücken</b> zwischen den Rechtecken und der Kurve.<br><br>Die Untersumme wächst dabei <b>von unten</b> gegen den exakten Wert von 7,75.<br><br>Das ist die Idee des Integrals: <b>Grenzwert der Rechtecksummen</b>."
+  },
   {
     "type": "flashcard",
     "front": "Was versteht man unter einer <b>Untersumme</b> \\(U_n\\)?",
