@@ -1,48 +1,82 @@
- {
-      front: "Was versteht man unter einer <b>Untersumme</b> \\(U_n\\)?",
-      back: "Eine Näherung für den Flächeninhalt unter einem Graphen, bei der man für jedes Teilintervall den <b>kleinsten</b> Funktionswert als Rechteckshöhe wählt. Dadurch liegen alle Rechtecke <b>unterhalb</b> (oder auf) dem Graphen. Die Untersumme ist daher immer <b>kleiner oder gleich</b> dem exakten Flächeninhalt."
-    },
-    {
-      front: "Was versteht man unter einer <b>Obersumme</b> \\(O_n\\)?",
-      back: "Eine Näherung für den Flächeninhalt unter einem Graphen, bei der man für jedes Teilintervall den <b>größten</b> Funktionswert als Rechteckshöhe wählt. Dadurch liegen alle Rechtecke <b>oberhalb</b> (oder auf) dem Graphen. Die Obersumme ist daher immer <b>größer oder gleich</b> dem exakten Flächeninhalt."
-    },
-    {
-      front: "Wie berechnet man die Breite \\(\\Delta x\\) eines Rechtecks, wenn man das Intervall \\([a; b]\\) in \\(n\\) gleich breite Teilintervalle zerlegt?<br><br>a) \\(\\Delta x = \\frac{b - a}{n}\\)<br>b) \\(\\Delta x = \\frac{a - b}{n}\\)<br>c) \\(\\Delta x = \\frac{n}{b - a}\\)<br>d) \\(\\Delta x = \\frac{b + a}{n}\\)",
-      back: "<b>Antwort: a)</b><br><br>\\(\\Delta x = \\frac{b - a}{n}\\)<br><br>Die Gesamtlänge des Intervalls beträgt \\(b - a\\). Teilt man diese durch die Anzahl der Rechtecke \\(n\\), erhält man die Breite eines einzelnen Rechtecks."
-    },
-    {
-      front: "Bei einer im betrachteten Intervall <b>monoton steigenden</b> Funktion liegen die Höhen der Untersumme am ______ Rand und die Höhen der Obersumme am ______ Rand jedes Teilintervalls.",
-      back: "Bei einer monoton steigenden Funktion ist der Funktionswert am linken Rand immer kleiner als am rechten. Für die Untersumme (kleinster Wert) nutzt man daher den <b>linken</b> Rand, für die Obersumme (größter Wert) den <b>rechten</b> Rand."
-    },
-    {
-      front: "Bei einer im betrachteten Intervall <b>monoton fallenden</b> Funktion liegen die Höhen der Untersumme am ______ Rand und die Höhen der Obersumme am ______ Rand jedes Teilintervalls.",
-      back: "Bei einer monoton fallenden Funktion ist der Funktionswert am rechten Rand immer kleiner als am linken. Für die Untersumme (kleinster Wert) nutzt man daher den <b>rechten</b> Rand, für die Obersumme (größter Wert) den <b>linken</b> Rand."
-    },
-    {
-      front: "Wie lautet die allgemeine Formel für die Untersumme \\(U_n\\) bzw. Obersumme \\(O_n\\)?",
-      back: "\\(U_n = \\Delta x \\cdot (h_1 + h_2 + \\ldots + h_n)\\)<br><br>bzw.<br><br>\\(O_n = \\Delta x \\cdot (H_1 + H_2 + \\ldots + H_n)\\)<br><br>Dabei sind \\(h_i\\) die Minima und \\(H_i\\) die Maxima im jeweiligen Teilintervall und \\(\\Delta x = \\frac{b - a}{n}\\)."
-    },
-    {
-      front: "Gilt für jedes \\(n\\) immer \\(U_n \\le O_n\\)?<br><br>Begründe kurz.",
-      back: "<b>Ja, immer.</b><br><br>Die Untersumme ist immer kleiner oder gleich der Obersumme, da bei jedem Teilintervall das Minimum kleiner oder gleich dem Maximum ist. Die wahre Fläche liegt immer zwischen \\(U_n\\) und \\(O_n\\)."
-    },
-    {
-      front: "Was passiert mit \\(U_n\\) und \\(O_n\\), wenn man die Anzahl \\(n\\) der Rechtecke immer weiter erhöht?",
-      back: "<b>\\(U_n\\) wird größer, \\(O_n\\) wird kleiner</b> – beide nähern sich demselben Wert an.<br><br>Je feiner die Zerlegung, desto kleiner werden die Lücken zwischen Rechtecken und Graph. Die Untersumme wächst von unten, die Obersumme sinkt von oben – beide konvergieren gegen denselben Grenzwert: den exakten Flächeninhalt (das bestimmte Integral)."
-    },
-    {
-      front: "Warum sind Untersumme und Obersumme für endliches \\(n\\) nur <b>Näherungen</b> für den tatsächlichen Bestandszuwachs?",
-      back: "Weil die Rechtecke den Graphen nicht exakt ausfüllen.<br><br>Bei der Untersumme bleiben <b>Restflächen über</b> den Rechtecken unberücksichtigt.<br>Bei der Obersumme werden <b>Restflächen mitgezählt</b>, die eigentlich nicht dazugehören.<br><br>Erst der Grenzübergang \\(n \\to \\infty\\) liefert den exakten Wert."
-    },
-    {
-      front: "Wie erhält man den <b>Endbestand</b> aus einer Untersumme bzw. Obersumme in einem Sachkontext?",
-      back: "\\(B_{\\text{Ende}} = B_0 + S_n\\)<br><br>wobei \\(B_0\\) der Anfangsbestand und \\(S_n\\) die Summe (Unter- oder Obersumme) ist.<br><br><b>Achtung:</b> Die Summe repräsentiert nur die <b>Bestandsänderung</b> – nicht den Bestand selbst!"
-    },
-    {
-      front: "Wenn der Graph der Änderungsrate unterhalb der x-Achse verläuft, werden die zugehörigen Rechtecksflächen bei der Unter- oder Obersumme ______ gezählt.<br><br>Was bedeutet das im Sachkontext?",
-      back: "Die Rechtecksflächen werden <b>negativ</b> gezählt.<br><br>Begründung: Verläuft der Graph unterhalb der x-Achse, ist der Funktionswert negativ. Da die Höhe des Rechtecks negativ ist, trägt es einen negativen Beitrag zur Summe bei.<br><br><b>Im Sachkontext:</b> Der Bestand <b>sinkt</b> in diesem Abschnitt."
-    },
-    {
-      front: "Ein Graph verläuft im betrachteten Intervall komplett <b>unterhalb</b> der x-Achse.<br><br>Wie verhalten sich \\(U_n\\) und \\(O_n\\)?<br><br>a) Beide sind negativ, und es gilt \\(U_n \\le O_n\\).<br>b) Beide sind positiv, und es gilt \\(U_n \\le O_n\\).<br>c) Beide sind negativ, und es gilt \\(U_n \\ge O_n\\).<br>d) Beide sind null, weil Flächen unter der Achse nicht zählen.",
-      back: "<b>Antwort: a)</b><br><br>Auch unterhalb der x-Achse bleibt \\(U_n \\le O_n\\), weil die Untersumme weiterhin die kleineren (hier: betragsmäßig größeren negativen) Funktionswerte verwendet. Beide Summen sind negativ und spiegeln damit eine <b>Abnahme</b> des Bestands wider."
-    },
+[
+  {
+    "front": "Was versteht man unter einer <b>Untersumme</b> \\(U_n\\)?",
+    "back": "Eine Näherung für den Flächeninhalt unter einem Graphen, bei der man für jedes Teilintervall den <b>kleinsten</b> Funktionswert als Rechteckshöhe wählt. Dadurch liegen alle Rechtecke <b>unterhalb</b> (oder auf) dem Graphen. Die Untersumme ist daher immer <b>kleiner oder gleich</b> dem exakten Flächeninhalt."
+  },
+  {
+    "front": "Was versteht man unter einer <b>Obersumme</b> \\(O_n\\)?",
+    "back": "Eine Näherung für den Flächeninhalt unter einem Graphen, bei der man für jedes Teilintervall den <b>größten</b> Funktionswert als Rechteckshöhe wählt. Dadurch liegen alle Rechtecke <b>oberhalb</b> (oder auf) dem Graphen. Die Obersumme ist daher immer <b>größer oder gleich</b> dem exakten Flächeninhalt."
+  },
+  {
+    "front": "Wie berechnet man die Breite \\(\\Delta x\\) eines Rechtecks, wenn man das Intervall \\([a; b]\\) in \\(n\\) gleich breite Teilintervalle zerlegt?<br><br>a) \\(\\Delta x = \\frac{b - a}{n}\\)<br>b) \\(\\Delta x = \\frac{a - b}{n}\\)<br>c) \\(\\Delta x = \\frac{n}{b - a}\\)<br>d) \\(\\Delta x = \\frac{b + a}{n}\\)",
+    "back": "<b>Antwort: a)</b><br><br>\\(\\Delta x = \\frac{b - a}{n}\\)<br><br>Die Gesamtlänge des Intervalls beträgt \\(b - a\\). Teilt man diese durch die Anzahl der Rechtecke \\(n\\), erhält man die Breite eines einzelnen Rechtecks."
+  },
+  {
+    "front": "Bei einer im betrachteten Intervall <b>monoton steigenden</b> Funktion liegen die Höhen der Untersumme am ______ Rand und die Höhen der Obersumme am ______ Rand jedes Teilintervalls.",
+    "back": "Bei einer monoton steigenden Funktion ist der Funktionswert am linken Rand immer kleiner als am rechten. Für die Untersumme (kleinster Wert) nutzt man daher den <b>linken</b> Rand, für die Obersumme (größter Wert) den <b>rechten</b> Rand."
+  },
+  {
+    "front": "Bei einer im betrachteten Intervall <b>monoton fallenden</b> Funktion liegen die Höhen der Untersumme am ______ Rand und die Höhen der Obersumme am ______ Rand jedes Teilintervalls.",
+    "back": "Bei einer monoton fallenden Funktion ist der Funktionswert am rechten Rand immer kleiner als am linken. Für die Untersumme (kleinster Wert) nutzt man daher den <b>rechten</b> Rand, für die Obersumme (größter Wert) den <b>linken</b> Rand."
+  },
+  {
+    "front": "Wie lautet die allgemeine Formel für die Untersumme \\(U_n\\) bzw. Obersumme \\(O_n\\)?",
+    "back": "\\(U_n = \\Delta x \\cdot (h_1 + h_2 + \\ldots + h_n)\\)<br><br>bzw.<br><br>\\(O_n = \\Delta x \\cdot (H_1 + H_2 + \\ldots + H_n)\\)<br><br>Dabei sind \\(h_i\\) die Minima und \\(H_i\\) die Maxima im jeweiligen Teilintervall und \\(\\Delta x = \\frac{b - a}{n}\\)."
+  },
+  {
+    "front": "Gilt für jedes \\(n\\) immer \\(U_n \\le O_n\\)?<br><br>Begründe kurz.",
+    "back": "<b>Ja, immer.</b><br><br>Die Untersumme ist immer kleiner oder gleich der Obersumme, da bei jedem Teilintervall das Minimum kleiner oder gleich dem Maximum ist. Die wahre Fläche liegt immer zwischen \\(U_n\\) und \\(O_n\\)."
+  },
+  {
+    "front": "Was passiert mit \\(U_n\\) und \\(O_n\\), wenn man die Anzahl \\(n\\) der Rechtecke immer weiter erhöht?",
+    "back": "<b>\\(U_n\\) wird größer, \\(O_n\\) wird kleiner</b> – beide nähern sich demselben Wert an.<br><br>Je feiner die Zerlegung, desto kleiner werden die Lücken zwischen Rechtecken und Graph. Die Untersumme wächst von unten, die Obersumme sinkt von oben – beide konvergieren gegen denselben Grenzwert: den exakten Flächeninhalt (das bestimmte Integral)."
+  },
+  {
+    "front": "Warum sind Untersumme und Obersumme für endliches \\(n\\) nur <b>Näherungen</b> für den tatsächlichen Bestandszuwachs?",
+    "back": "Weil die Rechtecke den Graphen nicht exakt ausfüllen.<br><br>Bei der Untersumme bleiben <b>Restflächen über</b> den Rechtecken unberücksichtigt.<br>Bei der Obersumme werden <b>Restflächen mitgezählt</b>, die eigentlich nicht dazugehören.<br><br>Erst der Grenzübergang \\(n \\to \\infty\\) liefert den exakten Wert."
+  },
+  {
+    "front": "Wie erhält man den <b>Endbestand</b> aus einer Untersumme bzw. Obersumme in einem Sachkontext?",
+    "back": "\\(B_{\\text{Ende}} = B_0 + S_n\\)<br><br>wobei \\(B_0\\) der Anfangsbestand und \\(S_n\\) die Summe (Unter- oder Obersumme) ist.<br><br><b>Achtung:</b> Die Summe repräsentiert nur die <b>Bestandsänderung</b> – nicht den Bestand selbst!"
+  },
+  {
+    "front": "Wenn der Graph der Änderungsrate unterhalb der x-Achse verläuft, werden die zugehörigen Rechtecksflächen bei der Unter- oder Obersumme ______ gezählt.<br><br>Was bedeutet das im Sachkontext?",
+    "back": "Die Rechtecksflächen werden <b>negativ</b> gezählt.<br><br>Begründung: Verläuft der Graph unterhalb der x-Achse, ist der Funktionswert negativ. Da die Höhe des Rechtecks negativ ist, trägt es einen negativen Beitrag zur Summe bei.<br><br><b>Im Sachkontext:</b> Der Bestand <b>sinkt</b> in diesem Abschnitt."
+  },
+  {
+    "front": "Ein Graph verläuft im betrachteten Intervall komplett <b>unterhalb</b> der x-Achse.<br><br>Wie verhalten sich \\(U_n\\) und \\(O_n\\)?<br><br>a) Beide sind negativ, und es gilt \\(U_n \\le O_n\\).<br>b) Beide sind positiv, und es gilt \\(U_n \\le O_n\\).<br>c) Beide sind negativ, und es gilt \\(U_n \\ge O_n\\).<br>d) Beide sind null, weil Flächen unter der Achse nicht zählen.",
+    "back": "<b>Antwort: a)</b><br><br>Auch unterhalb der x-Achse bleibt \\(U_n \\le O_n\\), weil die Untersumme weiterhin die kleineren (hier: betragsmäßig größeren negativen) Funktionswerte verwendet. Beide Summen sind negativ und spiegeln damit eine <b>Abnahme</b> des Bestands wider."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📊 Schaubild 1</div>\n<svg viewBox='0 0 400 220' xmlns='http://www.w3.org/2000/svg' style='width:100%; max-width:380px; height:auto; display:block; margin:0 auto;'>\n  <line x1='40' y1='190' x2='380' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <line x1='40' y1='20' x2='40' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <rect x='40' y='156' width='85' height='34' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='125' y='149' width='85' height='41' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='210' y='129' width='85' height='61' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='295' y='95' width='85' height='95' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <polyline points='40,156 82,154 125,149 168,141 210,129 253,114 295,95 338,73 380,47' fill='none' stroke='#1d4ed8' stroke-width='3' stroke-linejoin='round'/>\n</svg>\n<div style='margin-top:12px; font-size:1rem;'>Handelt es sich hier um eine <b>Unter-</b> oder <b>Obersumme</b>?</div>",
+    "back": "<b>Es ist eine Untersumme.</b><br><br>Begründung: Alle Rechtecke liegen <b>unterhalb</b> des Graphen. Die Höhe jedes Rechtecks entspricht dem Funktionswert am <b>linken Rand</b> des Teilintervalls. Da die Funktion monoton steigt, ist der linke Rand immer der kleinste Wert im Intervall."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📊 Schaubild 2</div>\n<svg viewBox='0 0 400 220' xmlns='http://www.w3.org/2000/svg' style='width:100%; max-width:380px; height:auto; display:block; margin:0 auto;'>\n  <line x1='40' y1='190' x2='380' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <line x1='40' y1='20' x2='40' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <rect x='40' y='47' width='85' height='143' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n  <rect x='125' y='54' width='85' height='136' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n  <rect x='210' y='74' width='85' height='116' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n  <rect x='295' y='108' width='85' height='82' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n  <polyline points='40,47 82,49 125,54 168,63 210,74 253,90 295,108 338,131 380,156' fill='none' stroke='#1d4ed8' stroke-width='3' stroke-linejoin='round'/>\n</svg>\n<div style='margin-top:12px; font-size:1rem;'>Handelt es sich hier um eine <b>Unter-</b> oder <b>Obersumme</b>?</div>",
+    "back": "<b>Es ist eine Obersumme.</b><br><br>Begründung: Alle Rechtecke ragen <b>über den Graphen hinaus</b>. Die Funktion fällt monoton, und die Höhe jedes Rechtecks wird vom <b>linken Rand</b> bestimmt – dort ist die Funktion am größten. Die Rechtecksflächen sind also immer etwas größer als die echte Fläche."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📊 Vergleiche beide Schaubilder</div>\n<div style='display:flex; gap:12px; justify-content:center; flex-wrap:wrap;'>\n  <div style='text-align:center;'>\n    <svg viewBox='0 0 180 200' xmlns='http://www.w3.org/2000/svg' style='width:160px; height:auto;'>\n      <line x1='20' y1='180' x2='170' y2='180' stroke='#8b949e' stroke-width='1.5'/>\n      <line x1='20' y1='20' x2='20' y2='180' stroke='#8b949e' stroke-width='1.5'/>\n      <rect x='20' y='148' width='37.5' height='32' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n      <rect x='57.5' y='141.6' width='37.5' height='38.4' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n      <rect x='95' y='122.4' width='37.5' height='57.6' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n      <rect x='132.5' y='90.4' width='37.5' height='89.6' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n      <polyline points='20,148 38.75,146.4 57.5,141.6 76.25,133.6 95,122.4 113.75,108 132.5,90.4 151.25,69.6 170,45.6' fill='none' stroke='#1d4ed8' stroke-width='2.5'/>\n    </svg>\n    <div style='color:#00dfc8; font-size:0.9rem; margin-top:5px;'>Graph A</div>\n  </div>\n  <div style='text-align:center;'>\n    <svg viewBox='0 0 180 200' xmlns='http://www.w3.org/2000/svg' style='width:160px; height:auto;'>\n      <line x1='20' y1='180' x2='170' y2='180' stroke='#8b949e' stroke-width='1.5'/>\n      <line x1='20' y1='20' x2='20' y2='180' stroke='#8b949e' stroke-width='1.5'/>\n      <rect x='20' y='141.6' width='37.5' height='38.4' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n      <rect x='57.5' y='122.4' width='37.5' height='57.6' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n      <rect x='95' y='90.4' width='37.5' height='89.6' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n      <rect x='132.5' y='45.6' width='37.5' height='134.4' fill='rgba(239,68,68,0.25)' stroke='#ef4444' stroke-width='1.5'/>\n      <polyline points='20,148 38.75,146.4 57.5,141.6 76.25,133.6 95,122.4 113.75,108 132.5,90.4 151.25,69.6 170,45.6' fill='none' stroke='#1d4ed8' stroke-width='2.5'/>\n    </svg>\n    <div style='color:#00dfc8; font-size:0.9rem; margin-top:5px;'>Graph B</div>\n  </div>\n</div>\n<div style='margin-top:12px; font-size:1rem;'>Welcher Graph zeigt die <b>Untersumme</b>, welcher die <b>Obersumme</b>?</div>",
+    "back": "<b>Graph A = Untersumme</b> (Rechtecke liegen <b>unter</b> dem Graphen, linke Randwerte).<br><br><b>Graph B = Obersumme</b> (Rechtecke ragen <b>über</b> den Graphen hinaus, rechte Randwerte).<br><br>Beide Graphen zeigen dieselbe Funktion – nur die Wahl der Rechteckshöhen unterscheidet sich."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📊 Rechtecke abzählen</div>\n<svg viewBox='0 0 400 220' xmlns='http://www.w3.org/2000/svg' style='width:100%; max-width:380px; height:auto; display:block; margin:0 auto;'>\n  <line x1='40' y1='190' x2='380' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <line x1='40' y1='20' x2='40' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <rect x='40' y='156' width='56.67' height='34' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='96.67' y='152.6' width='56.67' height='37.4' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='153.33' y='142.4' width='56.67' height='47.6' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='210' y='125.4' width='56.67' height='64.6' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='266.67' y='101.6' width='56.67' height='88.4' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='323.33' y='71' width='56.67' height='119' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <polyline points='40,156 96.67,152.6 153.33,142.4 210,125.4 266.67,101.6 323.33,71 380,33.6' fill='none' stroke='#1d4ed8' stroke-width='3' stroke-linejoin='round'/>\n  <text x='40' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>0</text>\n  <text x='96.67' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>1</text>\n  <text x='153.33' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>2</text>\n  <text x='210' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>3</text>\n  <text x='266.67' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>4</text>\n  <text x='323.33' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>5</text>\n  <text x='380' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>6</text>\n</svg>\n<div style='margin-top:12px; font-size:1rem;'>Das Intervall ist \\([0; 6]\\).<br>Wie viele Rechtecke sind zu sehen und wie groß ist \\(\\Delta x\\)?</div>",
+    "back": "<b>Es sind 6 Rechtecke zu sehen.</b><br><br>\\(\\Delta x = \\frac{b - a}{n} = \\frac{6 - 0}{6} = 1\\)<br><br>Die Rechtecke sind jeweils 1 Einheit breit. Die Höhen entsprechen den Funktionswerten an den linken Rändern: \\(f(0), f(1), f(2), f(3), f(4), f(5)\\)."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📊 Was ist hier markiert?</div>\n<svg viewBox='0 0 400 220' xmlns='http://www.w3.org/2000/svg' style='width:100%; max-width:380px; height:auto; display:block; margin:0 auto;'>\n  <line x1='40' y1='190' x2='380' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <line x1='40' y1='20' x2='40' y2='190' stroke='#8b949e' stroke-width='1.5'/>\n  <rect x='40' y='156' width='85' height='34' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='125' y='149' width='85' height='41' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='210' y='129' width='85' height='61' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <rect x='295' y='95' width='85' height='95' fill='rgba(34,197,94,0.3)' stroke='#22c55e' stroke-width='1.5'/>\n  <polyline points='40,156 82,154 125,149 168,141 210,129 253,114 295,95 338,73 380,47 380,156 295,95 210,129 125,149 40,156' fill='rgba(250,204,21,0.25)' stroke='none'/>\n  <polyline points='40,156 82,154 125,149 168,141 210,129 253,114 295,95 338,73 380,47' fill='none' stroke='#1d4ed8' stroke-width='3' stroke-linejoin='round'/>\n</svg>\n<div style='margin-top:12px; font-size:1rem;'>Was stellt der <b style='color:#facc15;'>gelb markierte Bereich</b> dar?</div>",
+    "back": "Der gelbe Bereich ist die <b>Differenz zwischen dem echten Flächeninhalt und der Untersumme</b>.<br><br>Es ist die Fläche, die <b>nicht mitgezählt</b> wird, wenn man nur die Rechtecke der Untersumme verwendet.<br><br>Je mehr Rechtecke man wählt, desto kleiner wird dieser gelbe Bereich – im Grenzfall \\(n \\to \\infty\\) verschwindet er ganz."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📊 Vorzeichen im Spiel</div>\n<svg viewBox='0 0 400 240' xmlns='http://www.w3.org/2000/svg' style='width:100%; max-width:380px; height:auto; display:block; margin:0 auto;'>\n  <line x1='40' y1='140' x2='380' y2='140' stroke='#8b949e' stroke-width='1.5' stroke-dasharray='4,4'/>\n  <line x1='40' y1='20' x2='40' y2='220' stroke='#8b949e' stroke-width='1.5'/>\n  <rect x='40' y='140' width='85' height='80' fill='rgba(239,68,68,0.35)' stroke='#ef4444' stroke-width='1.5'/>\n  <rect x='125' y='140' width='85' height='65' fill='rgba(239,68,68,0.35)' stroke='#ef4444' stroke-width='1.5'/>\n  <rect x='210' y='140' width='85' height='35' fill='rgba(239,68,68,0.35)' stroke='#ef4444' stroke-width='1.5'/>\n  <rect x='295' y='93' width='85' height='47' fill='rgba(34,197,94,0.35)' stroke='#22c55e' stroke-width='1.5'/>\n  <polyline points='40,220 125,205 210,175 295,93 380,35' fill='none' stroke='#1d4ed8' stroke-width='3' stroke-linejoin='round'/>\n  <text x='200' y='235' fill='#8b949e' font-size='11' text-anchor='middle'>x-Achse (gestrichelt)</text>\n</svg>\n<div style='margin-top:12px; font-size:1rem;'>Wie wirken die <b style='color:#ef4444;'>roten</b> und <b style='color:#22c55e;'>grünen</b> Rechtecke auf die Summe?</div>",
+    "back": "<b>Rote Rechtecke</b> (unterhalb der x-Achse): tragen einen <b>negativen</b> Beitrag zur Summe bei → der Bestand <b>sinkt</b> in diesen Abschnitten.<br><br><b>Grüne Rechtecke</b> (oberhalb der x-Achse): tragen einen <b>positiven</b> Beitrag bei → der Bestand <b>steigt</b>.<br><br>Die Gesamtsumme ergibt sich aus der <b>Verrechnung</b> aller Beiträge. Überwiegen die roten, wird die Summe (und damit die Bestandsänderung) negativ."
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🕵️ Finde den Fehler</div>\n<div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-family:monospace; font-size:0.95rem; line-height:1.8;'>\nEin Schüler rechnet für \\(f(x) = x^2\\) auf \\([0; 4]\\) mit 4 Rechtecken:<br><br>\n1) \\(\\Delta x = \\frac{4 - 0}{4} = 1\\) ✓<br>\n2) Höhen (linke Ränder): \\(f(0)=0,\\; f(1)=1,\\; f(2)=4,\\; f(3)=9\\)<br>\n3) <span style='color:#ef4444;'>\\(U_4 = 1 \\cdot (0 + 1 + 4 + 9) = 14\\)</span><br>\n4) Antwort: „Die Fläche unter dem Graphen ist 14.“<br><br>\n<span style='color:#facc15;'>Wo liegt der Denkfehler?</span>\n</div>",
+    "back": "<b>Der Rechenweg ist korrekt – die Interpretation nicht!</b><br><br>\\(U_4 = 14\\) ist richtig gerechnet. Aber: Diese 14 ist <b>nur ein Näherungswert</b> für die Fläche, nicht der exakte Wert.<br><br>Der tatsächliche Wert wäre \\(\\int_0^4 x^2\\,dx = \\frac{64}{3} \\approx 21{,}33\\). Die Untersumme \\(U_4 = 14\\) liegt wie erwartet <b>unter</b> diesem Wert.<br><br>Die Formulierung „die Fläche ist 14“ ist also falsch – richtig wäre: „\\(U_4 \\approx 14\\) ist eine untere Näherung für die Fläche.“"
+  },
+  {
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📋 Rechenweg im Überblick</div>\n<div style='font-size:1rem;'>Ordne die Schritte für die Berechnung einer Untersumme \\(U_4\\) in die richtige Reihenfolge:</div>\n<div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; margin-top:10px; font-size:0.95rem; line-height:1.8;'>\n<b>A)</b> Höhen der Rechtecke bestimmen (linke Ränder)<br>\n<b>B)</b> Endbestand berechnen: \\(B_{\\text{Ende}} = B_0 + U_4\\)<br>\n<b>C)</b> Intervallbreite \\(\\Delta x = \\frac{b-a}{4}\\) berechnen<br>\n<b>D)</b> Untersumme berechnen: \\(U_4 = \\Delta x \\cdot (h_1+h_2+h_3+h_4)\\)<br>\n</div>",
+    "back": "<b>Richtige Reihenfolge: C → A → D → B</b><br><br><b>Schritt 1 (C):</b> Zuerst \\(\\Delta x\\) berechnen: \\(\\Delta x = \\frac{b-a}{n}\\)<br><br><b>Schritt 2 (A):</b> Dann die Funktionswerte an den linken Rändern \\(x_0, x_1, x_2, x_3\\) bestimmen.<br><br><b>Schritt 3 (D):</b> Nun die Summe bilden: \\(U_4 = \\Delta x \\cdot (h_1+h_2+h_3+h_4)\\).<br><br><b>Schritt 4 (B):</b> Zuletzt den Anfangsbestand addieren, um den Endbestand zu erhalten."
+  }
+]
