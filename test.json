@@ -1,85 +1,75 @@
 [
+{
+  "type": "flashcard",
+  "front": "<div style='text-align:left; line-height:2;'>Berechne die Untersumme \\(U_4\\) für \\(f(x) = x^2\\) auf \\([0; 4]\\).<br><br><b style='color:#00dfc8;'>Schritt 1:</b> <span onclick=\"revealStep('s1')\" style='cursor:pointer; color:#facc15; text-decoration:underline;'>▸ Intervallbreite zeigen</span><div id='s1' style='display:none; padding-left:20px; color:#22c55e;'>\\(\\Delta x = \\frac{4-0}{4} = 1\\)</div><br><b style='color:#00dfc8;'>Schritt 2:</b> <span onclick=\"revealStep('s2')\" style='cursor:pointer; color:#facc15; text-decoration:underline;'>▸ Höhen zeigen</span><div id='s2' style='display:none; padding-left:20px; color:#22c55e;'>\\(h_1 = f(0) = 0\\)<br>\\(h_2 = f(1) = 1\\)<br>\\(h_3 = f(2) = 4\\)<br>\\(h_4 = f(3) = 9\\)</div><br><b style='color:#00dfc8;'>Schritt 3:</b> <span onclick=\"revealStep('s3')\" style='cursor:pointer; color:#facc15; text-decoration:underline;'>▸ Summe bilden</span><div id='s3' style='display:none; padding-left:20px; color:#22c55e;'>\\(U_4 = 1 \\cdot (0 + 1 + 4 + 9) = 14\\)</div></div>",
+  "back": "Vergleiche mit dem exakten Integral:<br>\\(\\int_0^4 x^2\\,dx = \\frac{64}{3} \\approx 21{,}33\\)<br><br>Die Untersumme \\(U_4 = 14\\) liegt wie erwartet <b>unter</b> dem exakten Wert."
+},
   {
-    "type": "flashcard",
-    "front": "Wie lautet die Normalenform einer Ebene im Raum?",
-    "back": "\\([\\vec{x} - \\vec{a}] \\cdot \\vec{n} = 0\\)"
-  },
+  "type": "flashcard",
+  "front": "<div style='text-align:left; background:#161b22; padding:16px; border-radius:8px; font-family:monospace; line-height:1.9;'>Ein Schüler rechnet:<br><br>\\(\\Delta x = \\frac{6-0}{3} = 2\\)<br>\\(h_1 = f(0) = 4\\)<br>\\(h_2 = f(2) = 1\\)<br>\\(h_3 = f(4) = 8\\)<br>\\(U_3 = 2 \\cdot (4+1+8) = 26\\)<br><br><b style='color:#facc15;'>Wo steckt der Fehler?</b><br><br><div style='display:flex; flex-direction:column; gap:8px; margin-top:10px;'>\n<button data-mc='wrong' onclick=\"checkMC(this, false)\" style='padding:10px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; text-align:left;'>A) Die Intervallbreite \\(\\Delta x\\) ist falsch.</button>\n<button data-mc='correct' onclick=\"checkMC(this, true)\" style='padding:10px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; text-align:left;'>B) Die Höhe \\(h_3\\) ist falsch.</button>\n<button data-mc='wrong' onclick=\"checkMC(this, false)\" style='padding:10px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; text-align:left;'>C) Die Formel für \\(U_3\\) ist falsch.</button>\n</div><div data-mc-feedback style='margin-top:12px; font-weight:bold;'></div></div>",
+  "back": "Der Fehler steckt bei \\(h_3\\):<br><br>\\(f(4) = 0{,}5 \\cdot 16 = 8\\). Das ist eigentlich richtig – ABER bei einer Untersumme muss der <b>kleinere</b> Wert im Intervall genommen werden.<br><br>Im dritten Teilintervall \\([4; 6]\\) fällt die Funktion ab \\(f(4) = 8\\) bis \\(f(6) = 0\\). Der kleinere Wert ist also \\(f(6) = 0\\), nicht \\(f(4)\\).<br><br>Richtig wäre: \\(h_3 = 0\\)."
+},
+{
+  "type": "flashcard",
+  "front": "<div style='text-align:center;'><p style='color:#8b949e; font-size:0.9rem;'>🎚️ Ziehe den Regler und beobachte</p><svg id='gw-canvas' data-func='0.15*x*x + 0.3' viewBox='0 0 360 180' style='width:100%; max-width:360px; margin:0 auto; display:block;'></svg><div style='margin-top:12px;'><label style='font-size:0.9rem;'>Anzahl Rechtecke: <b style='color:#00dfc8;' id='gw-count'>4</b></label><br><input type='range' min='1' max='40' value='4' style='width:85%; margin-top:8px;' oninput=\"document.getElementById('gw-count').textContent=this.value; riemann('gw-canvas', 0, 5, parseInt(this.value), 'U')\"></div><img src='x' onerror=\"riemann('gw-canvas', 0, 5, 4, 'U')\" style='display:none;'><p style='margin-top:12px; font-size:1rem;'>Was fällt dir auf, wenn du den Regler nach rechts ziehst?</p></div>",
+  "back": "Je mehr Rechtecke du einstellst, desto <b>kleiner werden die Lücken</b> zwischen den Rechtecken und der Kurve.<br><br>Die Untersumme wächst dabei <b>von unten</b> gegen den exakten Wert \\(\\int_0^5 (0{,}15x^2+0{,}3)\\,dx = 7{,}75\\).<br><br>Das ist die Idee des Integrals: <b>Grenzwert der Rechtecksummen</b>."
+},
   {
-    "type": "multiple-choice",
-    "front": "Gegeben ist der Vektor \\(\\vec{a} = \\begin{pmatrix} 2 \\\\ -3 \\\\ 6 \\\\ \\end{pmatrix}\\). Wie lang ist dieser Vektor?",
-    "options": [
-      "\\(5\\)",
-      "\\(7\\)",
-      "\\(11\\)",
-      "\\(\\sqrt{35}\\)"
-    ],
-    "correct": 1,
-    "back": "Richtig! Der Betrag berechnet sich als \\(|\\vec{a}| = \\sqrt{2^2 + (-3)^2 + 6^2} = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7\\)."
-  },
+  "type": "flashcard",
+  "front": "<div style='text-align:left;'>Berechne die Obersumme \\(O_3\\) für \\(f(x) = -x + 6\\) auf \\([0; 6]\\).<br><br><b>Tipp:</b> Bei fallender Funktion liegt das Maximum am <b>linken</b> Rand.<br><br><label>Deine Lösung für \\(O_3\\):</label><br><input id='self-in' type='number' step='0.1' style='margin-top:8px; padding:8px; background:#161b22; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; width:120px; text-align:center;'><button onclick=\"checkNum('self-in', 18, 0.05, 'self-fb')\" style='margin-left:10px; padding:8px 18px; background:#238636; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:bold;'>Prüfen</button><div id='self-fb' style='margin-top:12px; font-weight:bold;'></div></div>",
+  "back": "Ausführlicher Rechenweg:<br><br>\\(\\Delta x = \\frac{6-0}{3} = 2\\)<br>Höhen (linke Ränder):<br>\\(f(0) = 6,\\; f(2) = 4,\\; f(4) = 2\\)<br>\\(O_3 = 2 \\cdot (6 + 4 + 2) = 24\\).<br><br>Hinweis: Der exakte Wert ist \\(\\int_0^6 (-x+6)\\,dx = 18\\). Die Obersumme liegt mit 24 <b>über</b> dem exakten Wert – wie erwartet."
+},
   {
-    "type": "true-false",
-    "front": "Wahr oder Falsch? Zwei Ebenen in Koordinatenform mit Vielfachen als Normalenvektoren (z.B. \\(E_1: 2x + 4y - 6z = 5\\) und \\(E_2: x + 2y - 3z = 2\\)) verlaufen echt parallel zueinander.",
-    "answer": true,
-    "back": "Wahr! Die Normalenvektoren sind kollinear (vielfach voneinander), aber die Konstanten auf der rechten Seite skalieren nicht im selben Verhältnis, weshalb sie nicht identisch sind."
-  },
-  {
-    "type": "flashcard",
-    "front": "3D-Skizze / Vorstellung: Wie liegen die Koordinatenachsen \\(x_1\\), \\(x_2\\) und \\(x_3\\) im Standard-Räumlichen Dreibein zueinander?",
-    "back": "Die \\(x_1\\)-Achse zeigt nach vorne-rechts (oft im 45°-Winkel nach unten-links gezeichnet), die \\(x_2\\)-Achse nach rechts und die \\(x_3\\)-Achse senkrecht nach oben."
-  },
-  {
-    "type": "multiple-choice",
-    "front": "Welcher Graph beschreibt die Ableitung der Parabel \\(f(x) = x^2\\)?",
-    "options": [
-      "Eine waagerechte Gerade bei \\(y = 2\\)",
-      "Eine Ursprungsgerade mit der Steigung \\(2\\) (also \\(f'(x) = 2x\\))",
-      "Eine nach unten geöffnete Parabel",
-      "Eine Exponentialfunktion"
-    ],
-    "correct": 1,
-    "back": "Richtig! Die Ableitung von \\(x^2\\) ist \\(2x\\), was graphisch einer Ursprungsgeraden mit Steigung 2 entspricht."
-  },
-  {
-    "type": "flashcard",
-    "front": "Wie lautet die erste Ableitung der Funktion \\(f(x) = x^2\\)?",
-    "back": "\\(f'(x) = 2x\\)"
-  },
-  {
-    "type": "multiple-choice",
-    "front": "Welcher Wert ergibt sich für den Sinus an der Stelle \\(x = \\frac{\\pi}{2}\\)?",
-    "options": [
-      "\\(0\\)",
-      "\\(\\frac{1}{2}\\)",
-      "\\(1\\)",
-      "\\(-1\\)"
-    ],
-    "correct": 2,
-    "back": "Richtig! \\(\\sin\\left(\\frac{\\pi}{2}\\right) = 1\\)."
-  },
-  {
-    "type": "true-false",
-    "front": "Wahr oder Falsch? Die Ableitung der Sinusfunktion \\(f(x) = \\sin(x)\\) ist \\(f'(x) = -\\cos(x)\\).",
-    "answer": false,
-    "back": "Falsch! Die Ableitung von \\(\\sin(x)\\) ist \\(\\cos(x)\\) (ohne Minuszeichen)."
-  },
-  {
-    "type": "flashcard",
-    "front": "Betrachte den folgenden Entscheidungsbaum:",
-    "back": "<div class='mermaid'>graph TD; A[Start] --> B{Entscheidung}; B --> C[Ergebnis 1]; B --> D[Ergebnis 2]; C --> E[Wahrscheinlichkeit 50%]; D --> F[Wahrscheinlichkeit 50%];</div><br>Die Gesamtwahrscheinlichkeit für Ergebnis 1 beträgt 50 %."
-  },
-  {
-    "type": "flashcard",
-    "front": "Skizziere den Graphen der Funktion f(x) = x²:",
-    "back": "<img src='https://quickchart.io/chart?c={type:\\'line\\',data:{labels:[-3,-2,-1,0,1,2,3],datasets:[{label:\\'f(x)=x²\\',data:[9,4,1,0,1,4,9],borderColor:\\'#1f6feb\\',backgroundColor:\\'rgba(31,111,235,0.1)\\',fill:true,pointRadius:4}]},options:{plugins:{legend:{labels:{color:\\'#e6edf3\\'}}},scales:{x:{ticks:{color:\\'#e6edf3\\'}},y:{ticks:{color:\\'#e6edf3\\'}}}}}' alt='Parabel f(x)=x²' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
-  },
-  {
-    "type": "flashcard",
-    "front": "Skizziere den Graphen der Funktion f(x) = 1/x:",
-    "back": "<img src='https://quickchart.io/chart?c={type:\\'line\\',data:{labels:[-4,-2,-1,-0.5,0.5,1,2,4],datasets:[{label:\\'f(x)=1/x\\',data:[-0.25,-0.5,-1,-2,2,1,0.5,0.25],borderColor:\\'#f0883e\\',backgroundColor:\\'rgba(240,136,62,0.1)\\',fill:false,pointRadius:4}]},options:{plugins:{legend:{labels:{color:\\'#e6edf3\\'}}},scales:{x:{ticks:{color:\\'#e6edf3\\'}},y:{ticks:{color:\\'#e6edf3\\'}}}}}' alt='Hyperbel' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
-  },
-  {
-    "type": "flashcard",
-    "front": "Skizziere den Graphen der Sinusfunktion f(x) = sin(x):",
-    "back": "<img src='https://quickchart.io/chart?c={type:\\'line\\',data:{labels:[-6,-4,-2,0,2,4,6],datasets:[{label:\\'sin(x)\\',data:[0.28,-0.76,0.91,0,-0.91,0.76,-0.28],borderColor:\\'#58a6ff\\',backgroundColor:\\'rgba(88,166,255,0.1)\\',fill:true,pointRadius:4}]},options:{plugins:{legend:{labels:{color:\\'#e6edf3\\'}}},scales:{x:{ticks:{color:\\'#e6edf3\\'}},y:{ticks:{color:\\'#e6edf3\\'}}}}}' alt='Sinusfunktion' style='max-width:100%;margin:10px 0;border-radius:8px;background:#0d1117;padding:10px;'>"
+  "type": "flashcard",
+  "front": "<div style='text-align:center;'><p style='color:#8b949e; font-size:0.9rem;'>🔵 Bewege den x-Wert</p><svg id='mp-canvas' data-func='0.3*x*x' data-a='0' data-b='4' viewBox='0 0 360 180' style='width:100%; max-width:360px; margin:0 auto; display:block;'></svg><div id='mp-info' style='margin-top:10px; font-family:monospace; color:#00dfc8;'></div><input type='range' min='0' max='4' step='0.1' value='2' style='width:85%; margin-top:8px;' oninput=\"movePoint('mp-canvas', parseFloat(this.value), null, 'mp-info')\"><img src='x' onerror=\"movePoint('mp-canvas', 2, null, 'mp-info')\" style='display:none;'><p style='margin-top:12px; font-size:1rem;'>Beschreibe, wie sich die Fläche verändert.</p></div>",
+   // 7) Sortier-Aufgabe: Klick auf zwei Elemente tauscht sie
+  function swapStep(el) {
+    const parent = el.parentElement;
+    if (!parent.dataset.selected) {
+      // Erstes Element auswählen
+      parent.querySelectorAll('[data-step]').forEach(e => e.style.outline = 'none');
+      el.style.outline = '2px solid #00dfc8';
+      parent.dataset.selected = el.dataset.step;
+    } else {
+      // Zweites Element → tauschen
+      const firstId = parent.dataset.selected;
+      const first = parent.querySelector(`[data-step="${firstId}"]`);
+      if (first && first !== el) {
+        const tempHTML = first.innerHTML;
+        const tempStep = first.dataset.step;
+        first.innerHTML = el.innerHTML;
+        first.dataset.step = el.dataset.step;
+        el.innerHTML = tempHTML;
+        el.dataset.step = tempStep;
+      }
+      parent.querySelectorAll('[data-step]').forEach(e => e.style.outline = 'none');
+      delete parent.dataset.selected;
+    }
   }
+
+  function{
+  "type": "flashcard",
+  "front": "<div style='text-align:left;'><b style='color:#00dfc8;'>🔀 Sortiere die Schritte</b><br><br>Klicke zwei Schritte an, um sie zu tauschen. Bringe sie in die richtige Reihenfolge.<br><br><div id='sort-container' style='display:flex; flex-direction:column; gap:8px; margin:15px 0;'>\n<div data-step='D' onclick=\"swapStep(this)\" style='padding:10px 14px; background:#21262d; border:1px solid #30363d; border-radius:6px; cursor:pointer;'>Endbestand berechnen: \\(B_{Ende} = B_0 + U_4\\)</div>\n<div data-step='B' onclick=\"swapStep(this)\" style='padding:10px 14px; background:#21262d; border:1px solid #30363d; border-radius:6px; cursor:pointer;'>Höhen der Rechtecke bestimmen</div>\n<div data-step='A' onclick=\"swapStep(this)\" style='padding:10px 14px; background:#21262d; border:1px solid #30363d; border-radius:6px; cursor:pointer;'>Intervallbreite \\(\\Delta x\\) berechnen</div>\n<div data-step='C' onclick=\"swapStep(this)\" style='padding:10px 14px; background:#21262d; border:1px solid #30363d; border-radius:6px; cursor:pointer;'>Untersumme berechnen: \\(U_4 = \\Delta x \\cdot (h_1+h_2+h_3+h_4)\\)</div>\n</div><button onclick=\"checkOrder('sort-container', 'ABCD', 'sort-fb')\" style='padding:10px 20px; background:#238636; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:bold;'>Reihenfolge prüfen</button><div id='sort-fb' style='margin-top:12px; font-weight:bold;'></div></div>",
+  "back": "Richtige Reihenfolge:<br><br><b>A)</b> Intervallbreite \\(\\Delta x\\) berechnen<br><b>B)</b> Höhen bestimmen (linke Ränder)<br><b>C)</b> Untersumme \\(U_4\\) berechnen<br><b>D)</b> Endbestand: \\(B_{Ende} = B_0 + U_4\\)<br><br>Diese Reihenfolge solltest du bei jeder Aufgabe durchgehen."
+} checkOrder(containerId, correctOrder, feedbackId) {
+    const container = document.getElementById(containerId);
+    const fb = document.getElementById(feedbackId);
+    const items = [...container.querySelectorAll('[data-step]')];
+    const current = items.map(el => el.dataset.step).join('');
+    if (current === correctOrder) {
+      fb.innerHTML = "✅ Perfekte Reihenfolge!";
+      fb.style.color = "#22c55e";
+    } else {
+      fb.innerHTML = "❌ Noch nicht ganz. Überlege, was zuerst gemacht werden muss.";
+      fb.style.color = "#ef4444";
+    }
+  } "back": "Die markierte Fläche wächst <b>je weiter x nach rechts wandert</b>.<br><br>Diese Fläche \\(A(x)\\) ist eine <b>Funktion von x</b>. Sie heißt <b>Integralfunktion</b> und ist eine Stammfunktion von \\(f\\).<br><br>Hier: \\(f(x) = 0{,}3x^2 \\Rightarrow A(x) = 0{,}1x^3\\) (weil \\(\\frac{1}{3} \\cdot 0{,}3 = 0{,}1\\)).<br><br>Das ist der Kern des Hauptsatzes: <b>Ableiten der Fläche gibt die Funktion zurück</b>."
+},
+  {
+  "type": "flashcard",
+  "front": "<div style='text-align:left;'><b style='color:#00dfc8;'>🚗 Die Fahrt zur Schule</b><br><br>Du fährst mit dem Fahrrad zur Schule. Deine Geschwindigkeit (in km/h) wird beschrieben durch \\(v(t) = 15 - 2t\\) für \\(0 \\leq t \\leq 5\\) (t in Minuten).<br><br><b style='color:#facc15;'>Was bedeutet es, wenn \\(v(t)\\) negativ wird?</b><br><br><div style='display:flex; flex-direction:column; gap:8px; margin-top:10px;'>\n<button data-mc='wrong' onclick=\"checkMC(this, false)\" style='padding:10px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; text-align:left;'>A) Du bleibst stehen und drehst um.</button>\n<button data-mc='correct' onclick=\"checkMC(this, true)\" style='padding:10px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; text-align:left;'>B) Du fährst langsamer als im Modell vorhergesagt – das Modell verliert seine Gültigkeit.</button>\n<button data-mc='wrong' onclick=\"checkMC(this, false)\" style='padding:10px; background:#21262d; color:#e5e7eb; border:1px solid #30363d; border-radius:6px; cursor:pointer; text-align:left;'>C) Du wirst schneller als 15 km/h.</button>\n</div><div data-mc-feedback style='margin-top:12px; font-weight:bold;'></div></div>",
+  "back": "Antwort <b>B</b> ist richtig.<br><br>Bei \\(t = 7{,}5\\) würde \\(v(t)\\) tatsächlich negativ – das wäre „rückwärts fahren" im Modell. Da unsere Zeit aber nur bis \\(t = 5\\) geht, ist das Modell im <b>betrachteten Intervall</b> sinnvoll.<br><br><b>Wichtig:</b> Immer auf den <b>Definitionsbereich</b> achten – das Integral liefert nur dann eine sinnvolle Antwort, wenn das Modell dort gültig ist."
+},
+
+
 ]
