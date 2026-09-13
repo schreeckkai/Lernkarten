@@ -1,271 +1,423 @@
-// ==================================================
-// HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
-// (Version 2 – mit Bugfixes und Robustheit)
-// ==================================================
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lernkarten-Trainer</title>
 
-// 0) Zentraler Funktions-Parser
-// Wandelt einen String wie "0.1*x*x + 0.5" in eine aufrufbare Funktion um.
-function parseFunc(funcStr) {
-  if (typeof funcStr !== 'string') return () => 0;
-  try {
-    const node = Function('x', 'return ' + funcStr);
-    // Test: einmal aufrufen, um Syntaxfehler früh zu erkennen
-    node(0);
-    return node;
-  } catch (e) {
-    console.warn('Funktions-Parser Fehler in:', funcStr, e);
-    return () => 0;
-  }
-}
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
-// 1) Riemann-Summe live zeichnen
-// Parameter:
-//   canvasId – ID des SVG-Elements
-//   a, b     – Intervallgrenzen
-//   n        – Anzahl Rechtecke
-//   type     – "U" (Untersumme) oder "O" (Obersumme)
-//   funcStr  – optionaler Funktionsterm (sonst aus data-func)
-function riemann(canvasId, a, b, n, type, funcStr) {
-  const svg = document.getElementById(canvasId);
-  if (!svg) return;
-
-  const func = svg.dataset.func || funcStr || "x";
-  const f = parseFunc(func);
-  const W = 360, H = 180, pad = 30;
-  const scaleX = (W - 2 * pad) / (b - a);
-
-  // === Y-Skalierung: Maximum UND Minimum berücksichtigen ===
-  let maxY = 0.01, minY = 0;
-  for (let i = 0; i <= 200; i++) {
-    const y = f(a + (b - a) * i / 200);
-    if (y > maxY) maxY = y;
-    if (y < minY) minY = y;
-  }
-  const yRange = maxY - minY;
-  if (yRange <= 0) return;
-  const scaleY = (H - 2 * pad) / yRange;
-  const zeroY = pad + maxY * scaleY;  // y-Position der x-Achse
-
-  let html = "";
-
-  // === Achsen ===
-  html += `<line x1="${pad}" y1="${zeroY}" x2="${W - pad}" y2="${zeroY}" stroke="#8b949e" stroke-width="1.5"/>`;
-  html += `<line x1="${pad}" y1="${pad / 2}" x2="${pad}" y2="${H - pad}" stroke="#8b949e" stroke-width="1.5"/>`;
-
-  // === Rechtecke (korrekt für positive UND negative Höhen) ===
-  const dx = (b - a) / n;
-  for (let i = 0; i < n; i++) {
-    const x0 = a + i * dx;
-
-    // 11 Samples pro Teilintervall → Min oder Max bestimmen
-    const samples = [];
-    for (let k = 0; k <= 10; k++) {
-      samples.push(f(x0 + k * dx / 10));
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;
     }
-    const h = (type === "U") ? Math.min(...samples) : Math.max(...samples);
+    .app-container {
+      background-color: #0d1117;
+      border-left: 5px solid #644533;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      width: 100%; max-width: 800px; box-sizing: border-box;
+    }
+    h3 { margin-top: 0; font-size: 1.4rem; display: flex; align-items: center; justify-content: space-between; }
+    .brand-title {
+      font-family: 'Creepster', cursive, Georgia;
+      color: #644533; font-size: 1.8rem; letter-spacing: 1px;
+    }
+    .counter { font-size: 0.9rem; color: #8b949e; font-family: monospace; }
+    .card-box {
+      background-color: #161b22; border: 1px solid #30363d;
+      border-radius: 8px; min-height: 320px; padding: 30px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3); box-sizing: border-box;
+    }
+    .card-side-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+      color: #644533; font-family: 'Creepster', cursive; margin-bottom: 12px;
+    }
+    .card-content {
+      font-size: 1.15rem; line-height: 1.6; color: #e5e7eb; width: 100%;
+    }
+    .card-content b { color: #00dfc8; }
+    .btn-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 20px; gap: 10px;
+    }
+    button.action-btn {
+      background: #21262d; color: #e5e7eb; border: 1px solid #30363d;
+      padding: 10px 20px; border-radius: 6px; cursor: pointer;
+      font-weight: bold; flex: 1;
+    }
+    button.action-btn.primary { background: #238636; color: #fff; border: none; }
+    button.action-btn:hover { opacity: 0.9; }
+    .shuffle-container { text-align: center; margin-top: 15px; }
+    button.shuffle-btn {
+      background: transparent; border: none; color: #00dfc8;
+      cursor: pointer; font-size: 0.9rem; text-decoration: underline;
+    }
+    .error-box {
+      background: rgba(239,68,68,0.15); border: 1px solid #ef4444;
+      color: #fca5a5; padding: 16px; border-radius: 8px;
+      margin: 10px 0; font-family: monospace; font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
 
-    const px = pad + (x0 - a) * scaleX;
-    const pw = dx * scaleX;
-    const py = zeroY - h * scaleY;
+<div class="app-container">
+  <h3>
+    <span class="brand-title">Lernkarten-Trainer</span>
+    <span id="card-counter" class="counter">Lade...</span>
+  </h3>
 
-    // KORREKTUR: Rechteck immer von der x-Achse bis zur Höhe h
-    const rectY = Math.min(zeroY, py);
-    const rectH = Math.abs(zeroY - py);
+  <div id="card-box" class="card-box" onclick="flipCard()">
+    <div id="card-side-label" class="card-side-label">Frage</div>
+    <div id="card-content" class="card-content">Lade Karten...</div>
+  </div>
 
-    const fillColor = type === "U"
-      ? "rgba(34,197,94,0.35)"
-      : "rgba(239,68,68,0.30)";
-    const strokeColor = type === "U" ? "#22c55e" : "#ef4444";
+  <div class="btn-row">
+    <button class="action-btn" onclick="prevCard()">← Zurück</button>
+    <button class="action-btn primary" onclick="flipCard()">Umdrehen</button>
+    <button class="action-btn" onclick="nextCard()">Weiter →</button>
+  </div>
 
-    html += `<rect x="${px}" y="${rectY}" width="${pw}" height="${rectH}" `;
-    html += `fill="${fillColor}" stroke="${strokeColor}" stroke-width="1"/>`;
+  <div class="shuffle-container">
+    <button class="shuffle-btn" onclick="shuffleCards()">Kartensatz mischen</button>
+  </div>
+</div>
+
+<script>
+  // ==================================================
+  // 1) KARTEN LADEN
+  // ==================================================
+  let cards = [];
+  let currentIndex = 0;
+  let showingFront = true;
+  let deck = [];
+
+  function loadCardsFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const deckName = params.get('deck');
+
+    if (!deckName) {
+      // Kein Deck angegeben → Beispiel-Karten inline
+      return Promise.resolve([
+        { front: "Was ist die Untersumme \\(U_n\\)?",
+          back: "Eine Näherung für den Flächeninhalt unter einem Graphen – Rechtecke liegen unter dem Graphen." }
+      ]);
+    }
+
+    const url = deckName + '.json';
+    console.log('Lade Karten von:', url);
+
+    return fetch(url)
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status + ' beim Laden von ' + url);
+        return r.text();
+      })
+      .then(text => {
+        try {
+          return JSON.parse(text);
+        } catch(e) {
+          throw new Error('JSON-Fehler in ' + url + ': ' + e.message);
+        }
+      });
   }
 
-  // === Kurve ===
-  let pts = "";
-  for (let i = 0; i <= 100; i++) {
-    const x = a + (b - a) * i / 100;
-    pts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
-  }
-  html += `<polyline points="${pts.trim()}" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>`;
-
-  svg.innerHTML = html;
-
-  // === Info-Text aktualisieren (optional) ===
-  const infoId = svg.dataset.info;
-  if (infoId) {
-    const el = document.getElementById(infoId);
-    if (el) el.textContent = n;
-  }
-}
-
-// 2) Punkt auf Graph ziehen (Slider-Variante)
-function movePoint(svgId, xVal, funcStr, infoId) {
-  const svg = document.getElementById(svgId);
-  if (!svg) return;
-
-  const func = svg.dataset.func || funcStr || "x";
-  const f = parseFunc(func);
-  const a = parseFloat(svg.dataset.a || 0);
-  const b = parseFloat(svg.dataset.b || 6);
-  const W = 360, H = 180, pad = 30;
-  const scaleX = (W - 2 * pad) / (b - a);
-
-  // === Y-Skalierung: Maximum UND Minimum berücksichtigen ===
-  let maxY = 0.01, minY = 0;
-  for (let i = 0; i <= 100; i++) {
-    const y = f(a + (b - a) * i / 100);
-    if (y > maxY) maxY = y;
-    if (y < minY) minY = y;
-  }
-  const yRange = maxY - minY;
-  if (yRange <= 0) return;
-  const scaleY = (H - 2 * pad) / yRange;
-  const zeroY = pad + maxY * scaleY;
-
-  let html = "";
-
-  // === Achsen ===
-  html += `<line x1="${pad}" y1="${zeroY}" x2="${W - pad}" y2="${zeroY}" stroke="#8b949e" stroke-width="1.5"/>`;
-  html += `<line x1="${pad}" y1="${pad / 2}" x2="${pad}" y2="${H - pad}" stroke="#8b949e" stroke-width="1.5"/>`;
-
-  // === Fläche unter Kurve bis xVal ===
-  let areaPts = `${pad},${zeroY} `;
-  for (let i = 0; i <= 60; i++) {
-    const x = a + (xVal - a) * i / 60;
-    areaPts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
-  }
-  areaPts += `${pad + (xVal - a) * scaleX},${zeroY}`;
-  html += `<polygon points="${areaPts}" fill="rgba(0,223,200,0.20)" stroke="none"/>`;
-
-  // === Kurve ===
-  let pts = "";
-  for (let i = 0; i <= 100; i++) {
-    const x = a + (b - a) * i / 100;
-    pts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
-  }
-  html += `<polyline points="${pts.trim()}" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>`;
-
-  // === Punkt + gestrichelte Linie ===
-  const px = pad + (xVal - a) * scaleX;
-  const py = zeroY - f(xVal) * scaleY;
-  html += `<line x1="${px}" y1="${zeroY}" x2="${px}" y2="${py}" stroke="#00dfc8" stroke-width="1.5" stroke-dasharray="3,3"/>`;
-  html += `<circle cx="${px}" cy="${py}" r="6" fill="#00dfc8" stroke="#0d1117" stroke-width="2"/>`;
-
-  svg.innerHTML = html;
-
-  // === Info-Text aktualisieren ===
-  const el = document.getElementById(infoId);
-  if (el) el.innerHTML = `x = ${xVal.toFixed(2)} &nbsp;|&nbsp; f(x) = ${f(xVal).toFixed(2)}`;
-}
-
-// 3) Selbst-Check für numerische Antworten
-function checkNum(inputId, correct, tol, feedbackId) {
-  const input = document.getElementById(inputId);
-  const fb = document.getElementById(feedbackId);
-  if (!input || !fb) return;
-
-  // Komma wird als Dezimaltrennzeichen akzeptiert
-  const raw = input.value.trim().replace(",", ".");
-  const val = parseFloat(raw);
-
-  if (isNaN(val)) {
-    fb.innerHTML = "❌ Bitte gib eine Zahl ein.";
-    fb.style.color = "#ef4444";
-    return;
+  // ==================================================
+  // 2) ANZEIGE-LOGIK
+  // ==================================================
+  function renderMath() {
+    if (window.renderMathInElement) {
+      try {
+        renderMathInElement(document.getElementById('card-content'), {
+          delimiters: [
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+          ],
+          throwOnError: false
+        });
+      } catch(e) { console.warn('KaTeX:', e); }
+    }
   }
 
-  if (Math.abs(val - correct) <= tol) {
-    fb.innerHTML = "✅ Richtig!";
-    fb.style.color = "#22c55e";
-  } else {
-    // Hinweis: Richtiger Wert NICHT verraten, nur Toleranz anzeigen
-    fb.innerHTML = `❌ Noch nicht ganz.`;
-    fb.style.color = "#ef4444";
-  }
-}
+  function displayCard() {
+    if (!deck || deck.length === 0) {
+      document.getElementById('card-content').innerHTML =
+        '<div class="error-box">Keine Karten geladen.</div>';
+      document.getElementById('card-counter').innerText = '0 / 0';
+      return;
+    }
+    const card = deck[currentIndex];
+    const contentDiv = document.getElementById('card-content');
+    const labelDiv = document.getElementById('card-side-label');
+    const counterDiv = document.getElementById('card-counter');
 
-// 4) Multiple-Choice-Buttons mit Feedback
-// Wird in Karten mit data-MC-Buttons genutzt
-function checkMC(buttonEl, isCorrect) {
-  const parent = buttonEl.parentElement;
-
-  // Alle Buttons in der Gruppe deaktivieren und markieren
-  const buttons = parent.querySelectorAll("button[data-mc]");
-  buttons.forEach(btn => {
-    btn.disabled = true;
-    btn.style.cursor = "default";
-    if (btn.dataset.mc === "correct") {
-      btn.style.background = "rgba(34,197,94,0.25)";
-      btn.style.borderColor = "#22c55e";
-      btn.style.color = "#22c55e";
+    if (showingFront) {
+      contentDiv.innerHTML = card.front;
+      labelDiv.innerText = "Frage";
+      labelDiv.style.color = "#644533";
     } else {
-      btn.style.background = "rgba(239,68,68,0.15)";
-      btn.style.borderColor = "#30363d";
-      btn.style.color = "#8b949e";
+      contentDiv.innerHTML = card.back;
+      labelDiv.innerText = "Antwort";
+      labelDiv.style.color = "#00dfc8";
     }
-  });
 
-  // Feedback-Text anzeigen (falls vorhanden)
-  const fb = parent.querySelector("[data-mc-feedback]");
-  if (fb) {
-    if (isCorrect) {
+    counterDiv.innerText = `Karte ${currentIndex + 1} / ${deck.length}`;
+
+    setTimeout(renderMath, 50);
+  }
+
+  function flipCard() { showingFront = !showingFront; displayCard(); }
+  function nextCard() {
+    showingFront = true;
+    currentIndex = (currentIndex + 1) % deck.length;
+    displayCard();
+  }
+  function prevCard() {
+    showingFront = true;
+    currentIndex = (currentIndex - 1 + deck.length) % deck.length;
+    displayCard();
+  }
+  function shuffleCards() {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    currentIndex = 0;
+    showingFront = true;
+    displayCard();
+  }
+
+  // ==================================================
+  // 3) HILFSFUNKTIONEN FÜR DYNAMISCHE LERNKARTEN
+  // ==================================================
+
+  // --- 0) Funktions-Parser ---
+  function parseFunc(funcStr) {
+    if (typeof funcStr !== 'string') return () => 0;
+    try {
+      const node = Function('x', 'return ' + funcStr);
+      node(0);
+      return node;
+    } catch (e) {
+      console.warn('Parser-Fehler:', funcStr, e);
+      return () => 0;
+    }
+  }
+
+  // --- 1) Riemann-Summe live zeichnen ---
+  function riemann(canvasId, a, b, n, type, funcStr) {
+    const svg = document.getElementById(canvasId);
+    if (!svg) return;
+    const func = svg.dataset.func || funcStr || "x";
+    const f = parseFunc(func);
+    const W = 360, H = 180, pad = 30;
+    const scaleX = (W - 2 * pad) / (b - a);
+
+    let maxY = 0.01, minY = 0;
+    for (let i = 0; i <= 200; i++) {
+      const y = f(a + (b - a) * i / 200);
+      if (y > maxY) maxY = y;
+      if (y < minY) minY = y;
+    }
+    const yRange = maxY - minY;
+    if (yRange <= 0) return;
+    const scaleY = (H - 2 * pad) / yRange;
+    const zeroY = pad + maxY * scaleY;
+
+    let html = "";
+    html += `<line x1="${pad}" y1="${zeroY}" x2="${W - pad}" y2="${zeroY}" stroke="#8b949e" stroke-width="1.5"/>`;
+    html += `<line x1="${pad}" y1="${pad / 2}" x2="${pad}" y2="${H - pad}" stroke="#8b949e" stroke-width="1.5"/>`;
+
+    const dx = (b - a) / n;
+    for (let i = 0; i < n; i++) {
+      const x0 = a + i * dx;
+      const samples = [];
+      for (let k = 0; k <= 10; k++) samples.push(f(x0 + k * dx / 10));
+      const h = (type === "U") ? Math.min(...samples) : Math.max(...samples);
+      const px = pad + (x0 - a) * scaleX;
+      const pw = dx * scaleX;
+      const py = zeroY - h * scaleY;
+      const rectY = Math.min(zeroY, py);
+      const rectH = Math.abs(zeroY - py);
+      const fillColor = type === "U" ? "rgba(34,197,94,0.35)" : "rgba(239,68,68,0.30)";
+      const strokeColor = type === "U" ? "#22c55e" : "#ef4444";
+      html += `<rect x="${px}" y="${rectY}" width="${pw}" height="${rectH}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1"/>`;
+    }
+
+    let pts = "";
+    for (let i = 0; i <= 100; i++) {
+      const x = a + (b - a) * i / 100;
+      pts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
+    }
+    html += `<polyline points="${pts.trim()}" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>`;
+
+    svg.innerHTML = html;
+
+    const infoId = svg.dataset.info;
+    if (infoId) {
+      const el = document.getElementById(infoId);
+      if (el) el.textContent = n;
+    }
+  }
+
+  // --- 2) Punkt auf Graph ---
+  function movePoint(svgId, xVal, funcStr, infoId) {
+    const svg = document.getElementById(svgId);
+    if (!svg) return;
+    const func = svg.dataset.func || funcStr || "x";
+    const f = parseFunc(func);
+    const a = parseFloat(svg.dataset.a || 0);
+    const b = parseFloat(svg.dataset.b || 6);
+    const W = 360, H = 180, pad = 30;
+    const scaleX = (W - 2 * pad) / (b - a);
+
+    let maxY = 0.01, minY = 0;
+    for (let i = 0; i <= 100; i++) {
+      const y = f(a + (b - a) * i / 100);
+      if (y > maxY) maxY = y;
+      if (y < minY) minY = y;
+    }
+    const yRange = maxY - minY;
+    if (yRange <= 0) return;
+    const scaleY = (H - 2 * pad) / yRange;
+    const zeroY = pad + maxY * scaleY;
+
+    let html = "";
+    html += `<line x1="${pad}" y1="${zeroY}" x2="${W - pad}" y2="${zeroY}" stroke="#8b949e" stroke-width="1.5"/>`;
+    html += `<line x1="${pad}" y1="${pad / 2}" x2="${pad}" y2="${H - pad}" stroke="#8b949e" stroke-width="1.5"/>`;
+
+    let areaPts = `${pad},${zeroY} `;
+    for (let i = 0; i <= 60; i++) {
+      const x = a + (xVal - a) * i / 60;
+      areaPts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
+    }
+    areaPts += `${pad + (xVal - a) * scaleX},${zeroY}`;
+    html += `<polygon points="${areaPts}" fill="rgba(0,223,200,0.20)" stroke="none"/>`;
+
+    let pts = "";
+    for (let i = 0; i <= 100; i++) {
+      const x = a + (b - a) * i / 100;
+      pts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
+    }
+    html += `<polyline points="${pts.trim()}" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>`;
+
+    const px = pad + (xVal - a) * scaleX;
+    const py = zeroY - f(xVal) * scaleY;
+    html += `<line x1="${px}" y1="${zeroY}" x2="${px}" y2="${py}" stroke="#00dfc8" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+    html += `<circle cx="${px}" cy="${py}" r="6" fill="#00dfc8" stroke="#0d1117" stroke-width="2"/>`;
+
+    svg.innerHTML = html;
+
+    const el = document.getElementById(infoId);
+    if (el) el.innerHTML = `x = ${xVal.toFixed(2)} &nbsp;|&nbsp; f(x) = ${f(xVal).toFixed(2)}`;
+  }
+
+  // --- 3) Numerischer Selbst-Check ---
+  function checkNum(inputId, correct, tol, feedbackId) {
+    const input = document.getElementById(inputId);
+    const fb = document.getElementById(feedbackId);
+    if (!input || !fb) return;
+    const val = parseFloat(input.value.replace(",", "."));
+    if (isNaN(val)) {
+      fb.innerHTML = "❌ Bitte gib eine Zahl ein.";
+      fb.style.color = "#ef4444";
+      return;
+    }
+    if (Math.abs(val - correct) <= tol) {
       fb.innerHTML = "✅ Richtig!";
       fb.style.color = "#22c55e";
     } else {
-      fb.innerHTML = "❌ Leider falsch – die richtige Antwort ist grün markiert.";
+      fb.innerHTML = "❌ Noch nicht ganz.";
       fb.style.color = "#ef4444";
     }
   }
-}
 
-// 5) Klick-zum-Aufdecken
-// Versteckt einen Bereich und zeigt ihn beim Klick an
-function revealStep(elementId) {
-  const el = document.getElementById(elementId);
-  if (!el) return;
-  if (el.style.display === "block") {
-    el.style.display = "none";
-  } else {
-    el.style.display = "block";
-  }
-}
-
-// 6) Zufallsgenerator: erzeugt eine neue Funktion + zugehörige Werte
-// und rendert sie in ein SVG mit dem übergebenen Prefix
-function randomizeRiemann(prefix) {
-  // Zufällige Funktion: ax² + bx + c
-  const a = (Math.random() * 0.4 + 0.1).toFixed(2);
-  const b = (Math.random() * 2 - 1).toFixed(2);
-  const c = (Math.random() * 2).toFixed(2);
-  const funcStr = `${a}*x*x + ${b}*x + ${c}`;
-
-  // Intervall und n
-  const bEnd = 4 + Math.floor(Math.random() * 3);  // 4 bis 6
-  const n = 3 + Math.floor(Math.random() * 3);      // 3 bis 5
-  const type = Math.random() < 0.5 ? "U" : "O";
-
-  // SVG-Element aktualisieren
-  const svg = document.getElementById(prefix + "-canvas");
-  if (svg) {
-    svg.dataset.func = funcStr;
-    svg.dataset.b = bEnd;
+  // --- 4) Multiple-Choice-Feedback ---
+  function checkMC(buttonEl, isCorrect) {
+    const parent = buttonEl.parentElement;
+    const buttons = parent.querySelectorAll("button[data-mc]");
+    buttons.forEach(btn => {
+      btn.disabled = true;
+      btn.style.cursor = "default";
+      if (btn.dataset.mc === "correct") {
+        btn.style.background = "rgba(34,197,94,0.25)";
+        btn.style.borderColor = "#22c55e";
+        btn.style.color = "#22c55e";
+      } else {
+        btn.style.background = "rgba(239,68,68,0.15)";
+        btn.style.borderColor = "#30363d";
+        btn.style.color = "#8b949e";
+      }
+    });
+    const fb = parent.querySelector("[data-mc-feedback]");
+    if (fb) {
+      fb.innerHTML = isCorrect ? "✅ Richtig!" : "❌ Leider falsch – die richtige Antwort ist grün markiert.";
+      fb.style.color = isCorrect ? "#22c55e" : "#ef4444";
+    }
   }
 
-  // Funktion neu rendern
-  riemann(prefix + "-canvas", 0, bEnd, n, type);
-
-  // Aufgabentext aktualisieren
-  const taskEl = document.getElementById(prefix + "-task");
-  if (taskEl) {
-    const typeLabel = type === "U" ? "Untersumme" : "Obersumme";
-    taskEl.innerHTML = `Berechne die ${typeLabel} \\(${type}_${n}\\) für 
-      \\(f(x) = ${funcStr.replace(/\*/g, "")}\\) auf \\([0; ${bEnd}]\\).`;
+  // --- 5) Klick-zum-Aufdecken ---
+  function revealStep(elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    el.style.display = (el.style.display === "block") ? "none" : "block";
   }
 
-  // Alte Lösung entfernen
-  const solEl = document.getElementById(prefix + "-solution");
-  if (solEl) {
-    solEl.style.display = "none";
+  // --- 6) Zufallsgenerator ---
+  function randomizeRiemann(prefix) {
+    const a = (Math.random() * 0.4 + 0.1).toFixed(2);
+    const b = (Math.random() * 2 - 1).toFixed(2);
+    const c = (Math.random() * 2).toFixed(2);
+    const funcStr = `${a}*x*x + ${b}*x + ${c}`;
+    const bEnd = 4 + Math.floor(Math.random() * 3);
+    const n = 3 + Math.floor(Math.random() * 3);
+    const type = Math.random() < 0.5 ? "U" : "O";
+
+    const svg = document.getElementById(prefix + "-canvas");
+    if (svg) { svg.dataset.func = funcStr; svg.dataset.b = bEnd; }
+
+    riemann(prefix + "-canvas", 0, bEnd, n, type);
+
+    const taskEl = document.getElementById(prefix + "-task");
+    if (taskEl) {
+      const typeLabel = type === "U" ? "Untersumme" : "Obersumme";
+      taskEl.innerHTML = `Berechne die ${typeLabel} \\(${type}_${n}\\) für \\(f(x) = ${funcStr.replace(/\*/g, "")}\\) auf \\([0; ${bEnd}]\\).`;
+    }
+    const solEl = document.getElementById(prefix + "-solution");
+    if (solEl) solEl.style.display = "none";
   }
-}
+
+  // ==================================================
+  // 4) START
+  // ==================================================
+  loadCardsFromURL()
+    .then(data => {
+      cards = data;
+      deck = [...cards];
+      if (deck.length === 0) {
+        document.getElementById('card-content').innerHTML =
+          '<div class="error-box">Der Kartensatz ist leer.</div>';
+        return;
+      }
+      shuffleCards();
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('card-content').innerHTML =
+        '<div class="error-box"><b>Fehler beim Laden:</b><br>' + err.message + '</div>';
+      document.getElementById('card-counter').innerText = 'Fehler';
+    });
+</script>
+
+</body>
+</html>
