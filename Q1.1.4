@@ -1,0 +1,159 @@
+[
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🧭 Welche Regel brauchst du?</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.1rem; line-height:1.9;'>Bestimme die Stammfunktion von:<br><br><span style='color:#00dfc8;'>\\(f(x) = 3x^4 - 2x^2 + 5\\)</span></div><div style='margin-top:12px; font-size:1rem;'>Welche Integrationsregeln musst du <b>kombinieren</b>?</div>",
+    "back": "Du brauchst <b>drei Regeln</b> gleichzeitig:<br><br>1. <b>Potenzregel</b> für \\(3x^4\\) und \\(-2x^2\\):<br>\\(x^n \\to \\frac{1}{n+1} x^{n+1}\\)<br><br>2. <b>Konstantenregel</b> für \\(5\\):<br>\\(a \\to a \\cdot x\\)<br><br>3. <b>Summenregel</b>:<br>Jeden Term einzeln integrieren!<br><br>Ergebnis: \\(F(x) = \\frac{3}{5}x^5 - \\frac{2}{3}x^3 + 5x + C\\)"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>💡 Die Potenzregel im Kern</div><div style='font-size:1.3rem; text-align:center;'>Was passiert beim Integrieren mit dem <b style='color:#00dfc8;'>Exponenten</b> und dem <b style='color:#f59e0b;'>Vorfaktor</b>?</div>",
+    "back": "<b>Exponent:</b> wird um <b style='color:#00dfc8;'>1 größer</b><br>\\(x^n \\to x^{n+1}\\)<br><br><b>Vorfaktor:</b> du teilst durch den <b style='color:#f59e0b;'>neuen</b> Exponenten<br>\\(a \\cdot x^n \\to \\frac{a}{n+1} x^{n+1}\\)<br><br>🎯 Merkregel: <i>„Hochzählen und durch das Neue teilen.“</i>"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🤔 Der vergessene Term</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.05rem; line-height:1.9;'>Ein Schüler soll \\(f(x) = x^3 + 7\\) integrieren.<br><br>Er schreibt: \\(F(x) = \\frac{1}{4}x^4 + C\\)<br><br><span style='color:#facc15;'>Was hat er vergessen?</span></div>",
+    "back": "Er hat die <b>Konstante 7</b> vergessen zu integrieren!<br><br>Eine Konstante \\(a\\) wird zu \\(a \\cdot x\\):<br>\\(7 \\to 7x\\)<br><br><b>Richtig:</b><br>\\(F(x) = \\frac{1}{4}x^4 + 7x + C\\)<br><br>⚠️ Typischer Fehler: Schüler verwechseln <i>Konstante</i> (→ \\(ax\\)) mit <i>Integrationskonstante</i> (→ \\(+ C\\))."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Welche der folgenden Funktionen ist <b>eine</b> Stammfunktion von \\(f(x) = 4x^3\\)?",
+    "options": [
+      "\\(F(x) = x^4 + 7\\)",
+      "\\(F(x) = 12x^2\\)",
+      "\\(F(x) = x^4\\)",
+      "\\(F(x) = \\frac{4}{3}x^3\\)"
+    ],
+    "correct": 2,
+    "back": "Die Probe durch Ableiten:\\<br><br>✅ \\((x^4)' = 4x^3\\) – <b>stimmt!</b><br><br>⚠️ Antwort 1 \\((x^4 + 7)\\) wäre <b>auch richtig</b>, da \\(+7\\) beim Ableiten wegfällt. In der Aufgabenstellung steht aber „<b>eine</b> Stammfunktion“ – \\(x^4\\) ist die einfachste.<br><br>❌ Antwort 2 ist die <b>Ableitung</b> (falsche Richtung).<br>❌ Antwort 4 hat <b>fälschlich</b> mit 3 geteilt statt mit 4."
+  },
+  {
+    "type": "true-false",
+    "front": "Die Funktion \\(f(x) = 0\\) hat <b>unendlich viele</b> Stammfunktionen.",
+    "answer": true,
+    "back": "<b>Richtig!</b><br><br>Jede konstante Funktion \\(F(x) = c\\) (mit \\(c \\in \\mathbb{R}\\)) ist eine Stammfunktion von \\(f(x) = 0\\), denn \\((c)' = 0\\).<br><br>Das ist genau der Grund, warum wir bei Stammfunktionen immer \\(+ C\\) schreiben – es gibt <b>keine eindeutige</b> Stammfunktion, sondern eine ganze <b>Familie</b> von parallelen Graphen."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🟡 Was bedeutet +C geometrisch?</div><svg viewBox='0 0 400 220' xmlns='http://www.w3.org/2000/svg' style='width:100%; max-width:380px; height:auto; display:block; margin:0 auto;'><line x1='40' y1='190' x2='380' y2='190' stroke='#8b949e' stroke-width='1.5'/><line x1='40' y1='20' x2='40' y2='190' stroke='#8b949e' stroke-width='1.5'/><polyline points='60,170 100,160 140,140 180,110 220,70 260,30 300,20 340,25' fill='none' stroke='#00dfc8' stroke-width='2.5'/><polyline points='60,130 100,120 140,100 180,70 220,30 260,20 300,25 340,40' fill='none' stroke='#3b82f6' stroke-width='2.5' stroke-dasharray='5,5'/><polyline points='60,90 100,80 140,60 180,30 220,20 260,25 300,40 340,60' fill='none' stroke='#a855f7' stroke-width='2.5' stroke-dasharray='2,3'/><polyline points='60,190 100,190 140,175 180,150 220,115 260,75 300,45 340,40' fill='none' stroke='#ef4444' stroke-width='2.5' stroke-dasharray='7,3'/><text x='355' y='20' fill='#00dfc8' font-size='12'>C=4</text><text x='355' y='35' fill='#3b82f6' font-size='12'>C=2</text><text x='355' y='55' fill='#a855f7' font-size='12'>C=0</text><text x='355' y='80' fill='#ef4444' font-size='12'>C=-3</text><text x='200' y='210' fill='#8b949e' font-size='11' text-anchor='middle'>x</text></svg><div style='margin-top:12px; font-size:1rem;'>Was siehst du hier?</div>",
+    "back": "Das sind <b>vier Stammfunktionen</b> derselben Funktion \\(f(x)\\) mit verschiedenen Werten für \\(C\\).<br><br>Sie sind alle <b>identisch geformt</b>, aber <b>vertikal verschoben</b> – genau um den Wert von \\(C\\).<br><br>🎯 <b>Geometrische Bedeutung von +C:</b><br>Die Integrationskonstante bestimmt, <b>welcher Graph aus der Schar</b> die Stammfunktion ist. Ohne Anfangsbedingung kannst du keinen eindeutigen Graphen zeichnen."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🕵️ Finde den Fehler</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-family:monospace; font-size:0.95rem; line-height:1.9;'>Ein Schüler integriert \\(f(x) = 6x^2 - 4x\\):<br><br>\\(F(x) = \\frac{6}{3}x^3 - \\frac{4}{2}x^2\\)<br>\\(F(x) = 2x^3 - 2x^2 + C\\)<br><br>Probe: \\(F'(x) = 6x^2 - 4x\\) ✓<br><br><span style='color:#facc15;'>Stimmt die Lösung wirklich?</span></div>",
+    "back": "<b>Ja, die Lösung ist korrekt!</b> 🎉<br><br>Die Probe durch Ableiten bestätigt:\\<br>\\((2x^3)' = 6x^2\\) ✓<br>\\((-2x^2)' = -4x\\) ✓<br>\\((C)' = 0\\) ✓<br><br>💡 <b>Der Trick bei Integrationen:</b> Die Probe durch Ableiten ist die <b>einzige sichere Methode</b>, um deine Stammfunktion zu überprüfen. <b>Immer</b> kurz die Ableitung bilden!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🕵️ Finde den Fehler (2)</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-family:monospace; font-size:0.95rem; line-height:1.9;'>Ein Schüler integriert \\(f(x) = 5x^3 + 2\\):<br><br>1) \\(5x^3 \\to \\frac{5}{4}x^4\\) ✓<br>2) <span style='color:#ef4444;'>\\(2 \\to 2\\)</span><br>3) \\(F(x) = \\frac{5}{4}x^4 + 2 + C\\)<br><br><span style='color:#facc15;'>Wo ist der Fehler?</span></div>",
+    "back": "<b>Fehler in Schritt 2!</b><br><br>Die Konstante 2 wurde <b>nicht integriert</b>. Eine Zahl \\(a\\) wird zu \\(a \\cdot x\\), nicht bleibt \\(a\\).<br><br>❌ Falsch: \\(2 \\to 2\\)<br>✅ Richtig: \\(2 \\to 2x\\)<br><br>Korrekt:\\<br>\\(F(x) = \\frac{5}{4}x^4 + 2x + C\\)<br><br>⚠️ Das \\(+ C\\) am Ende rettet hier <b>nicht</b> – es ist eine <b>zusätzliche</b> Integrationskonstante und ersetzt <b>nie</b> den \\(ax\\)-Term."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🔄 Umgekehrte Richtung</div><div style='font-size:1.1rem; line-height:1.8;'>Gegeben ist die Stammfunktion:<br><br>\\(\\displaystyle F(x) = \\frac{1}{3}x^3 - 2x^2 + 5x + 4\\)<br><br>Welche Funktion \\(f(x)\\) wurde hier integriert?</div>",
+    "back": "Ableiten gibt die ursprüngliche Funktion zurück:<br><br>\\(f(x) = F'(x) = x^2 - 4x + 5\\)<br><br>💡 <b>Warum ist das nützlich?</b><br>Die <b>Probe</b> bei jeder Integrationsaufgabe: Leite dein \\(F(x)\\) ab und schaue, ob \\(f(x)\\) herauskommt. Wenn ja – fertig. Wenn nein – Fehler finden!<br><br>Die \\(+4\\) verschwindet beim Ableiten – das ist genau die Integrationskonstante \\(C\\)."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>📋 Integrationsrezept</div><div style='font-size:1rem;'>Bringe die Schritte zum Integrieren eines Polynoms in die richtige Reihenfolge:</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; margin-top:10px; font-size:0.95rem; line-height:1.9;'><b>A)</b> \\(+ C\\) als Integrationskonstante ergänzen<br><b>B)</b> Polynom in einzelne Summanden zerlegen<br><b>C)</b> Probe: \\(F'(x) = f(x)?\\)<br><b>D)</b> Jeden Summanden einzeln integrieren (Potenzregel / Konstantenregel)<br><b>E)</b> Terme zusammenfassen</div>",
+    "back": "<b>Richtige Reihenfolge: B → D → E → A → C</b><br><br>1. <b>B:</b> Polynom zerlegen in Summanden<br>2. <b>D:</b> Jeden Summanden einzeln integrieren<br>3. <b>E:</b> Terme zusammenfassen<br>4. <b>A:</b> \\(+ C\\) ergänzen<br>5. <b>C:</b> Probe durch Ableiten<br><br>🎯 Tipp: Die Probe ist <b>keine</b> Pflicht, aber sie rettet dich vor Flüchtigkeitsfehlern!"
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Für \\(f(x) = -2x^5\\) ist eine Stammfunktion:",
+    "options": [
+      "\\(F(x) = -\\frac{2}{6}x^6\\)",
+      "\\(F(x) = -10x^4\\)",
+      "\\(F(x) = -\\frac{1}{3}x^6\\)",
+      "\\(F(x) = -2x^6\\)"
+    ],
+    "correct": 2,
+    "back": "Anwendung der Potenzregel: Exponent +1 = 6, dann durch 6 teilen:<br><br>\\(-2x^5 \\to \\frac{-2}{6}x^6 = -\\frac{1}{3}x^6\\)<br><br>✅ Antwort 3 (gekürzt!) ist richtig.<br>❌ Antwort 1 ist <b>nicht gekürzt</b> (mathematisch ok, aber unüblich).<br>❌ Antwort 2 ist die <b>Ableitung</b> (falsche Richtung).<br>❌ Antwort 4 hat vergessen zu teilen."
+  },
+  {
+    "type": "true-false",
+    "front": "Bei \\(f(x) = x^2 + x\\) kann \\(F(x) = \\frac{x^3}{3} + \\frac{x^2}{2}\\) <b>ohne</b> \\(+ C\\) geschrieben werden und ist trotzdem korrekt.",
+    "answer": false,
+    "back": "<b>Nicht korrekt!</b> Die Schreibweise \\(F(x) = \\frac{x^3}{3} + \\frac{x^2}{2}\\) bezeichnet <b>eine spezielle</b> Stammfunktion (nämlich mit \\(C=0\\)), nicht <b>die allgemeine</b>.<br><br>In Prüfungen muss fast immer \\(+ C\\) stehen, weil es <b>alle</b> Stammfunktionen beschreibt.<br><br>💡 Ausnahme: Bei <b>Anfangsbedingungen</b> (z. B. \\(F(0) = 0\\)) fällt \\(C\\) weg – aber das wird dann extra angegeben."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🎯 Typ-Erkennung</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.05rem; line-height:2;'>Welche Art von Funktion ist das und welche Regel brauchst du?<br><br>\\(f(x) = 2 \\cdot e^{3x + 1}\\)</div>",
+    "back": "<b>Typ:</b> Linear verkettete Funktion mit <b>äußerer Funktion</b> \\(e^u\\) und <b>innerer Funktion</b> \\(u = 3x + 1\\).<br><br><b>Regel (lineare Substitution):</b><br>\\(\\int a \\cdot e^{bx+c} \\,dx = \\frac{a}{b} \\cdot e^{bx+c} + C\\)<br><br>Ergebnis:\\<br>\\(F(x) = \\frac{2}{3} e^{3x+1} + C\\)<br><br>🎯 Merke: Bei \\(e^{\\text{linear}}\\) bleibt \\(e^{\\text{linear}}\\) <b>erhalten</b>, du teilst nur durch die Steigung \\(b\\) der inneren Funktion."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🎯 Typ-Erkennung (2)</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.05rem; line-height:2;'>Welche Art und welche Regel?<br><br>\\(f(x) = 4 \\cdot \\sin(2x - 3)\\)</div>",
+    "back": "<b>Typ:</b> Linear verkettet mit <b>äußerer Funktion</b> \\(\\sin(u)\\) und <b>innerer Funktion</b> \\(u = 2x - 3\\).<br><br><b>Regel:</b><br>\\(\\int a \\cdot \\sin(bx+c) \\,dx = -\\frac{a}{b} \\cos(bx+c) + C\\)<br><br>Ergebnis:\\<br>\\(F(x) = -\\frac{4}{2} \\cos(2x-3) + C = -2\\cos(2x-3) + C\\)<br><br>⚠️ <b>Wichtig:</b> Bei \\(\\sin\\) wechselt die Funktion zu <b>\\(-\\cos\\)</b> – das negative Vorzeichen kommt von \\(\\frac{d}{dx}\\cos(x) = -\\sin(x)\\)!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🎯 Typ-Erkennung (3)</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.05rem; line-height:2;'>Welche Art und welche Regel?<br><br>\\(f(x) = -\\cos(5x + 2)\\)</div>",
+    "back": "<b>Typ:</b> Linear verkettet mit äußerer Funktion \\(\\cos(u)\\), innerer Funktion \\(u = 5x + 2\\), Vorfaktor \\(a = -1\\).<br><br><b>Regel:</b><br>\\(\\int a \\cdot \\cos(bx+c) \\,dx = \\frac{a}{b} \\sin(bx+c) + C\\)<br><br>Ergebnis:\\<br>\\(F(x) = \\frac{-1}{5} \\sin(5x+2) + C = -\\frac{1}{5}\\sin(5x+2) + C\\)<br><br>💡 Bei \\(\\cos\\) wird zu <b>\\(+\\sin\\)</b> (ohne Vorzeichenwechsel). Probe: \\((\\sin(u))' = \\cos(u) \\cdot u'\\)."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Was ist eine Stammfunktion von \\(f(x) = 3e^{-2x}\\)?",
+    "options": [
+      "\\(F(x) = -6e^{-2x}\\)",
+      "\\(F(x) = -\\frac{3}{2}e^{-2x}\\)",
+      "\\(F(x) = \\frac{3}{-2}e^{-3x}\\)",
+      "\\(F(x) = 3e^{-2x}\\)"
+    ],
+    "correct": 1,
+    "back": "Lineare Substitution: \\(a = 3\\), \\(b = -2\\).<br><br>\\(F(x) = \\frac{3}{-2} e^{-2x} = -\\frac{3}{2}e^{-2x}\\)<br><br>✅ Antwort 2 stimmt.<br><br>Probe: \\(\\left(-\\frac{3}{2}e^{-2x}\\right)' = -\\frac{3}{2} \\cdot (-2) \\cdot e^{-2x} = 3e^{-2x}\\) ✓<br><br>❌ Antwort 1: mit \\(b\\) multipliziert statt dividiert.<br>❌ Antwort 3: Exponent falsch verändert.<br>❌ Antwort 4: gar nicht integriert."
+  },
+  {
+    "type": "true-false",
+    "front": "Bei \\(f(x) = \\sin(x)\\) ist \\(F(x) = -\\cos(x) + C\\) eine Stammfunktion.",
+    "answer": true,
+    "back": "<b>Richtig!</b><br><br>Probe: \\((-\\cos(x))' = -(-\\sin(x)) = \\sin(x)\\) ✓<br><br>📐 <b>Die große Viererregel:</b><br>\\(\\sin(x) \\to -\\cos(x)\\)<br>\\(\\cos(x) \\to \\sin(x)\\)<br>\\(-\\sin(x) \\to \\cos(x)\\)<br>\\(-\\cos(x) \\to -\\sin(x)\\)<br><br>Merke: <b>Nur bei \\(\\sin\\)</b> wechselt das Vorzeichen!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🕵️ Finde den Fehler (3)</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-family:monospace; font-size:0.95rem; line-height:1.9;'>Aufgabe: \\(f(x) = e^{4x + 3}\\)<br><br>Schüler schreibt:<br>\\(F(x) = e^{4x+3} + C\\)<br><br>Probe: \\(F'(x) = e^{4x+3}\\) – <span style='color:#ef4444;'>aber das ist NICHT \\(f(x)\\)!</span><br><br><span style='color:#facc15;'>Wo liegt der Fehler?</span></div>",
+    "back": "<b>Fehler: Die innere Ableitung wurde vergessen!</b><br><br>Probe genauer:\\<br>\\(F'(x) = e^{4x+3} \\cdot 4 = 4e^{4x+3} \\neq e^{4x+3}\\)<br><br>Man muss durch die <b>innere Ableitung</b> \\(b = 4\\) teilen:<br><br>\\(F(x) = \\frac{1}{4} e^{4x+3} + C\\)<br><br>Probe jetzt:\\<br>\\(F'(x) = \\frac{1}{4} \\cdot 4 \\cdot e^{4x+3} = e^{4x+3}\\) ✓<br><br>🎯 <b>Die goldene Regel:</b> Bei linearer Verkettung <b>immer</b> durch \\(b\\) teilen!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🎛️ Live-Experiment</div><div style='text-align:center;'><p style='color:#8b949e; font-size:0.9rem;'>Verändere den Vorfaktor a und beobachte</p><div style='background:#161b22; padding:20px; border-radius:8px; margin:15px 0;'><div style='font-size:1.3rem;'>\\(f(x) = <span id='v-a' style='color:#00dfc8; font-weight:bold;'>2</span> \\cdot \\sin(3x)\\)</div><div style='font-size:1.3rem; margin-top:10px;'>\\(F(x) = <span id='v-F' style='color:#f59e0b; font-weight:bold;'>-2/3</span> \\cdot \\cos(3x) + C\\)</div></div><label style='font-size:0.9rem;'>Vorfaktor a: <b style='color:#00dfc8;' id='v-count'>2</b></label><br><input type='range' min='-5' max='5' value='2' step='1' style='width:85%; margin-top:8px;' oninput=\"document.getElementById('v-count').textContent=this.value; document.getElementById('v-a').textContent=this.value; const v=this.value==-5?'5/3':this.value==-4?'4/3':this.value==-3?'1':this.value==-2?'2/3':this.value==-1?'1/3':this.value==0?'0':this.value==1?'-1/3':this.value==2?'-2/3':this.value==3?'-1':this.value==4?'-4/3':'-5/3'; document.getElementById('v-F').textContent=v\"></div><div style='margin-top:12px; font-size:1rem;'>Was passiert mit der Stammfunktion, wenn du a veränderst?</div>",
+    "back": "Der Vorfaktor \\(a\\) <b>skaliert</b> auch die Stammfunktion – und das <b>Vorzeichen</b> ändert sich bei \\(\\sin\\) zu \\(-\\cos\\).<br><br>Immer gilt:\\<br>\\(F(x) = -\\frac{a}{b} \\cos(bx + c) + C\\)<br><br>💡 <b>Erkenntnis:</b> Der Vorfaktor \\(a\\) wird nur durch \\(b\\) (Steigung der inneren Funktion) geteilt, aber ansonsten <b>übernommen</b>.<br><br>🎯 Tipp: Bei \\(b = 3\\) teilst du immer durch 3 – egal wie groß \\(a\\) ist!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🔍 Sinus oder Cosinus?</div><div style='display:flex; gap:15px; justify-content:center; flex-wrap:wrap;'><div style='background:#161b22; padding:15px; border-radius:6px; text-align:center; flex:1; min-width:150px;'><div style='color:#00dfc8; font-size:0.9rem;'>Fall A</div><div style='font-size:1.1rem; margin-top:8px;'>\\(f(x) = \\sin(2x)\\)<br>\\(\\to F(x) = \\;?\\)</div></div><div style='background:#161b22; padding:15px; border-radius:6px; text-align:center; flex:1; min-width:150px;'><div style='color:#f59e0b; font-size:0.9rem;'>Fall B</div><div style='font-size:1.1rem; margin-top:8px;'>\\(f(x) = \\cos(2x)\\)<br>\\(\\to F(x) = \\;?\\)</div></div></div><div style='margin-top:12px; font-size:1rem;'>Woran erkennst du, ob die Stammfunktion ein <b>\\(-\\cos\\)</b> oder ein <b>\\(+\\sin\\)</b> enthält?</div>",
+    "back": "<b>Einfache Merkregel:</b><br><br>🔵 <b>\\(\\sin \\to -\\cos\\)</b> (Vorzeichenwechsel!)<br>🟡 <b>\\(\\cos \\to +\\sin\\)</b> (kein Vorzeichenwechsel)<br><br>Lösung:<br>Fall A: \\(F(x) = -\\frac{1}{2}\\cos(2x) + C\\)<br>Fall B: \\(F(x) = \\frac{1}{2}\\sin(2x) + C\\)<br><br>🧠 <b>Warum?</b> Die Ableitungen sind:<br>\\((\\cos(x))' = -\\sin(x)\\) → also muss beim Integrieren von \\(\\sin\\) ein <b>Minus</b> rein.<br>\\((\\sin(x))' = \\cos(x)\\) → also bleibt bei \\(\\cos\\) das Plus."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Was ist eine Stammfunktion von \\(f(x) = -3 \\cos(4x + 1)\\)?",
+    "options": [
+      "\\(F(x) = -\\frac{3}{4}\\sin(4x+1) + C\\)",
+      "\\(F(x) = 3\\sin(4x+1) + C\\)",
+      "\\(F(x) = \\frac{3}{4}\\cos(4x+1) + C\\)",
+      "\\(F(x) = 12\\sin(4x+1) + C\\)"
+    ],
+    "correct": 0,
+    "back": "Anwendung: \\(a = -3\\), \\(b = 4\\), \\(c = 1\\), Typ \\(\\cos\\).<br><br>\\(F(x) = \\frac{-3}{4}\\sin(4x+1) + C = -\\frac{3}{4}\\sin(4x+1) + C\\)<br><br>✅ Antwort 1 ist richtig.<br><br>Probe: \\(F'(x) = -\\frac{3}{4} \\cdot 4 \\cdot \\cos(4x+1) = -3\\cos(4x+1) = f(x)\\) ✓<br><br>❌ Antwort 2: durch b zu teilen vergessen.<br>❌ Antwort 3: falsche Funktion (\\(\\cos\\) statt \\(\\sin\\)).<br>❌ Antwort 4: mit b multipliziert statt dividiert."
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🧩 Gemischte Aufgabe</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.1rem; line-height:1.8;'>Bestimme eine Stammfunktion von:<br><br>\\(f(x) = 2x + e^{3x} - \\sin(x)\\)</div><div style='margin-top:12px; font-size:0.95rem;'>Welche Regeln musst du <b>gleichzeitig</b> anwenden?</div>",
+    "back": "Du brauchst <b>vier</b> Regeln auf einmal:<br><br>1. <b>Potenzregel</b> für \\(2x\\): \\(\\to x^2\\)<br>2. <b>Lineare Substitution</b> für \\(e^{3x}\\): \\(\\to \\frac{1}{3}e^{3x}\\)<br>3. <b>Trig-Regel</b> für \\(-\\sin(x)\\): \\(\\to \\cos(x)\\)<br>4. <b>Summenregel</b>: alles addieren<br><br>Ergebnis:\\<br>\\(F(x) = x^2 + \\frac{1}{3}e^{3x} + \\cos(x) + C\\)<br><br>Probe (Ableiten):<br>\\((x^2)' = 2x\\) ✓<br>\\(\\left(\\frac{1}{3}e^{3x}\\right)' = e^{3x}\\) ✓<br>\\((\\cos(x))' = -\\sin(x)\\) ✓"
+  },
+  {
+    "type": "true-false",
+    "front": "Die Funktion \\(f(x) = \\sin(2x + 5)\\) hat die Stammfunktion \\(F(x) = -\\cos(2x + 5) + C\\).",
+    "answer": false,
+    "back": "<b>Falsch!</b> Hier wurde vergessen, durch die innere Ableitung zu teilen.<br><br>Probe der „Lösung“:<br>\\((-\\cos(2x+5))' = \\sin(2x+5) \\cdot 2 = 2\\sin(2x+5) \\neq f(x)\\)<br><br>Richtig:<br>\\(F(x) = -\\frac{1}{2}\\cos(2x+5) + C\\)<br><br>⚠️ Bei <b>jeder</b> linearen Verkettung \\(g(bx+c)\\) musst du durch \\(b\\) teilen – egal ob \\(e\\), \\(\\sin\\) oder \\(\\cos\\)!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>⚡ Speed-Check: 4 Aufgaben</div><div style='display:grid; grid-template-columns:1fr 1fr; gap:10px; background:#161b22; padding:16px; border-radius:6px; font-size:0.95rem;'><div>1) \\(f(x)=x^2\\)<br>→ \\(F(x)=?\\)</div><div>2) \\(f(x)=e^x\\)<br>→ \\(F(x)=?\\)</div><div>3) \\(f(x)=\\cos(x)\\)<br>→ \\(F(x)=?\\)</div><div>4) \\(f(x)=5\\)<br>→ \\(F(x)=?\\)</div></div><div style='margin-top:12px; font-size:1rem;'>Kannst du alle vier im Kopf lösen?</div>",
+    "back": "Die <b>Basis-Quartett</b> der Integration:<br><br>1) \\(x^2 \\to \\frac{1}{3}x^3 + C\\)<br><br>2) \\(e^x \\to e^x + C\\) <i>(e^x ist seine eigene Stammfunktion!)</i><br><br>3) \\(\\cos(x) \\to \\sin(x) + C\\)<br><br>4) \\(5 \\to 5x + C\\)<br><br>💡 Diese vier Basisfunktionen solltest du <b>im Schlaf</b> können – sie sind das Fundament für alle komplexeren Aufgaben!"
+  },
+  {
+    "type": "flashcard",
+    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🏆 Die ultimative Testfrage</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.05rem; line-height:1.9;'>Bestimme eine Stammfunktion von:<br><br>\\(\\displaystyle f(x) = \\frac{1}{2}x^3 - 4e^{-x} + 3\\cos(2x) - 1\\)</div><div style='margin-top:12px; font-size:0.9rem; color:#8b949e;'>Tipp: Gehe Summand für Summand vor.</div>",
+    "back": "<b>Schritt für Schritt:</b><br><br>1. \\(\\frac{1}{2}x^3 \\to \\frac{1}{2} \\cdot \\frac{x^4}{4} = \\frac{x^4}{8}\\)<br><br>2. \\(-4e^{-x} \\to \\frac{-4}{-1}e^{-x} = 4e^{-x}\\) <i>(\\(b = -1\\)!)</i><br><br>3. \\(3\\cos(2x) \\to \\frac{3}{2}\\sin(2x)\\)<br><br>4. \\(-1 \\to -x\\)<br><br><b>Gesamtergebnis:</b><br>\\(F(x) = \\frac{x^4}{8} + 4e^{-x} + \\frac{3}{2}\\sin(2x) - x + C\\)<br><br>🎯 <b>Wichtig bei Summand 2:</b> \\(b = -1\\) ist oft übersehen! Probe: \\((4e^{-x})' = 4 \\cdot (-1) \\cdot e^{-x} = -4e^{-x}\\) ✓"
+  }
+]
