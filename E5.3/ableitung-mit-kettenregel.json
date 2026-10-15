@@ -1,0 +1,92 @@
+[
+  {
+    "id": "E5.3-01",
+    "type": "flashcard",
+    "title": "Allgemeine Sinusform ableiten",
+    "format": "Regelkarte",
+    "source": "Gestreckte und verschobene Sinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>01. Allgemeine Sinusform ableiten</h3>Leite allgemein \\(f(x)=a\\sin[b(x-c)]+d\\) ab. Kennzeichne äußeren Faktor, innere Funktion und innere Ableitung.</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>01. Allgemeine Sinusform ableiten – Lösung</h3>Mit \\(u(x)=b(x-c)\\) und \\(u'(x)=b\\) gilt \\(f'(x)=ab\\cos[b(x-c)]\\).<p>Der Faktor a bleibt als äußerer Faktor erhalten. Die innere Steigung b kommt durch die Kettenregel hinzu. c bleibt im Argument; d fällt als Konstante weg.</p></section>"
+  },
+  {
+    "id": "E5.3-02",
+    "type": "flashcard",
+    "title": "Allgemeine Kosinusform ableiten",
+    "format": "Regelkarte",
+    "source": "Gestauchte und verschobene Kosinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>02. Allgemeine Kosinusform ableiten</h3>Leite allgemein \\(g(x)=a\\cos[b(x-c)]+d\\) ab. Welcher Unterschied zur Sinusform ist entscheidend?</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>02. Allgemeine Kosinusform ableiten – Lösung</h3>Es gilt \\(g'(x)=-ab\\sin[b(x-c)]\\).<p>Der Unterschied ist das Minuszeichen aus \\((\\cos u)'=-\\sin(u)u'\\). Auch hier liefert die innere Funktion den Faktor b; d verschwindet.</p></section>"
+  },
+  {
+    "id": "E5.3-03",
+    "type": "flashcard",
+    "title": "Parameterwirkung auf die Ableitung",
+    "format": "Zuordnungskarte",
+    "source": "Ableitung trigonometrischer Funktionen mit der Kettenregel.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>03. Parameterwirkung auf die Ableitung</h3>Ordne zu: Was bewirken a, b, c und d in \\(a\\sin[b(x-c)]+d\\) und in der Ableitung?</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>03. Parameterwirkung auf die Ableitung – Lösung</h3>a skaliert die Ableitung mit; b skaliert zusätzlich über die Kettenregel und ändert die Periodenlänge; c verschiebt den Graphen horizontal und bleibt im Argument; d verschiebt den Ausgangsgraphen vertikal und verschwindet beim Ableiten.<p>Die Ableitung hat Amplitude \\(|ab|\\) und – sofern \\(b\\neq0\\) – dieselbe Periodenlänge \\(2\\pi/|b|\\) wie die ursprüngliche trigonometrische Funktion.</p></section>"
+  },
+  {
+    "id": "E5.3-04",
+    "type": "flashcard",
+    "title": "Sinusfunktion mit Brüchen",
+    "format": "Rechenkarte",
+    "source": "Gestreckte und verschobene Sinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>04. Sinusfunktion mit Brüchen</h3>Leite \\(f(x)=\\frac34\\sin[\\frac52(x-\\frac\\pi5)]-2\\) ab. Vereinfache den Vorfaktor vollständig.</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>04. Sinusfunktion mit Brüchen – Lösung</h3>\\(u(x)=\\frac52(x-\\frac\\pi5)\\), also \\(u'(x)=\\frac52\\). Damit \\(f'(x)=\\frac34\\cos(u)\\cdot\\frac52=\\frac{15}{8}\\cos[\\frac52(x-\\frac\\pi5)]\\). Die −2 fällt weg.</section>"
+  },
+  {
+    "id": "E5.3-05",
+    "type": "flashcard",
+    "title": "Kosinusfunktion mit negativem Vorfaktor",
+    "format": "Vorzeichenkarte",
+    "source": "Gestauchte und verschobene Kosinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>05. Kosinusfunktion mit negativem Vorfaktor</h3>Leite \\(g(x)=-2\\cos[3(x+\\frac\\pi6)]+5\\) ab. Achte auf drei Vorzeichen-/Faktorschritte.</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>05. Kosinusfunktion mit negativem Vorfaktor – Lösung</h3>Äußeres a = −2, innere Steigung b = 3 und Kosinusregel mit Minus: \\(g'(x)=(-2)\\cdot[-\\sin(3(x+\\frac\\pi6))]\\cdot3=6\\sin[3(x+\\frac\\pi6)]\\).<p>Die zwei Minuszeichen heben sich auf. Die +5 fällt weg.</p></section>"
+  },
+  {
+    "id": "E5.3-06",
+    "type": "flashcard",
+    "title": "Fehlerdetektiv: Faktor b",
+    "format": "Multiple Choice mit Feedback",
+    "source": "Ableitung trigonometrischer Funktionen mit der Kettenregel.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>06. Fehlerdetektiv: Faktor b</h3>Für \\(f(x)=4\\sin[3(x-2)]+1\\) behauptet jemand: \\(f'(x)=4\\cos[3(x-2)]\\). Was fehlt?<div><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">Nichts; die Ableitung ist korrekt.</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"correct\" onclick=\"checkMC(this,true)\">Der Faktor 3 aus der inneren Ableitung.</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">Ein Minuszeichen vor dem Kosinus.</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">Die Konstante +1 bleibt als +1 erhalten.</button><div data-mc-feedback role=\"status\"></div></div></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>06. Fehlerdetektiv: Faktor b – Lösung</h3>Richtig ist der Faktor 3: \\(f'(x)=12\\cos[3(x-2)]\\). Die innere lineare Funktion \\(3(x-2)\\) muss immer mit abgeleitet werden.</section>"
+  },
+  {
+    "id": "E5.3-07",
+    "type": "flashcard",
+    "title": "Fehlerdetektor: Kosinus-Minuszeichen",
+    "format": "Multiple Choice mit Feedback",
+    "source": "Ableitung trigonometrischer Funktionen mit der Kettenregel.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>07. Fehlerdetektor: Kosinus-Minuszeichen</h3>Für \\(g(x)=2\\cos[4x-\\pi]+7\\) stehen drei Vorschläge zur Wahl:<div><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">g'(x)=8 sin(4x−π)</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"correct\" onclick=\"checkMC(this,true)\">g'(x)=−8 sin(4x−π)</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">g'(x)=−2 sin(4x−π)</button><div data-mc-feedback role=\"status\"></div></div></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>07. Fehlerdetektor: Kosinus-Minuszeichen – Lösung</h3>Richtig ist \\(g'(x)=-8\\sin(4x-\\pi)\\). Der Faktor 2 kommt von außen, 4 aus der inneren Ableitung und das Minus aus der Kosinusregel.</section>"
+  },
+  {
+    "id": "E5.3-08",
+    "type": "flashcard",
+    "title": "Ableitungswert an einer verschobenen Stelle",
+    "format": "Auswertung",
+    "source": "Gestreckte und verschobene Sinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>08. Ableitungswert an einer verschobenen Stelle</h3>Gegeben \\(f(x)=3\\sin[2(x-\\frac\\pi4)]-1\\). Berechne \\(f'(\\frac\\pi4)\\), ohne den gesamten Funktionsterm neu zu zeichnen.</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>08. Ableitungswert an einer verschobenen Stelle – Lösung</h3>\\(f'(x)=6\\cos[2(x-\\frac\\pi4)]\\). Bei \\(x=\\pi/4\\) ist das Argument 0, daher \\(f'(\\frac\\pi4)=6\\cos 0=6\\).<p>Die Funktion steigt dort mit maximaler Steigung; die vertikale Verschiebung −1 hat darauf keinen Einfluss.</p></section>"
+  },
+  {
+    "id": "E5.3-09",
+    "type": "flashcard",
+    "title": "Riesenrad: Ableitung als Geschwindigkeit",
+    "format": "Sachkontext",
+    "source": "Höhenänderung einer Riesenradgondel interpretieren.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>09. Riesenrad: Ableitung als Geschwindigkeit</h3>Die Höhe sei \\(h(t)=12+9\\cos[\\frac\\pi6(t-2)]\\) in Metern, t in Minuten. Stelle \\(h'(t)\\) auf und deute \\(h'(2)\\).</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>09. Riesenrad: Ableitung als Geschwindigkeit – Lösung</h3>Mit \\(u(t)=\\frac\\pi6(t-2)\\) folgt \\(h'(t)=9\\cdot[-\\sin(u)]\\cdot\\frac\\pi6=-\\frac{3\\pi}{2}\\sin[\\frac\\pi6(t-2)]\\).<p>Bei t=2 ist das Argument 0 und \\(h'(2)=0\\): Die Gondel befindet sich am Hochpunkt und ändert ihre Höhe in diesem Moment nicht. Einheit: m/min.</p></section>"
+  },
+  {
+    "id": "E5.3-10",
+    "type": "flashcard",
+    "title": "Komplettaufgabe: Ableiten, Periode, Extremwerte",
+    "format": "Transferkarte",
+    "source": "Ableitung trigonometrischer Funktionen mit der Kettenregel.md; Parameter einer Sinusfunktion bestimmen.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>10. Komplettaufgabe: Ableiten, Periode, Extremwerte</h3>Untersuche \\(p(x)=-2\\sin[\\frac12(x+\\pi)]+3\\):<ol><li>Bestimme \\(p'(x)\\),</li><li>Amplitude und Periodenlänge von p,</li><li>die maximale Amplitude von \\(p'\\).</li></ol></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>10. Komplettaufgabe: Ableiten, Periode, Extremwerte – Lösung</h3>Ableitung: \\(p'(x)=-\\cos[\\frac12(x+\\pi)]\\), denn \\(a=-2\\) und \\(b=1/2\\) liefern \\(ab=-1\\); d fällt weg.<ul><li>Amplitude von p: \\(|a|=2\\).</li><li>Periode: \\(T=2\\pi/(1/2)=4\\pi\\).</li><li>Amplitude von p': \\(|ab|=1\\).</li></ul><p>Die vertikale Verschiebung +3 beeinflusst weder Ableitung noch Amplitude der Ableitung.</p></section>"
+  }
+]
