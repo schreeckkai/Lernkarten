@@ -1,0 +1,92 @@
+[
+  {
+    "id": "E.5.2-01",
+    "type": "flashcard",
+    "title": "Sinus grafisch ableiten",
+    "format": "Grafikargument",
+    "source": "Sinus und Kosinus grafisch ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>01. Sinus grafisch ableiten</h3>Für \\(f(x)=\\sin x\\) auf \\([0,2\\pi]\\): Beschreibe die Tangentensteigungen bei \\(0,\\pi/2,\\pi,3\\pi/2\\) und die Monotonieintervalle. Welche bekannte Funktion ist der Ableitungsgraph?</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>01. Sinus grafisch ableiten – Lösung</h3>Bei \\(0\\) steigt der Sinus mit Steigung 1; bei \\(\\pi/2\\) ist die Tangente waagerecht; bei \\(\\pi\\) fällt er mit Steigung −1; bei \\(3\\pi/2\\) ist sie wieder waagerecht. Daher ist \\(\\) \\(f'(x)=\\cos x\\).<p>Das Vorzeichen passt: positiv auf \\((0,\\pi/2)\\), negativ auf \\((\\pi/2,3\\pi/2)\\), positiv auf \\((3\\pi/2,2\\pi)\\).</section>"
+  },
+  {
+    "id": "E.5.2-02",
+    "type": "flashcard",
+    "title": "Kosinus grafisch ableiten",
+    "format": "Grafikargument",
+    "source": "Sinus und Kosinus grafisch ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>02. Kosinus grafisch ableiten</h3>Für \\(g(x)=\\cos x\\): Begründe ohne Ableitungsregel zunächst das Vorzeichen von \\(g'\\) in den vier Quadranten und den Wert bei \\(0\\) und \\(\\pi/2\\).</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>02. Kosinus grafisch ableiten – Lösung</h3>Bei \\(x=0\\) besitzt der Kosinus einen Hochpunkt: \\(g'(0)=0\\). Danach fällt er, also ist \\(g'<0\\) auf \\((0,\\pi)\\); bei \\(\\pi/2\\) ist die Steigung −1. Auf \\((\\pi,2\\pi)\\) steigt er wieder. Die passende Kurve ist \\(g'(x)=-\\sin x\\). Das Minuszeichen spiegelt den Sinusgraphen an der x-Achse.</section>"
+  },
+  {
+    "id": "E.5.2-03",
+    "type": "flashcard",
+    "title": "Die beiden Grundregeln",
+    "format": "Zuordnungskarte",
+    "source": "Ableitung der Sinus- und der Kosinusfunktion.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>03. Die beiden Grundregeln</h3>Ordne zu und ergänze: \\((\\sin x)'=\\,?\\) und \\((\\cos x)'=\\,?\\). Warum ist das Bogenmaß wichtig?</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>03. Die beiden Grundregeln – Lösung</h3>\\((\\sin x)'=\\cos x\\) und \\((\\cos x)'=-\\sin x\\). Diese Formeln gelten so, wenn x im Bogenmaß gemessen wird. Im Gradmaß entstünden zusätzliche Umrechnungsfaktoren. <p>Merksatz: Sinus „wechselt“ zum Kosinus; Kosinus wechselt zum negativen Sinus.</p></section>"
+  },
+  {
+    "id": "E.5.2-04",
+    "type": "flashcard",
+    "title": "Vorzeichen der Ableitung lesen",
+    "format": "Multiple Choice",
+    "source": "Ableitung der Sinus- und der Kosinusfunktion.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>04. Vorzeichen der Ableitung lesen</h3>Ein Graph steigt im Intervall \\((\\pi/4,\\pi/2)\\) und fällt in \\((\\pi/2,3\\pi/4)\\). Welche Aussage über seine Ableitung passt?<div><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">f' ist zuerst negativ, dann positiv.</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"correct\" onclick=\"checkMC(this,true)\">f' ist zuerst positiv, dann negativ.</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">f' ist in beiden Intervallen null.</button><div data-mc-feedback role=\"status\"></div></div></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>04. Vorzeichen der Ableitung lesen – Lösung</h3>Richtig ist die zweite Aussage: Steigen bedeutet positive Tangentensteigung, Fallen negative. Am Übergang bei \\(\\pi/2\\) kann eine waagerechte Tangente liegen, also \\(f'(\\pi/2)=0\\).</section>"
+  },
+  {
+    "id": "E.5.2-05",
+    "type": "flashcard",
+    "title": "Markante Tangentensteigungen",
+    "format": "Zahlenzuordnung",
+    "source": "Sinus und Kosinus grafisch ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>05. Markante Tangentensteigungen</h3>Fülle die Tabelle im Kopf: \\(f(x)=\\sin x\\).<br>\\(f'(0)=\\,?\\), \\(f'(\\pi/2)=\\,?\\), \\(f'(\\pi)=\\,?\\), \\(f'(3\\pi/2)=\\,?\\).<p>Welche Stellen sind Extremstellen von f und welche von f'?</p></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>05. Markante Tangentensteigungen – Lösung</h3>Da \\(f'=\\cos\\): Die Werte sind \\(1,0,-1,0\\).<p>Bei \\(\\pi/2\\) und \\(3\\pi/2\\) hat der Sinus Extrempunkte; dort ist \\(f'=0\\). Die Extrempunkte von \\(f\\) werden zu Nullstellen von \\(f'\\). Umgekehrt hat \\(f'\\) bei \\(0\\) und \\(\\pi\\) Extremwerte, passend zu den Wendestellen des Sinus.</p></section>"
+  },
+  {
+    "id": "E.5.2-06",
+    "type": "flashcard",
+    "title": "Sinus mit Kettenregel",
+    "format": "Rechenkarte",
+    "source": "Gestreckte und verschobene Sinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>06. Sinus mit Kettenregel</h3>Leite \\(f(x)=3\\sin[2(x-\\pi/4)]-1\\) ab. Markiere gedanklich äußeren Faktor, innere Funktion und innere Ableitung.</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>06. Sinus mit Kettenregel – Lösung</h3>Setze \\(u(x)=2(x-\\pi/4)\\); dann \\(u'(x)=2\\). Mit Faktor- und Kettenregel: \\(f'(x)=3\\cos(u)\\cdot2=6\\cos[2(x-\\pi/4)]\\).<p>Die vertikale Verschiebung −1 verschwindet. Sie verändert die Höhe von f, aber nicht die Steigung. Bei \\(x=\\pi/4\\) ist \\(f'=6\\).</p></section>"
+  },
+  {
+    "id": "E.5.2-07",
+    "type": "flashcard",
+    "title": "Kosinus mit Kettenregel",
+    "format": "Fehlerempfindliche Rechnung",
+    "source": "Gestauchte und verschobene Kosinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>07. Kosinus mit Kettenregel</h3>Leite \\(g(x)=\\frac12\\cos[\\frac12(x+\\pi/3)]+2\\) ab. Woher kommen die beiden Faktoren \\(1/2\\) und das Minuszeichen?</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>07. Kosinus mit Kettenregel – Lösung</h3>Mit \\(u(x)=\\frac12(x+\\pi/3)\\) und \\(u'(x)=1/2\\): \\(g'(x)=\\frac12\\cdot[-\\sin(u)]\\cdot\\frac12=-\\frac14\\sin[\\frac12(x+\\pi/3)]\\).<p>Der erste Faktor stammt aus dem äußeren Vorfaktor, der zweite aus der inneren Steigung. Das Minuszeichen gehört zur Kosinus-Ableitung. Die +2 fällt weg.</p></section>"
+  },
+  {
+    "id": "E.5.2-08",
+    "type": "flashcard",
+    "title": "Ableitung an einer Stelle auswerten",
+    "format": "Zahlencheck",
+    "source": "Gestreckte und verschobene Sinusfunktion ableiten.md; Gestauchte und verschobene Kosinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>08. Ableitung an einer Stelle auswerten</h3>Nutze die Karten 06 und 07: Berechne \\(f'(\\pi/4)\\) und \\(g'(2\\pi/3)\\) ohne den kompletten Graphen zu zeichnen.</section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>08. Ableitung an einer Stelle auswerten – Lösung</h3>Für Karte 06 ist das innere Argument bei \\(x=\\pi/4\\) gleich 0: \\(f'(\\pi/4)=6\\cos 0=6\\).<br>Für Karte 07 ist das Argument bei \\(x=2\\pi/3\\) gleich \\(\\pi/2\\): \\(g'(2\\pi/3)=-\\frac14\\sin(\\pi/2)=-\\frac14\\).<p>Solche Auswertungen prüfen besonders die Phase und das Vorzeichen.</p></section>"
+  },
+  {
+    "id": "E.5.2-09",
+    "type": "flashcard",
+    "title": "Riesenrad: Höhe versus Änderungsrate",
+    "format": "Sachkontext",
+    "source": "Höhenänderung einer Riesenradgondel interpretieren.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>09. Riesenrad: Höhe versus Änderungsrate</h3>Eine Gondel folgt \\(h(t)=10+8\\sin(\\pi t/6)\\) (Meter, Minuten).<ol><li>Welche Funktion beschreibt die momentane Höhenänderung?</li><li>Was bedeutet \\(h'(3)=0\\) sachlich?</li><li>Ist die Gondel bei t=3 am höchsten?</li></ol></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>09. Riesenrad: Höhe versus Änderungsrate – Lösung</h3>Ableiten: \\(h'(t)=8\\cdot\\cos(\\pi t/6)\\cdot\\pi/6=\\frac{4\\pi}{3}\\cos(\\pi t/6)\\).<p>Bei t=3 ist der Kosinus \\(\\cos(\\pi/2)=0\\): Die Gondel ändert ihre Höhe in diesem Moment nicht. Sie ist dort tatsächlich am höchsten, weil der Verlauf von Steigen zu Fallen wechselt; die Höhe ist \\(h(3)=18\\) m. Wichtig: \\(h'(t)\\) ist eine Geschwindigkeit in m/min, nicht die Höhe.</p></section>"
+  },
+  {
+    "id": "E.5.2-10",
+    "type": "flashcard",
+    "title": "Fehlerdetektiv: Kettenregel und Vorzeichen",
+    "format": "Multiple Choice mit Feedback",
+    "source": "Gestreckte und verschobene Sinusfunktion ableiten.md; Gestauchte und verschobene Kosinusfunktion ableiten.md",
+    "front": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>10. Fehlerdetektiv: Kettenregel und Vorzeichen</h3>Jemand schreibt für \\(q(x)=2\\cos[3(x-1)]+4\\): \\(q'(x)=2\\sin[3(x-1)]\\). Welcher Fehler ist entscheidend?<div><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">Es fehlt nur der Faktor 3; richtig ist 6 sin[3(x−1)].</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"correct\" onclick=\"checkMC(this,true)\">Das Minuszeichen und der Faktor 3 fehlen; richtig ist −6 sin[3(x−1)].</button><button style=\"padding:10px;margin:5px 0;background:#21262d;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left\" data-mc=\"wrong\" onclick=\"checkMC(this,false)\">Die +4 muss als +4x stehen bleiben.</button><div data-mc-feedback role=\"status\"></div></div></section>",
+    "back": "<section onclick=\"event.stopPropagation()\" style=\"text-align:left;line-height:1.65\"><h3>10. Fehlerdetektiv: Kettenregel und Vorzeichen – Lösung</h3>Richtig ist Antwort 2: \\(q'(x)=2\\cdot[-\\sin(3(x-1))]\\cdot3=-6\\sin[3(x-1)]\\). Die Konstante +4 fällt weg. Zwei Prüfungen sind nötig: (1) Kosinus liefert ein Minuszeichen, (2) die innere lineare Funktion liefert den Faktor 3.</section>"
+  }
+]
