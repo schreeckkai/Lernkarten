@@ -26,6 +26,7 @@ Der Trainer unterstützt selbstständige Wiederholung und Selbstkontrolle. Er be
 | Periodische Prozesse | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E5.1/periodische-prozesse) |
 | Ableitung von Sinus und Kosinus | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E.5.2/ableitung-sinus-kosinus) |
 | Ableitung mit der Kettenregel | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E5.3/ableitung-mit-kettenregel) |
+| Tag der offenen Tür (Mittelstufe, leicht) | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=ToT/tag-der-offenen-tuer) |
 
 ## Eigene Karten ergänzen
 
