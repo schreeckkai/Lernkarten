@@ -12,98 +12,104 @@
 
   <style>
     body {
-      background-color: #0d1117;
+      background-color: #0a0c10;
       color: #e5e7eb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex; justify-content: center; align-items: center;
       min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
     }
     .app-container {
-      background-color: #0d1117;
-      border-left: 5px solid #644533;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
-      width: 100%; max-width: 800px; box-sizing: border-box;
+      background-color: #0a0c10;
+      width: 100%; max-width: 760px; box-sizing: border-box;
+      padding: 8px 0 24px 0;
     }
-    h3 { margin-top: 0; font-size: 1.4rem; display: flex; align-items: center; justify-content: space-between; }
+    h3 { margin-top: 0; font-size: 1.4rem; display: flex; align-items: baseline; justify-content: space-between; }
     .brand-title {
       font-family: 'Creepster', cursive, Georgia;
-      color: #644533; font-size: 1.8rem; letter-spacing: 1px;
+      color: #644533; font-size: 1.15rem; letter-spacing: 1px;
     }
-    .counter { font-size: 0.9rem; color: #8b949e; font-family: monospace; }
+    .counter { font-size: 0.85rem; color: #6e7885; font-family: monospace; letter-spacing: 0.5px; }
     .card-box {
-      background-color: #161b22; border: 1px solid #30363d;
-      border-radius: 8px; min-height: 320px; padding: 30px;
+      background-color: #0e1218;
+      border: 1px solid #1f2530;
+      border-radius: 10px; min-height: 320px; padding: 36px 38px;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; cursor: pointer; transition: all 0.2s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3); box-sizing: border-box;
+      cursor: pointer; transition: border-color 0.2s ease;
+      box-sizing: border-box;
     }
+    .card-box:hover { border-color: #2b3340; }
     .card-content {
-      font-size: 1.15rem; line-height: 1.6; color: #e5e7eb; width: 100%;
+      font-size: 1.12rem; line-height: 1.7; color: #e5e7eb; width: 100%;
+      text-align: left;
     }
-    .card-content b { color: #00dfc8; }
+    .card-content b { color: #5CD0B3; }
     .btn-row {
       display: flex; justify-content: space-between; align-items: center;
       margin-top: 20px; gap: 10px;
     }
     button.action-btn {
-      background: #21262d; color: #e5e7eb; border: 1px solid #30363d;
-      padding: 10px 20px; border-radius: 6px; cursor: pointer;
-      font-weight: bold; flex: 1;
+      background: #12161d; color: #d5dae1; border: 1px solid #262c36;
+      padding: 10px 20px; border-radius: 8px; cursor: pointer;
+      font-weight: 600; flex: 1;
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
-    button.action-btn.primary { background: #238636; color: #fff; border: none; }
-    button.action-btn:hover { opacity: 0.9; }
+    button.action-btn.primary { background: #5CD0B3; color: #0a0c10; border: 1px solid #5CD0B3; font-weight: 700; }
+    button.action-btn.primary:hover { background: #6fdcc3; border-color: #6fdcc3; }
+    button.action-btn:hover:not(:disabled) { border-color: #3a4250; }
     button.action-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-    .shuffle-container { text-align: center; margin-top: 15px; }
+    .shuffle-container { text-align: center; margin-top: 14px; }
     button.shuffle-btn {
-      background: transparent; border: none; color: #00dfc8;
-      cursor: pointer; font-size: 0.9rem; text-decoration: underline;
+      background: transparent; border: none; color: #5CD0B3;
+      cursor: pointer; font-size: 0.9rem; opacity: 0.85;
     }
+    button.shuffle-btn:hover { opacity: 1; text-decoration: underline; }
     .cloze {
-      background: #644533; color: transparent;
-      padding: 2px 10px; border-radius: 4px;
+      background: rgba(92, 208, 179, 0.10); color: transparent;
+      padding: 2px 10px; border-radius: 5px;
       cursor: pointer; transition: all 0.2s;
       user-select: none; display: inline-block;
       min-width: 40px; text-align: center;
     }
-    .cloze::before { content: "?"; color: #e5e7eb; font-weight: bold; }
+    .cloze::before { content: "?"; color: #7d8894; font-weight: bold; }
+    .cloze:hover { background: rgba(92, 208, 179, 0.16); }
     .cloze.revealed {
-      background: rgba(0, 223, 200, 0.20); color: #00dfc8;
+      background: rgba(92, 208, 179, 0.16); color: #5CD0B3;
       font-weight: bold; user-select: auto;
     }
     .cloze.revealed::before { content: ""; }
     .mc-options { margin-top: 22px; width: 100%; }
     button.mc-opt {
       display: block; width: 100%; text-align: left;
-      background: #21262d; color: #e5e7eb; border: 1px solid #30363d;
-      padding: 12px 16px; margin: 8px 0; border-radius: 6px;
+      background: #12161d; color: #d5dae1; border: 1px solid #262c36;
+      padding: 12px 16px; margin: 8px 0; border-radius: 8px;
       cursor: pointer; font-size: 1.05rem;
+      transition: border-color 0.15s ease;
     }
-    button.mc-opt:hover { opacity: 0.9; }
+    button.mc-opt:hover:not(:disabled) { border-color: #3a4250; }
     button.mc-opt:disabled { opacity: 1; cursor: default; }
     .mc-feedback { margin-top: 12px; font-weight: bold; min-height: 1.4em; }
     .block-finished { text-align: center; padding: 20px 10px; }
-    .block-finished h2 { color: #22c55e; font-size: 1.8rem; margin-bottom: 10px; }
+    .block-finished h2 { color: #83C167; font-size: 1.8rem; margin-bottom: 10px; }
     .block-finished p { color: #8b949e; margin-bottom: 20px; }
     .block-finished button {
-      background: #238636; color: #fff; border: none;
-      padding: 14px 28px; border-radius: 8px; cursor: pointer;
-      font-weight: bold; font-size: 1.1rem; margin: 0 6px 10px 6px;
+      background: #5CD0B3; color: #0a0c10; border: none;
+      padding: 13px 26px; border-radius: 8px; cursor: pointer;
+      font-weight: 700; font-size: 1.05rem; margin: 0 6px 10px 6px;
     }
     .block-finished button.secondary {
-      background: #21262d; color: #e5e7eb; border: 1px solid #30363d;
+      background: #12161d; color: #d5dae1; border: 1px solid #262c36;
     }
     .progress-footer {
       margin-top: 15px; padding: 12px 16px;
-      background: #161b22; border: 1px solid #30363d;
-      border-radius: 8px; font-size: 0.9rem;
+      background: #0e1218; border: 1px solid #1f2530;
+      border-radius: 10px; font-size: 0.9rem;
       color: #8b949e; text-align: center;
     }
-    .progress-footer strong { color: #00dfc8; }
+    .progress-footer strong { color: #5CD0B3; }
     .error-box {
-      background: rgba(239,68,68,0.15); border: 1px solid #ef4444;
-      color: #fca5a5; padding: 16px; border-radius: 8px;
+      background: rgba(252, 98, 85, 0.10); border: 1px solid #FC6255;
+      color: #F0A8A0; padding: 16px; border-radius: 10px;
       margin: 10px 0; font-family: monospace; font-size: 0.9rem;
     }
     .cube-scene {
@@ -122,11 +128,10 @@
     .cube-face {
       position: absolute;
       width: 180px; height: 180px;
-      border: 2px solid #00dfc8;
-      background: rgba(0, 223, 200, 0.12);
+      border: 1.5px solid #5CD0B3;
+      background: rgba(92, 208, 179, 0.06);
       display: flex; align-items: center; justify-content: center;
-      font-size: 3rem; color: #00dfc8; font-weight: bold;
-      box-shadow: inset 0 0 30px rgba(0, 223, 200, 0.2);
+      font-size: 3rem; color: #5CD0B3; font-weight: bold;
     }
     .cube-hint { text-align: center; color: #8b949e; font-size: 0.85rem; margin-top: 10px; }
   </style>
@@ -299,7 +304,7 @@
           <h2>✓ Block ${blockIndex + 1} geschafft!</h2>
           <p>Du hast ${deck.length} Karten bearbeitet. Kurze Pause – dann geht's weiter.</p>
           ${isLast
-            ? `<p style="color:#22c55e; font-weight:bold;">🎉 Das war der letzte Block. Super gemacht!</p>
+            ? `<p style="color:#83C167; font-weight:bold;">🎉 Das war der letzte Block. Super gemacht!</p>
                <button class="secondary" onclick="restartDeck()">Von vorne beginnen</button>`
             : `<button onclick="nextBlock()">Nächster Block →</button>
                <button class="secondary" onclick="repeatBlock()">Diesen Block wiederholen</button>`}
@@ -439,8 +444,8 @@
       const py = zeroY - h * scaleY;
       const rectY = Math.min(zeroY, py);
       const rectH = Math.abs(zeroY - py);
-      const fillColor = type === "U" ? "rgba(34,197,94,0.35)" : "rgba(239,68,68,0.30)";
-      const strokeColor = type === "U" ? "#22c55e" : "#ef4444";
+      const fillColor = type === "U" ? "rgba(131,193,103,0.35)" : "rgba(252,98,85,0.30)";
+      const strokeColor = type === "U" ? "#83C167" : "#FC6255";
       html += `<rect x="${px}" y="${rectY}" width="${pw}" height="${rectH}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1"/>`;
     }
 
@@ -449,7 +454,7 @@
       const x = a + (b - a) * i / 100;
       pts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
     }
-    html += `<polyline points="${pts.trim()}" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>`;
+    html += `<polyline points="${pts.trim()}" fill="none" stroke="#58C4DD" stroke-width="2.5"/>`;
 
     svg.innerHTML = html;
 
@@ -491,19 +496,19 @@
       areaPts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
     }
     areaPts += `${pad + (xVal - a) * scaleX},${zeroY}`;
-    html += `<polygon points="${areaPts}" fill="rgba(0,223,200,0.20)" stroke="none"/>`;
+    html += `<polygon points="${areaPts}" fill="rgba(92,208,179,0.20)" stroke="none"/>`;
 
     let pts = "";
     for (let i = 0; i <= 100; i++) {
       const x = a + (b - a) * i / 100;
       pts += `${pad + (x - a) * scaleX},${zeroY - f(x) * scaleY} `;
     }
-    html += `<polyline points="${pts.trim()}" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>`;
+    html += `<polyline points="${pts.trim()}" fill="none" stroke="#58C4DD" stroke-width="2.5"/>`;
 
     const px = pad + (xVal - a) * scaleX;
     const py = zeroY - f(xVal) * scaleY;
-    html += `<line x1="${px}" y1="${zeroY}" x2="${px}" y2="${py}" stroke="#00dfc8" stroke-width="1.5" stroke-dasharray="3,3"/>`;
-    html += `<circle cx="${px}" cy="${py}" r="6" fill="#00dfc8" stroke="#0d1117" stroke-width="2"/>`;
+    html += `<line x1="${px}" y1="${zeroY}" x2="${px}" y2="${py}" stroke="#5CD0B3" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+    html += `<circle cx="${px}" cy="${py}" r="6" fill="#5CD0B3" stroke="#0A0C10" stroke-width="2"/>`;
 
     svg.innerHTML = html;
 
@@ -518,15 +523,15 @@
     const val = parseFloat(input.value.replace(",", "."));
     if (isNaN(val)) {
       fb.innerHTML = "❌ Bitte gib eine Zahl ein.";
-      fb.style.color = "#ef4444";
+      fb.style.color = "#FC6255";
       return;
     }
     if (Math.abs(val - correct) <= tol) {
       fb.innerHTML = "✅ Richtig!";
-      fb.style.color = "#22c55e";
+      fb.style.color = "#83C167";
     } else {
       fb.innerHTML = "❌ Noch nicht ganz.";
-      fb.style.color = "#ef4444";
+      fb.style.color = "#FC6255";
     }
   }
 
@@ -537,19 +542,19 @@
       btn.disabled = true;
       btn.style.cursor = "default";
       if (btn.dataset.mc === "correct") {
-        btn.style.background = "rgba(34,197,94,0.25)";
-        btn.style.borderColor = "#22c55e";
-        btn.style.color = "#22c55e";
+        btn.style.background = "rgba(131,193,103,0.25)";
+        btn.style.borderColor = "#83C167";
+        btn.style.color = "#83C167";
       } else {
-        btn.style.background = "rgba(239,68,68,0.15)";
-        btn.style.borderColor = "#30363d";
+        btn.style.background = "rgba(252,98,85,0.15)";
+        btn.style.borderColor = "#262C36";
         btn.style.color = "#8b949e";
       }
     });
     const fb = parent.querySelector("[data-mc-feedback]");
     if (fb) {
       fb.innerHTML = isCorrect ? "✅ Richtig!" : "❌ Leider falsch – die richtige Antwort ist grün markiert.";
-      fb.style.color = isCorrect ? "#22c55e" : "#ef4444";
+      fb.style.color = isCorrect ? "#83C167" : "#FC6255";
     }
   }
 
@@ -589,7 +594,7 @@
     const parent = el.parentElement;
     if (!parent.dataset.selected) {
       parent.querySelectorAll('[data-step]').forEach(e => e.style.outline = 'none');
-      el.style.outline = '2px solid #00dfc8';
+      el.style.outline = '2px solid #5CD0B3';
       parent.dataset.selected = el.dataset.step;
     } else {
       const firstId = parent.dataset.selected;
@@ -615,10 +620,10 @@
     const current = items.map(el => el.dataset.step).join('');
     if (current === correctOrder) {
       fb.innerHTML = "✅ Perfekte Reihenfolge!";
-      fb.style.color = "#22c55e";
+      fb.style.color = "#83C167";
     } else {
       fb.innerHTML = "❌ Noch nicht ganz. Überlege, was zuerst gemacht werden muss.";
-      fb.style.color = "#ef4444";
+      fb.style.color = "#FC6255";
     }
   }
 
