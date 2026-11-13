@@ -16,7 +16,7 @@
   },
   {
     "type": "multiple-choice",
-    "front": "Welche der folgenden Funktionen ist <b>eine</b> Stammfunktion von \\(f(x) = 4x^3\\)?",
+    "front": "Welche Funktion ist eine Stammfunktion von \\(f(x) = 4x^3\\), die durch den Ursprung verläuft (\\(F(0) = 0\\))?",
     "options": [
       "\\(F(x) = x^4 + 7\\)",
       "\\(F(x) = 12x^2\\)",
@@ -24,7 +24,7 @@
       "\\(F(x) = \\frac{4}{3}x^3\\)"
     ],
     "correct": 2,
-    "back": "Die Probe durch Ableiten:\\<br><br>✅ \\((x^4)' = 4x^3\\) – <b>stimmt!</b><br><br>⚠️ Antwort 1 \\((x^4 + 7)\\) wäre <b>auch richtig</b>, da \\(+7\\) beim Ableiten wegfällt. In der Aufgabenstellung steht aber „<b>eine</b> Stammfunktion“ – \\(x^4\\) ist die einfachste.<br><br>❌ Antwort 2 ist die <b>Ableitung</b> (falsche Richtung).<br>❌ Antwort 4 hat <b>fälschlich</b> mit 3 geteilt statt mit 4."
+    "back": "Probe durch Ableiten: \\((x^4)' = 4x^3\\) ✓ und \\(F(0) = 0\\) ✓<br><br>⚠️ \\(x^4 + 7\\) ist <b>auch</b> eine Stammfunktion (die 7 fällt beim Ableiten weg), aber \\(F(0) = 7 \\ne 0\\).<br>❌ \\(12x^2\\) ist die <b>Ableitung</b> von \\(4x^3\\), nicht die Stammfunktion.<br>❌ \\(\\frac{4}{3}x^3\\) ist die Stammfunktion von \\(4x^2\\) (Exponent nicht erhöht)."
   },
   {
     "type": "true-false",
@@ -67,7 +67,7 @@
       "\\(F(x) = -2x^6\\)"
     ],
     "correct": 2,
-    "back": "Anwendung der Potenzregel: Exponent +1 = 6, dann durch 6 teilen:<br><br>\\(-2x^5 \\to \\frac{-2}{6}x^6 = -\\frac{1}{3}x^6\\)<br><br>✅ Antwort 3 (gekürzt!) ist richtig.<br>❌ Antwort 1 ist <b>nicht gekürzt</b> (mathematisch ok, aber unüblich).<br>❌ Antwort 2 ist die <b>Ableitung</b> (falsche Richtung).<br>❌ Antwort 4 hat vergessen zu teilen."
+    "back": "Anwendung der Potenzregel: Exponent um 1 erhöhen, dann durch den neuen Exponenten teilen: \\(-2x^5 \\to \\frac{-2}{6}x^6 = -\\frac{1}{3}x^6\\) (gekürzt!).<br><br>❌ <b>Nicht gekürzt</b> \\(\\frac{-2}{6}x^6\\) ist mathematisch korrekt, aber unüblich.<br>❌ \\(-10x^4\\) wäre die <b>Ableitung</b> (falsche Richtung).<br>❌ \\(-2x^6\\) vergisst die Division durch den neuen Exponenten.<br><br>Probe: \\(\\left(-\\frac{1}{3}x^6\\right)' = -2x^5\\) ✓"
   },
   {
     "type": "true-false",
@@ -100,7 +100,7 @@
       "\\(F(x) = 3e^{-2x}\\)"
     ],
     "correct": 1,
-    "back": "Lineare Substitution: \\(a = 3\\), \\(b = -2\\).<br><br>\\(F(x) = \\frac{3}{-2} e^{-2x} = -\\frac{3}{2}e^{-2x}\\)<br><br>✅ Antwort 2 stimmt.<br><br>Probe: \\(\\left(-\\frac{3}{2}e^{-2x}\\right)' = -\\frac{3}{2} \\cdot (-2) \\cdot e^{-2x} = 3e^{-2x}\\) ✓<br><br>❌ Antwort 1: mit \\(b\\) multipliziert statt dividiert.<br>❌ Antwort 3: Exponent falsch verändert.<br>❌ Antwort 4: gar nicht integriert."
+    "back": "Lineare Substitution mit \\(a = 3\\), \\(b = -2\\): \\(F(x) = \\frac{a}{b}\\,e^{bx} + C = -\\frac{3}{2}e^{-2x}\\).<br><br>Probe: \\(\\left(-\\frac{3}{2}e^{-2x}\\right)' = -\\frac{3}{2} \\cdot (-2) \\cdot e^{-2x} = 3e^{-2x}\\) ✓<br><br>❌ Häufige Fehler: mit \\(b\\) <b>multiplizieren</b> statt <b>dividieren</b>, das negative Vorzeichen von \\(b\\) übersehen oder \\(e^{-2x}\\) unverändert lassen."
   },
   {
     "type": "true-false",
@@ -148,12 +148,38 @@
   },
   {
     "type": "flashcard",
-    "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>⚡ Speed-Check: 4 Aufgaben</div><div style='display:grid; grid-template-columns:1fr 1fr; gap:10px; background:#161b22; padding:16px; border-radius:6px; font-size:0.95rem;'><div>1) \\(f(x)=x^2\\)<br>→ \\(F(x)=?\\)</div><div>2) \\(f(x)=e^x\\)<br>→ \\(F(x)=?\\)</div><div>3) \\(f(x)=\\cos(x)\\)<br>→ \\(F(x)=?\\)</div><div>4) \\(f(x)=5\\)<br>→ \\(F(x)=?\\)</div></div><div style='margin-top:12px; font-size:1rem;'>Kannst du alle vier im Kopf lösen?</div>",
-    "back": "Die <b>Basis-Quartett</b> der Integration:<br><br>1) \\(x^2 \\to \\frac{1}{3}x^3 + C\\)<br><br>2) \\(e^x \\to e^x + C\\) <i>(e^x ist seine eigene Stammfunktion!)</i><br><br>3) \\(\\cos(x) \\to \\sin(x) + C\\)<br><br>4) \\(5 \\to 5x + C\\)<br><br>💡 Diese vier Basisfunktionen solltest du <b>im Schlaf</b> können – sie sind das Fundament für alle komplexeren Aufgaben!"
+    "front": "⚡ Basis-Check: Bestimme eine Stammfunktion von \\(f(x) = x^2\\).",
+    "back": "\\(F(x) = \\frac{1}{3}x^3 + C\\)<br><br>Potenzregel: Exponent um 1 erhöhen, durch den neuen Exponenten teilen."
+  },
+  {
+    "type": "flashcard",
+    "front": "⚡ Basis-Check: Bestimme eine Stammfunktion von \\(f(x) = e^x\\).",
+    "back": "\\(F(x) = e^x + C\\)<br><br>\\(e^x\\) ist bis auf die Konstante seine eigene Stammfunktion (und seine eigene Ableitung)."
+  },
+  {
+    "type": "flashcard",
+    "front": "⚡ Basis-Check: Bestimme eine Stammfunktion von \\(f(x) = \\cos(x)\\).",
+    "back": "\\(F(x) = \\sin(x) + C\\)<br><br>Kosinus wird zu Sinus, ohne Vorzeichenwechsel."
+  },
+  {
+    "type": "flashcard",
+    "front": "⚡ Basis-Check: Bestimme eine Stammfunktion von \\(f(x) = 5\\).",
+    "back": "\\(F(x) = 5x + C\\)<br><br>Eine Konstante \\(a\\) wird zu \\(a \\cdot x\\). ⚠️ Häufiger Fehler: \\(5 \\to 5\\) statt \\(5 \\to 5x\\)."
+  },
+  {
+    "type": "flashcard",
+    "front": "🎯 Regel-Zuordnung: \\(f(x) = \\frac{1}{2}x^3 - 4e^{-x} + 3\\cos(2x) - 1\\). Welche Integrationsregel brauchst du für jeden Summanden?",
+    "back": "• \\(\\frac{1}{2}x^3\\): Potenzregel<br>• \\(-4e^{-x}\\): lineare Substitution (Achtung \\(b = -1\\))<br>• \\(3\\cos(2x)\\): lineare Substitution<br>• \\(-1\\): Konstantenregel (\\(a \\to ax\\))<br><br>Summenregel: jeden Summanden einzeln integrieren und \\(+C\\) nicht vergessen."
+  },
+  {
+    "type": "flashcard",
+    "front": "🎯 Fallen-Check: Beim Summanden \\(-4e^{-x}\\) ist \\(b = -1\\). Was wird hier am häufigsten falsch gemacht?",
+    "back": "Es muss durch \\(b = -1\\) geteilt werden: \\(\\frac{-4}{-1}\\,e^{-x} = 4e^{-x}\\).<br><br>⚠️ Häufiger Fehler: das Vorzeichen übersehen und \\(-4e^{-x}\\) schreiben. <b>Probe:</b> \\((4e^{-x})' = 4 \\cdot (-1) \\cdot e^{-x} = -4e^{-x}\\) ✓"
   },
   {
     "type": "flashcard",
     "front": "<div style='font-size:0.9rem; color:#8b949e; margin-bottom:8px;'>🏆 Die ultimative Testfrage</div><div style='text-align:left; background:#161b22; padding:16px; border-radius:6px; font-size:1.05rem; line-height:1.9;'>Bestimme eine Stammfunktion von:<br><br>\\(\\displaystyle f(x) = \\frac{1}{2}x^3 - 4e^{-x} + 3\\cos(2x) - 1\\)</div><div style='margin-top:12px; font-size:0.9rem; color:#8b949e;'>Tipp: Gehe Summand für Summand vor.</div>",
-    "back": "<b>Schritt für Schritt:</b><br><br>1. \\(\\frac{1}{2}x^3 \\to \\frac{1}{2} \\cdot \\frac{x^4}{4} = \\frac{x^4}{8}\\)<br><br>2. \\(-4e^{-x} \\to \\frac{-4}{-1}e^{-x} = 4e^{-x}\\) <i>(\\(b = -1\\)!)</i><br><br>3. \\(3\\cos(2x) \\to \\frac{3}{2}\\sin(2x)\\)<br><br>4. \\(-1 \\to -x\\)<br><br><b>Gesamtergebnis:</b><br>\\(F(x) = \\frac{x^4}{8} + 4e^{-x} + \\frac{3}{2}\\sin(2x) - x + C\\)<br><br>🎯 <b>Wichtig bei Summand 2:</b> \\(b = -1\\) ist oft übersehen! Probe: \\((4e^{-x})' = 4 \\cdot (-1) \\cdot e^{-x} = -4e^{-x}\\) ✓"
+    "back": "<b>Schritt für Schritt:</b><br><br>1. \\(\\frac{1}{2}x^3 \\to \\frac{1}{2} \\cdot \\frac{x^4}{4} = \\frac{x^4}{8}\\)<br><br>2. \\(-4e^{-x} \\to \\frac{-4}{-1}e^{-x} = 4e^{-x}\\) <i>(\\(b = -1\\)!)</i><br><br>3. \\(3\\cos(2x) \\to \\frac{3}{2}\\sin(2x)\\)<br><br>4. \\(-1 \\to -x\\)<br><br><b>Gesamtergebnis:</b><br>\\(F(x) = \\frac{x^4}{8} + 4e^{-x} + \\frac{3}{2}\\sin(2x) - x + C\\)<br><br>🎯 <b>Wichtig bei Summand 2:</b> \\(b = -1\\) ist oft übersehen! Probe: \\((4e^{-x})' = 4 \\cdot (-1) \\cdot e^{-x} = -4e^{-x}\\) ✓",
+    "uebung": true
   }
 ]

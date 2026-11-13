@@ -7,7 +7,7 @@
   {
     "type": "flashcard",
     "front": "Der Endbestand nach einer bestimmten Zeit berechnet sich aus dem {{c1::Anfangsbestand}} plus dem {{c2::Bestandszuwachs}}. Letzterer entspricht exakt der {{c3::Fläche}} unter dem Graphen der Änderungsrate.",
-    "back": "Der Endbestand nach einer bestimmten Zeit berechnet sich aus dem {{c1::Anfangsbestand}} plus dem {{c2::Bestandszuwachs}}. Letzterer entspricht exakt der {{c3::Fläche}} unter dem Graphen der Änderungsrate."
+    "back": "<b>Endbestand = Anfangsbestand + Bestandszuwachs.</b><br><br>Der Bestandszuwachs entspricht der <b>Fläche</b> unter dem Graphen der Änderungsrate. Liegt der Graph unterhalb der x-Achse, wird dieser Anteil negativ gezählt (der Bestand sinkt)."
   },
   {
     "type": "multiple-choice",
@@ -24,7 +24,7 @@
   {
     "type": "flashcard",
     "front": "Bei der Berechnung der Untersumme wählt man als Höhe der Rechtecke immer das absolute {{c1::Minimum}} der Funktion im jeweiligen Teilintervall. Bei einer monoton fallenden Funktion liegt dieser Wert folglich immer am {{c2::rechten}} Rand des Teilintervalls.",
-    "back": "Bei der Berechnung der Untersumme wählt man als Höhe der Rechtecke immer das absolute {{c1::Minimum}} der Funktion im jeweiligen Teilintervall. Bei einer monoton fallenden Funktion liegt dieser Wert folglich immer am {{c2::rechten}} Rand des Teilintervalls."
+    "back": "Als Rechteckshöhe dient immer das absolute <b>Minimum</b> der Funktion im Teilintervall. Bei monoton fallenden Funktionen liegt dieses am <b>rechten</b> Rand, bei monoton steigenden am linken Rand des Teilintervalls."
   },
   {
     "type": "true-false",
@@ -35,7 +35,7 @@
   {
     "type": "flashcard",
     "front": "Die Untersumme \\(U_4\\) berechnet man, indem man die konstante Breite \\(\\Delta x\\) ausklammert und mit der Summe der vier {{c1::Rechteckshöhen}} multipliziert. Die Formel lautet: \\(U_4 = \\Delta x \\cdot (h_1 + h_2 + h_3 + \\) {{c2::\\(h_4\\)}} \\().\\)",
-    "back": "Die Untersumme \\(U_4\\) berechnet man, indem man die konstante Breite \\(\\Delta x\\) ausklammert und mit der Summe der vier {{c1::Rechteckshöhen}} multipliziert. Die Formel lautet: \\(U_4 = \\Delta x \\cdot (h_1 + h_2 + h_3 + \\) {{c2::\\(h_4\\)}} \\().\\)"
+    "back": "\\(U_4 = \\Delta x \\cdot (h_1 + h_2 + h_3 + h_4)\\)<br><br>Die konstante Breite \\(\\Delta x\\) wird ausgeklammert und mit der Summe der vier <b>Rechteckshöhen</b> multipliziert. Bei monoton steigenden Funktionen sind das die Funktionswerte an den linken Rändern."
   },
   {
     "type": "flashcard",

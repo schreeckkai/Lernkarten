@@ -19,7 +19,7 @@
   {
     "type": "flashcard",
     "front": "Ein Ereignis \\(E\\) ist mathematisch definiert als {{c1::Teilmenge}} der Ergebnismenge \\(\\Omega\\).",
-    "back": "Ein Ereignis \\(E\\) ist mathematisch definiert als {{c1::Teilmenge}} der Ergebnismenge \\(\\Omega\\)."
+    "back": "Ein Ereignis ist eine <b>Teilmenge</b> von \\(\\Omega\\).<br><br>Beispiel Würfeln: \\(E = \\{2; 4; 6\\}\\) („gerade Zahl“). Spezialfälle: \\(\\Omega\\) ist das sichere Ereignis, die leere Menge \\(\\{\\}\\) das unmögliche Ereignis."
   },
   {
     "type": "true-false",
