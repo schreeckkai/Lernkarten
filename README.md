@@ -23,6 +23,7 @@ Der Trainer unterstützt selbstständige Wiederholung und Selbstkontrolle. Er be
 |---|---|
 | Q1.1.1 | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=Q1.1.1) |
 | Q1.1.4 | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=Q1.1.4) |
+| Graphisches Ableiten (E.2) | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E.2/graphisches-ableiten) |
 | Periodische Prozesse | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E5.1/periodische-prozesse) |
 | Ableitung von Sinus und Kosinus | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E.5.2/ableitung-sinus-kosinus) |
 | Ableitung mit der Kettenregel | [Trainer öffnen](https://schreeckkai.github.io/Lernkarten/trainer.html?deck=E5.3/ableitung-mit-kettenregel) |

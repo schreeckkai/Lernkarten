@@ -1,0 +1,110 @@
+[
+  {
+    "id": "E.2-01",
+    "type": "flashcard",
+    "title": "Was misst f'(x)?",
+    "format": "Cloze-Merksatz",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>01. Was misst f'(x)?</h3>Vervollständige den Merksatz: Der Wert \\(f'(x)\\) ist die {{c1::Steigung}} des Graphen von f an der Stelle \\(x\\) – genauer gesagt die Steigung der {{c2::Tangente}} an den Graphen in diesem Punkt.<p>Frage zum Nachdenken: Beschreibt der Ableitungsgraph die <b>Höhe</b> oder die <b>Steigung</b> von f?</p></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>01. Was misst f'(x)? – Lösung</h3>\\(f'(x)\\) ist die Steigung der Tangente an den Graphen von f an der Stelle \\(x\\). Der Ableitungsgraph beschreibt also die <b>Steigung</b>, nicht die Höhe.<p>\\(f(2)\\) fragt: „Wie hoch liegt der Punkt?“ – \\(f'(2)\\) fragt: „Wie steil ist der Graph dort?“</p></section>"
+  },
+  {
+    "id": "E.2-02",
+    "type": "flashcard",
+    "title": "f(2) oder f'(2)?",
+    "format": "Multiple Choice",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>02. f(2) oder f'(2)?</h3>Der Graph von f geht durch den Punkt \\((2|3)\\). Die Tangente in diesem Punkt hat die Steigung \\(-1{,}5\\). Welche Zuordnung ist korrekt?<div><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>\\(f(2)=-1{,}5\\) und \\(f'(2)=3\\)</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='correct' onclick='checkMC(this,true)'>\\(f(2)=3\\) und \\(f'(2)=-1{,}5\\)</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>\\(f(2)=3\\) und \\(f'(2)=3\\)</button><div data-mc-feedback role='status'></div></div></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>02. f(2) oder f'(2)? – Lösung</h3>\\(f(2)=3\\): Die 3 ist der <b>y-Wert</b>, also die Höhe des Graphen bei \\(x=2\\). \\(f'(2)=-1{,}5\\): Die −1,5 ist die <b>Steigung</b> der Tangente dort.<p>Beide Zahlen gehören zur selben Stelle, beschreiben aber etwas völlig Verschiedenes: <b>Position</b> und <b>Richtung</b>.</p></section>"
+  },
+  {
+    "id": "E.2-03",
+    "type": "flashcard",
+    "title": "Grundidee 1: Steigen von f",
+    "format": "Cloze-Karte",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>03. Grundidee 1: Steigen von f</h3>Steigt der Graph von f auf einem Intervall, dann ist \\(f'(x)\\) dort {{c1::größer als 0}}.<p>Begründe mit der Tangente: Was heißt „steigen“ für die Steigung?</p></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>03. Grundidee 1 – Lösung</h3>Steigen bedeutet: Jede Tangente im Intervall hat positive Steigung, also \\(f'(x)&gt;0\\). Der Graph von f' verläuft dort <b>oberhalb</b> der x-Achse.<p>Merke: Die Richtung von f (steigend oder fallend) bestimmt das Vorzeichen von f'.</p></section>"
+  },
+  {
+    "id": "E.2-04",
+    "type": "flashcard",
+    "title": "Grundidee 2: Fallen von f",
+    "format": "Cloze-Karte",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>04. Grundidee 2: Fallen von f</h3>Fällt der Graph von f auf einem Intervall, dann ist \\(f'(x)\\) dort {{c1::kleiner als 0}}.<p>Zusatzfrage: Was gilt für f', wenn f auf einem Intervall konstant verläuft?</p></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>04. Grundidee 2 – Lösung</h3>Fallen = negative Tangentensteigung: \\(f'(x)&lt;0\\), der Graph von f' verläuft <b>unterhalb</b> der x-Achse.<p>Für eine konstante Funktion ist jede Tangente waagerecht: \\(f'(x)=0\\) auf dem ganzen Intervall – der Graph von f' liegt dort auf der x-Achse.</p></section>"
+  },
+  {
+    "id": "E.2-05",
+    "type": "flashcard",
+    "title": "Grundidee 3: Extrempunkte",
+    "format": "Wahr-Falsch-Karte",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>05. Grundidee 3: Extrempunkte</h3>Prüfe die Kombination beider Aussagen:<p>(A) Hat f bei \\(x_0\\) einen Hoch- oder Tiefpunkt, dann gilt \\(f'(x_0)=0\\).<br>(B) Gilt \\(f'(x_0)=0\\), dann hat f bei \\(x_0\\) einen Hoch- oder Tiefpunkt.</p><p>Stimmt die Kombination aus (A) und (B) zusammen?<div><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>Wahr – beide Aussagen sind richtig.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='correct' onclick='checkMC(this,true)'>Falsch – eine der beiden Aussagen ist nicht richtig.</button><div data-mc-feedback role='status'></div></div></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>05. Grundidee 3 – Lösung</h3>(A) ist richtig: An einem Extrempunkt ist die Tangente waagerecht, also \\(f'(x_0)=0\\).<p>(B) ist falsch: Bei \\(f(x)=x^3\\) gilt \\(f'(0)=0\\), aber \\((0|0)\\) ist ein Sattelpunkt, kein Extrempunkt.</p><p>Merke: \\(f'(x_0)=0\\) ist <b>notwendig</b>, aber nicht <b>hinreichend</b> für einen Extrempunkt.</p></section>"
+  },
+  {
+    "id": "E.2-06",
+    "type": "flashcard",
+    "title": "Steilheit und Betrag von f'",
+    "format": "Multiple Choice",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>06. Steilheit und Betrag von f'</h3>Ein Graph steigt erst flach und dann immer steiler. Wie verhält sich der Graph von f' in diesem Bereich?<div><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>f' bleibt konstant, weil f durchgehend steigt.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='correct' onclick='checkMC(this,true)'>f' bleibt positiv und nimmt zu – der Graph von f' steigt dort.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>f' wechselt das Vorzeichen, sobald f steiler steigt.</button><div data-mc-feedback role='status'></div></div></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>06. Steilheit – Lösung</h3>Je steiler der Graph von f, desto größer \\(f'(x)\\). Beim flachen Beginn ist f' klein und positiv, mit wachsender Steilheit wächst f'.<p>Der Betrag hilft auch beim Fallen: starkes Fallen heißt \\(f'\\) stark negativ. Die steilsten Stellen von f werden zu Extrempunkten von f'.</p></section>"
+  },
+  {
+    "id": "E.2-07",
+    "type": "flashcard",
+    "title": "Parabel grafisch ableiten",
+    "format": "Grafikargument mit Cloze",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>07. Parabel grafisch ableiten</h3>Für \\(f(x)=x^2\\): Erschließe die Tangentensteigungen näherungsweise mit dem „Tangentenlineal“.<p>Steigung bei \\(x=-2\\): {{c1::-4}}, bei \\(x=-1\\): {{c2::-2}}, bei \\(x=0\\): {{c3::0}}, bei \\(x=1\\): {{c4::2}}, bei \\(x=2\\): {{c5::4}}</p>Welcher bekannte Kurventyp ergibt sich für den Graphen von f'?</section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>07. Parabel grafisch ableiten – Lösung</h3>Die Steigungen \\(-4,-2,0,2,4\\) wachsen gleichmäßig: Es entsteht eine <b>Gerade durch den Ursprung</b>. Tatsächlich gilt \\(f'(x)=2x\\).<p>Kontrolle: f fällt links von 0 (f' negativ), hat bei 0 die waagerechte Tangente (\\(f'(0)=0\\)) und steigt rechts (f' positiv). Später bestätigt die Potenzregel das grafische Ergebnis.</p></section>"
+  },
+  {
+    "id": "E.2-08",
+    "type": "flashcard",
+    "title": "Vom Verlauf zu f'",
+    "format": "Multiple Choice (Grafikargument)",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>08. Vom Verlauf zu f'</h3>Ein Graph von f fällt bis \\(x=-1\\), hat dort einen Tiefpunkt, steigt bis \\(x=2\\), hat dort einen Hochpunkt und fällt danach. Wie verhält sich f'?<div><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='correct' onclick='checkMC(this,true)'>Links von −1 negativ, bei −1 eine Nullstelle, zwischen −1 und 2 positiv, bei 2 eine Nullstelle, danach negativ.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>Bei −1 und 2 hat f' seine größten Werte, weil f dort Extreme besitzt.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>f' ist überall positiv, denn zu jedem x existiert ein Funktionswert.</button><div data-mc-feedback role='status'></div></div></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>08. Vom Verlauf zu f' – Lösung</h3>An Tief- und Hochpunkt ist die Tangente waagerecht: \\(f'(-1)=0\\) und \\(f'(2)=0\\). Zwischen beiden steigt f, also \\(f'&gt;0\\); außen fällt f, also \\(f'&lt;0\\).<p>Der Graph von f' startet unten, durchquert die x-Achse bei −1 nach oben und bei 2 wieder nach unten – das typische „Wellenprofil“ von f' zu zwei Extrempunkten von f.</p></section>"
+  },
+  {
+    "id": "E.2-09",
+    "type": "flashcard",
+    "title": "Umgekehrt: von f' auf f schließen",
+    "format": "Transfer-Cloze",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>09. Umgekehrt: von f' auf f schließen</h3>Diesmal kennst du nur f':<p>\\(f'(x)&gt;0\\) auf \\((0|3)\\), \\(f'(3)=0\\), \\(f'(x)&lt;0\\) für \\(x&gt;3\\).</p><p>Dann {{c1::steigt}} f auf \\((0|3)\\) und besitzt bei \\(x=3\\) einen {{c2::Hochpunkt}}.</p></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>09. Umgekehrt – Lösung</h3>Positive Werte von f' bedeuten Steigen, null bedeutet waagerechte Tangente, negative bedeuten Fallen. Beim Übergang von \\(f'&gt;0\\) zu \\(f'&lt;0\\) wechselt f von Steigen zu Fallen: Bei \\(x=3\\) liegt ein <b>Hochpunkt</b>.<p>Diese Rückrichtung brauchst du später, wenn aus einer gemessenen Änderungsrate auf einen Bestand geschlossen wird.</p></section>"
+  },
+  {
+    "id": "E.2-10",
+    "type": "flashcard",
+    "title": "Fehlerdetektiv: Höhe oder Steigung?",
+    "format": "Multiple Choice (Fehlersuche)",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>10. Fehlerdetektiv: Höhe oder Steigung?</h3>Ein Schüler sagt: „Am Hochpunkt von f ist f' am größten – dort ist f ja am höchsten!“ Wo liegt der Denkfehler?<div><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>Kein Fehler – am höchsten Punkt gehört die größte Steigung dazu.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='correct' onclick='checkMC(this,true)'>Höhe und Steigung werden verwechselt: Am Hochpunkt ist f' = 0; am größten ist f' dort, wo f am steilsten steigt.</button><button style='padding:10px;margin:5px 0;background:#12161D;color:#e5e7eb;border:1px solid #8b949e;border-radius:6px;cursor:pointer;display:block;width:100%;text-align:left' data-mc='wrong' onclick='checkMC(this,false)'>Der Fehler liegt im Vorzeichen: Am Hochpunkt ist f' negativ.</button><div data-mc-feedback role='status'></div></div></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>10. Fehlerdetektiv – Lösung</h3>\\(f'\\) misst die <b>Steigung</b>, nicht die Höhe. Am Hochpunkt ist die Tangente waagerecht, also \\(f'=0\\).<p>Ein großes \\(f'\\) bedeutet steilen Anstieg. Wer hier verwechselt, skizziert f' versehentlich als Kopie von f – die typische Fehlerquelle beim graphischen Ableiten.</p></section>"
+  },
+  {
+    "id": "E.2-11",
+    "type": "flashcard",
+    "title": "Tank: Füllstand und Zuflussrate",
+    "format": "Sachkontext",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>11. Tank: Füllstand und Zuflussrate</h3>In einen Tank fließt Wasser. \\(F(t)\\) ist der Füllstand in Litern nach \\(t\\) Minuten. Der Graph von F steigt in den ersten 10 Minuten sehr steil und verläuft danach immer flacher, ohne stehen zu bleiben.<ol><li>Welche Einheit hat \\(F'(t)\\)?</li><li>Was sagt der flacher werdende Verlauf über die Zuflussrate aus?</li></ol></section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>11. Tank – Lösung</h3>1) \\(F'(t)\\) wird in Litern pro Minute (l/min) gemessen – eine Ableitung hat stets die Einheit „Einheit von F pro Einheit von t“.<p>2) F bleibt steigend, also \\(F'&gt;0\\). Der flacher werdende Anstieg zeigt: Die Zuflussrate <b>nimmt ab</b> – \\(F'\\) startet groß und wird Schritt für Schritt kleiner.</p></section>"
+  },
+  {
+    "id": "E.2-12",
+    "type": "flashcard",
+    "title": "Skizzier-Strategie für f'",
+    "format": "Strategiekarte (Prozedur)",
+    "source": "Lernpfad Graphisches Ableiten (edumaps)",
+    "front": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>12. Skizzier-Strategie für f'</h3>Du siehst ausschließlich den Graphen von f. Beschreibe in vier Schritten, wie du den Graphen von f' systematisch skizzierst.</section>",
+    "back": "<section onclick='event.stopPropagation()' style='text-align:left;line-height:1.65'><h3>12. Skizzier-Strategie – Lösung</h3><ol><li><b>Waagerechte Stellen markieren:</b> Überall dort gilt \\(f'=0\\) – das sind die Nullstellen von f'.</li><li><b>Vorzeichen übertragen:</b> f steigt → f' oberhalb der x-Achse; f fällt → f' unterhalb.</li><li><b>Steilheit messen:</b> Je steiler f, desto größer \\(|f'|\\). Die steilsten Stellen von f werden Extrempunkte von f'.</li><li><b>Kurve verbinden:</b> Zeichne f' durch alle markierten Punkte.</li></ol><p>Kontrolle: Die Nullstellen von f' liegen genau an den Extrem- und Sattelstellen von f.</p></section>"
+  }
+]
