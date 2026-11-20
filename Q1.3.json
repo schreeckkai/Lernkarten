@@ -1,0 +1,51 @@
+[
+  {
+    "type": "flashcard",
+    "front": "Die Produktregel für \\(f(x)=u(x)\\cdot e^x\\) lautet \\(f'(x)={{c1::u'(x)\\,e^x+u(x)\\,e^x}}\\) und lässt sich kompakt schreiben als \\(f'(x)={{c2::(u'(x)+u(x))\\,e^x}}\\).",
+    "back": "<b>\\(f( x)=x^2e^x\\Rightarrow f'(x)=x(x+2)\\,e^x\\)</b><br><br>Allgemein: \\(f'=u'v+uv'\\) mit \\(v=e^x\\). Die Faktorform zeigt sofort: Nullstellen von \\(f'\\) entstehen aus \\(u'+u=0\\), eine für Abituraufgaben typische Umformung."
+  },
+  {
+    "type": "flashcard",
+    "front": "Für \\(f(x)=e^{kx}\\) mit \\(k\\neq 0\\) gilt \\(f'(x)={{c1::k\\,e^{kx}}}\\) und als Stammfunktion \\(F(x)={{c2::\\tfrac{1}{k}\\,e^{kx}}}\\).",
+    "back": "Innere Funktion \\(kx\\), innere Ableitung \\(k\\): Beim Ableiten tritt der Faktor \\(k\\) vor den Exponentialausdruck, beim Integrieren kehrt er als <b>\\(\\tfrac1k\\)</b> zurück. Ohne den Faktor geht die Probe „Nachweis der Stammfunktion durch Ableiten\" nicht auf."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Bei \\(b(t)=b_0\\cdot e^{-\\lambda t}\\) beträgt die Halbwertszeit ...",
+    "options": [
+      "\\(T_{1/2}=\\tfrac{\\ln 2}{\\lambda}\\)",
+      "\\(T_{1/2}=\\tfrac{\\ln\\lambda}{2}\\)",
+      "\\(T_{1/2}=\\tfrac{\\lambda}{\\ln 2}\\)",
+      "\\(T_{1/2}=\\tfrac{2\\ln\\lambda}{1}\\)"
+    ],
+    "correct": 0,
+    "back": "\\(\\tfrac12 b_0=b_0 e^{-\\lambda T}\\iff e^{-\\lambda T}=\\tfrac12\\iff T=\\ln 2/\\lambda\\). Das \\(b_0\\) kürzt sich: Die Halbwertszeit ist für <b>jeden Startbestand gleich</b>."
+  },
+  {
+    "type": "true-false",
+    "front": "Wenn man den Anfangsbestand \\(b_0\\) bei exponentiellem Zerfall verdoppelt, verdoppelt sich auch die Halbwertszeit.",
+    "answer": false,
+    "back": "Das \\(b_0\\) kürzt sich beim Auflösen heraus: <b>Die Halbwertszeit ist vom Anfangsbestand unabhängig.</b> Pro Zeitspanne zerfällt immer derselbe Bruchteil (die Hälfte), keine feste Anzahl. Am Würfelexperiment: Pro Runde verschwinden die Sechser, also ein fester <b>Bruchteil</b>."
+  },
+  {
+    "type": "flashcard",
+    "front": "Der Nachweis, dass \\(F\\) eine Stammfunktion von \\(r\\) ist, geschieht immer durch {{c1::Ableiten von \\(F\\)}} und Vergleichen mit {{c2::\\(r\\)}}, niemals durch Integrieren von \\(r\\).",
+    "back": "<b>\\(F'(x)=r(x)\\)</b> prüft die Definition direkt. Wer integriert, um die Stammfunktion zu finden, muss das Verfahren bereits beherrschen, das er begründen will. Typischer Klausurfehler: Faktor \\(\\tfrac1k\\) vergessen, unbesehen weitergerechnet; das Ableiten deckt den Fehler in derselben Zeile auf."
+  },
+  {
+    "type": "flashcard",
+    "front": "Ordne zu: exponentielles Wachstum {{c1::\\(b(t)=b_0\\,e^{\\lambda t}\\)}}, Zerfall {{c2::\\(b(t)=b_0\\,e^{-\\lambda t}\\)}}, beschränktes Wachstum {{c3::\\(b(t)=S-(S-b_0)\\,e^{-kt}\\)}} mit Sättigungswert \\(S\\). Letzteres strebt für \\(t\\to\\infty\\) gegen {{c4::\\(S\\)}}.",
+    "back": "<b>Exponentiell</b>: konstanter Wachstumsfaktor, keine Grenze. <b>Zerfall</b>: Faktor kleiner 1, Bestand strebt gegen 0. <b>Beschränkt</b>: Grenze (Sättigung), Zuwachs wird mit der Zeit immer kleiner. Im Aufgabentext steckt die Modellwahl meist im ersten Satz: „verdoppelt sich alle ...\" (exponentiell), „nähert sich der Umgebungstemperatur\" (beschränkt)."
+  },
+  {
+    "type": "flashcard",
+    "front": "Für \\(x\\to-\\infty\\) strebt \\(f(x)=x^2\\cdot e^x\\) gegen {{c1::0}}, obwohl \\(x^2\\) unbeschränkt wächst, weil {{c2::der Exponentialfaktor schneller gegen 0 strebt, als \\(x^2\\) wächst}}.",
+    "back": "<b>Exponentialverhalten schlägt Potenzverhalten.</b> WTR-Kontrolle: \\(f(-10)=100\\,e^{-10}\\approx 0{,}0045\\). Wichtig für die Deutung des Graphen verknüpfter Funktionen am linken Rand."
+  },
+  {
+    "type": "true-false",
+    "front": "Das Abkühlungsmodell \\(T(t)=T_U+(T_0-T_U)\\,e^{-kt}\\) kann für große \\(t\\) Temperaturen <b>unterhalb</b> der Umgebungstemperatur \\(T_U\\) liefern.",
+    "answer": false,
+    "back": "Der Exponentialfaktor bleibt für alle \\(t\\) positiv und strebt gegen 0: \\(T\\) nähert sich <b>\\(T_U\\) von oben</b>, ohne die Umgebungstemperatur zu unterschreiten. Das Modell bricht z. B. beim Nachgießen kalter Milch oder sinkender Raumtemperatur zusammen."
+  }
+]
