@@ -1,0 +1,53 @@
+[
+  {
+    "type": "true-false",
+    "front": "Wahr oder falsch? Ein Sportpsychologe stellt fest, die Elfmeterquote eines Spielers hänge von der Spielsituation ab. Damit darf die Anzahl der verwandelten Elfmeter nicht mehr als Bernoulli-Kette modelliert werden.",
+    "answer": true,
+    "back": "Wahr! Eine Bernoulli-Kette setzt eine <b>feste Trefferwahrscheinlichkeit</b> \\(p\\) und <b>unabhängige Versuche</b> voraus. Beides ist bei einer situationsabhängigen Quote nicht erfüllt."
+  },
+  {
+    "type": "flashcard",
+    "front": "Eine Mannschaft erzielt im Mittel 3 Tore pro Spiel (90 Minuten). Als Bernoulli-Kette über die Spielminuten gilt für die Torzahl \\(X\\) die Verteilung {{c1::\\(B(90;\\frac{1}{30})\\)}}, mit Erwartungswert {{c2::\\(E(X)=3\\)}}.",
+    "back": "\\(X\\sim B(90;\\frac{1}{30})\\) mit \\(E(X)=90\\cdot\\frac{1}{30}=\\mathbf{3}\\). Jede Minute ist ein Bernoulli-Versuch mit Torwahrscheinlichkeit \\(\\frac{1}{30}\\).<br><br>Das feinere Sekundenraster \\(B(5400;\\frac{1}{1800})\\) liefert denselben Erwartungswert: \\(n\\) und \\(p\\) ändern sich im gleichen Verhältnis."
+  },
+  {
+    "type": "flashcard",
+    "front": "Jedes Paket ist mit Wahrscheinlichkeit 0,05 schwer. Damit mit mindestens 90 % Wahrscheinlichkeit mindestens ein schweres Paket dabei ist, genügt der Ansatz {{c1::\\(1-0{,}95^n\\ge0{,}9\\)}}; er liefert mindestens {{c2::\\(n=45\\)}} Pakete.",
+    "back": "Der Ansatz \\(1-0{,}95^n\\ge0{,}9\\) beschreibt das Komplement („kein schweres Paket“): \\(0{,}95^n\\le0{,}1\\), also \\(n\\ge\\frac{\\ln0{,}1}{\\ln0{,}95}\\approx44{,}9\\) und damit <b>45</b>.<br><br>„Mindestens einmal“-Ereignisse werden über das Gegenereignis gebündelt; am Ende immer aufzurunden."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Bei einem Gewinnspiel zugunsten eines Tierheims beträgt der erwartete Gewinn des Spielenden \\(E(Y)=-1{,}50\\) €. Welche Aussage ist richtig?",
+    "options": [
+      "Das Tierheim erwartet 1,50 € Gewinn pro Spiel.",
+      "Jeder Spielende verliert garantiert 1,50 €.",
+      "Das Spiel ist fair, weil es für einen guten Zweck läuft.",
+      "Der Erwartungswert ist unbrauchbar, weil er kein einzelnes Spiel vorhersagt."
+    ],
+    "correct": 0,
+    "back": "Richtig! Der erwartete Gewinn des Spielenden ist \\(-1{,}50\\) €, also erwartet das Tierheim im Gegenzug <b>+1,50 € pro Spiel</b>.<br><br>Der Erwartungswert ist der Durchschnitt bei Vielfachwiederholung, keine Vorhersage für ein Einzelspiel; fair wäre \\(E(Y)=0\\)."
+  },
+  {
+    "type": "flashcard",
+    "front": "Bei \\(Z\\sim B(500;0{,}8)\\) gilt \\(\\mu=400\\) und \\(\\sigma\\approx8{,}94\\). Der Zwei-Sigma-Bereich lautet {{c1::\\(P(383\\le Z\\le417)\\)}}, und er umfasst rund {{c2::95 %}} der Werte.",
+    "back": "\\(P(383\\le Z\\le417)\\approx\\mathbf{0{,}9498}\\), also rund 95 %. Die Grenzen entstehen durch Runden von \\(\\mu\\pm2\\sigma\\) auf ganze Zahlen (Z zählt Pakete).<br><br>Die Zwei-Sigma-Regel ist eine Faustregel; exakt 0,9545 gilt nur für die Normalverteilung – hier liefert das Binomialmodell 0,9498."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Ein rechtsseitiger Test verwirft \\(H_0\\) („Ausschussanteil höchstens 3 %“) wegen einer auffälligen Stichprobe. Tatsächlich war die Lieferung einwandfrei. Um welchen Fehler handelt es sich?",
+    "options": [
+      "Fehler erster Art",
+      "Fehler zweiter Art",
+      "Einen Testfehler, der durch die Wahl des Signifikanzniveaus ausgeschlossen ist",
+      "Keinen Fehler, die Entscheidung folgt der Regel"
+    ],
+    "correct": 0,
+    "back": "Richtig! \\(H_0\\) war wahr und wurde verworfen: das ist der <b>Fehler erster Art</b>; seine Wahrscheinlichkeit ist durch das Signifikanzniveau (meist 5 %) begrenzt.<br><br>Der Fehler zweiter Art ist das Gegenstück: \\(H_0\\) war falsch, wird aber beibehalten."
+  },
+  {
+    "type": "true-false",
+    "front": "Wahr oder falsch? Der Term \\(0{,}9^{14}\\cdot\\sum_{i=0}^{1}\\binom{6}{i}\\cdot0{,}1^i\\cdot0{,}9^{6-i}\\) beschreibt das Ereignis „von 20 Paketen haben die ersten 14 nicht Ziel A und von den übrigen 6 mindestens drei das Ziel A“.",
+    "answer": false,
+    "back": "Falsch! Die Summe läuft nur bis \\(i=1\\), also haben <b>höchstens ein</b> (und nicht mindestens drei) der letzten sechs Pakete Ziel A; mindestens fünf von ihnen haben es nicht.<br><br>Der Vorfaktor \\(0{,}9^{14}\\) fixiert die ersten vierzehn Versuche auf „nicht A“, die Summe bündelt die restlichen sechs mit null oder einem Treffer."
+  }
+]
