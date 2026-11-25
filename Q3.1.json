@@ -41,8 +41,37 @@
   },
   {
     "type": "true-false",
-    "front": "Wahr oder Falsch? Die Summe aller Elementarergebnisse in der Ergebnismenge \\(\\Omega\\) ergibt immer \\(0\\).",
+    "front": "Wahr oder Falsch? Die Summe aller Elementarergebnisse in der Ergebnismenge \\(\\Omega\\) ergibt immer \\(0\\).\n",
     "answer": false,
     "back": "Falsch! Die Summe der Wahrscheinlichkeiten aller Elementarergebnisse in \\(\\Omega\\) ergibt immer exakt \\(1\\)."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Bei einer Kundenstudie gilt \\(P(T)=0{,}6\\), \\(P(M)=0{,}2\\) und \\(P(T\\cap M)=0{,}15\\). Der Ausdruck „mindestens eines der beiden Merkmale“ steht für welchen Wert?",
+    "options": [
+      "\\(0{,}65\\)",
+      "\\(0{,}75\\)",
+      "\\(0{,}50\\)",
+      "\\(0{,}15\\)"
+    ],
+    "correct": 0,
+    "back": "Richtig! „Mindestens eines der beiden Merkmale“ ist die <b>Vereinigung</b>: \\(P(T\\cup M)=P(T)+P(M)-P(T\\cap M)=0{,}6+0{,}2-0{,}15=0{,}65\\).<br><br>\\(0{,}75\\) wäre die Summe ohne Abzug des Schnitts, \\(0{,}50\\) gehört zum exklusiven Oder („genau eines“)."
+  },
+  {
+    "type": "multiple-choice",
+    "front": "Von allen Paketen sind 5 % schwer. Die Teilmenge mit Ziel A liegt über dem Durchschnitt (über 5 % schwere Pakete), die Teilmenge mit Ziel B ebenso. Wie verhält sich der Schwerenanteil unter den Paketen ohne die Ziele A und B?",
+    "options": [
+      "Er ist kleiner als 5 %.",
+      "Er ist genau 5 %.",
+      "Er ist größer als 5 %.",
+      "Er lässt sich ohne weitere Angaben nicht vergleichen."
+    ],
+    "correct": 0,
+    "back": "Richtig! Wird eine überdurchschnittliche Teilmenge aus der Gesamtheit herausgenommen, muss der verbleibende Rest <b>unter</b> dem Gesamtdurchschnitt von 5 % liegen, damit der gewichtete Mittelwert erhalten bleibt."
+  },
+  {
+    "type": "flashcard",
+    "front": "In einer Paketstudie sind 5 % aller Pakete schwer und 0,8 % der Pakete sind schwer mit Ziel A. Von den schweren Paketen haben also {{c1::84 %}} nicht Ziel A: \\(P_S(\\overline Z)=\\frac{4{,}2}{5}=0{,}84\\).",
+    "back": "Von den schweren Paketen haben <b>84 %</b> nicht Ziel A: \\(P_S(\\overline Z)=\\frac{4{,}2}{5}=\\mathbf{0{,}84}\\). Zähler ist das Feld „schwer ohne Ziel A“ (4,2 %), Nenner die Zeilensumme „schwer“ (5 %).<br><br>Bedingte Anteile: Eine Zeile der Tafel wird zur neuen Bezugsmenge, ihre Summe ist der Nenner."
   }
 ]
